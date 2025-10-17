@@ -1,0 +1,89 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        CustomerRegistrationFormType:
+          required:
+          - email
+          properties:
+            referrerToken:
+              type: string
+              nullable: true
+            firstName:
+              type: string
+            lastName:
+              type: string
+            email:
+              description: Required depending on identification method settings
+              type: string
+            phone:
+              description: Required depending on identification method settings
+              type: string
+            loyaltyCardNumber:
+              description: Required depending on identification method settings
+              type: string
+            birthDate:
+              type: string
+              format: date
+            createdAt:
+              description: Use "registeredAt" field instead.
+              type: string
+              format: date-time
+              deprecated: true
+            registeredAt:
+              type: string
+              format: date-time
+            address:
+              $ref: '#/components/schemas/CustomerAddressFormType'
+            company:
+              properties:
+                name:
+                  type: string
+                nip:
+                  type: string
+              type: object
+            labels:
+              type: array
+              items:
+                properties:
+                  key:
+                    type: string
+                  value:
+                    type: string
+                type: object
+            agreement1:
+              description: TOS Agreement
+              type: boolean
+            agreement2:
+              description: Direct Marketing Agreement
+              type: boolean
+            agreement3:
+              description: Optional Agreement
+              type: boolean
+            levelId:
+              description: Assign member to tier
+              type: string
+              format: uuid
+              nullable: true
+            channelId:
+              type: string
+              format: uuid
+            customFieldsData:
+              description: Custom fields data for member
+              type: array
+              items:
+                required:
+                - customFieldSchemaId
+                - value
+                properties:
+                  customFieldSchemaId:
+                    description: ID of the custom field schema
+                    type: string
+                    format: uuid
+                  value:
+                    description: Value for the custom field (validated against schema requirements)
+                    type: string
+                type: object
+              nullable: true
+          type: object
+

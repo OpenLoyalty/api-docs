@@ -1,0 +1,57 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        PendingPointsWereCanceled:
+          required:
+          - customerId
+          - type
+          - createdAt
+          properties:
+            customerId:
+              type: string
+            type:
+              type: string
+              enum:
+              - PendingPointsWereCanceled
+            accountId:
+              type: string
+            createdAt:
+              type: string
+              format: date-time
+            flatVariables:
+              required:
+              - transferId
+              - walletId
+              - walletTypeCode
+              - walletUnitSingularName
+              - walletUnitPluralName
+              - points
+              - activePoints
+              properties:
+                transferId:
+                  type: string
+                  format: uuid
+                walletId:
+                  type: string
+                  format: uuid
+                walletTypeCode:
+                  type: string
+                walletTypeName:
+                  type: string
+                walletUnitSingularName:
+                  type: string
+                walletUnitPluralName:
+                  type: string
+                points:
+                  type: number
+                  format: float
+                comment:
+                  type: string
+                activePoints:
+                  type: integer
+              type: object
+              additionalProperties: false
+          type: object
+          additionalProperties: false
+

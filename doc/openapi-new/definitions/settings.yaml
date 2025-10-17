@@ -1,0 +1,397 @@
+﻿nelmio_api_doc:
+  documentation:
+    paths:
+      /api/{storeCode}/settings/activation:
+        get:
+          tags:
+          - Settings
+          summary: Get activation configuration
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+            This method returns the current activation configuration. Is it required and what is This method (email or phone).
+          operationId: settingsGetActivation
+          parameters:
+          - name: storeCode
+            in: path
+            required: true
+            schema:
+              type: string
+          responses:
+            "'200'":
+              description: Return activation configuration
+              content:
+                application/json:
+                  schema:
+                    properties:
+                      required:
+                        type: boolean
+                      method:
+                        type: string
+                    type: object
+            "'404'":
+              $ref: '#/components/responses/NotFound'
+      /api/{storeCode}/settings/choices/{type}:
+        get:
+          tags:
+          - Settings
+          summary: Get available options for the tenant
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+            This method returns a list of available options to choose from to save the settings depending on the selected type.
+          operationId: settingsGetStoreChoices
+          parameters:
+          - $ref: '#/components/parameters/choicesType'
+          - name: storeCode
+            in: path
+            required: true
+            schema:
+              type: string
+          responses:
+            "'200'":
+              description: ""
+              content:
+                application/json:
+                  schema:
+                    properties:
+                      choices:
+                        type: array
+                        items:
+                          type: object
+                          additionalProperties:
+                            type: string
+                    type: object
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+            "'404'":
+              $ref: '#/components/responses/NotFound'
+      /api/settings/choices/{type}:
+        get:
+          tags:
+          - Settings
+          summary: Get available options
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+            This method returns a list of available options to choose from to save the settings depending on the selected type.
+          operationId: settingsGetChoices
+          parameters:
+          - $ref: '#/components/parameters/choicesType'
+          responses:
+            "'200'":
+              description: ""
+              content:
+                application/json:
+                  schema:
+                    properties:
+                      choices:
+                        type: array
+                        items:
+                          type: object
+                          additionalProperties:
+                            type: string
+                    type: object
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+            "'404'":
+              $ref: '#/components/responses/NotFound'
+      /api/{storeCode}/settings:
+        get:
+          tags:
+          - Settings
+          summary: Return settings
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+            This method returns all system settings.  
+            If sorting is not chosen, the rows will be returned in an unspecified order.  
+            To sort a result, use an `_orderBy` parameter in query.
+          operationId: settingsGetList
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          - name: public
+            in: query
+            required: false
+            schema:
+              type: boolean
+          responses:
+            "'200'":
+              description: ""
+              content:
+                application/json:
+                  schema:
+                    properties:
+                      settings:
+                        type: array
+                        items:
+                          type: object
+                          additionalProperties:
+                            type: string
+                    type: object
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+            "'404'":
+              $ref: '#/components/responses/NotFound'
+        post:
+          tags:
+          - Settings
+          summary: Configure settings
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+            This method allows configuring system settings.
+          operationId: settingsPost
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          requestBody:
+            description: ""
+            content:
+              application/json:
+                schema:
+                  properties:
+                    settings:
+                      properties:
+                        programName:
+                          type: string
+                          deprecated: true
+                        programUrl:
+                          type: string
+                          deprecated: true
+                        allowCustomersProfileEdits:
+                          type: boolean
+                        expirePointsNotificationDays:
+                          type: integer
+                        expireCouponsNotificationDays:
+                          type: integer
+                        expireLevelsNotificationDays:
+                          type: integer
+                        customersIdentificationConfigurations:
+                          type: array
+                          items:
+                            $ref: '#/components/schemas/CustomersIdentificationConfiguration'
+                        tierAssignType:
+                          type: string
+                          enum:
+                          - points
+                          - transactions
+                        tierWalletCode:
+                          type: string
+                        excludeDeliveryCostsFromTierAssignment:
+                          type: boolean
+                        excludedDeliverySKUs:
+                          type: array
+                          items:
+                            type: string
+                          deprecated: true
+                        excludedLevelSKUs:
+                          type: array
+                          items:
+                            type: string
+                          deprecated: true
+                        excludedLevelCategories:
+                          type: array
+                          items:
+                            type: string
+                        levelDowngradeMode:
+                          type: string
+                          enum:
+                          - none
+                          - automatic
+                          - after_x_days
+                        levelDowngradeDays:
+                          type: integer
+                        levelDowngradeBase:
+                          type: string
+                          enum:
+                          - none
+                          - active_points
+                          - earned_points
+                          - earned_points_since_last_level_change
+                        levelResetPointsOnDowngrade:
+                          type: boolean
+                        accountActivationRequired:
+                          type: boolean
+                        identificationMethod:
+                          type: string
+                          enum:
+                          - email
+                          - phone
+                          - loyaltyCardNumber
+                        timezone:
+                          type: string
+                          example: Europe/Warsaw
+                        rewardWalletCode:
+                          type: string
+                        activeMember:
+                          properties:
+                            transactionInXDays:
+                              description: Required if the customEventsInXDays field is not filled.
+                              type: integer
+                            customEventsInXDays:
+                              description: Required if the transactionInXDays field is not filled.
+                              required:
+                              - days
+                              - allEvents
+                              properties:
+                                days:
+                                  type: integer
+                                allEvents:
+                                  type: boolean
+                                eventTypes:
+                                  type: array
+                                  items:
+                                    type: string
+                              type: object
+                            operator:
+                              description: Required if the customEventsInXDays and transactionInXDays fields are filled.
+                              type: string
+                              enum:
+                              - and
+                              - or
+                          type: object
+                      type: object
+                  type: object
+          responses:
+            "'200'":
+              description: Granted settings
+              content:
+                application/json:
+                  schema:
+                    properties:
+                      settings:
+                        type: array
+                        items:
+                          type: object
+                          additionalProperties:
+                            type: string
+                    type: object
+            "'400'":
+              $ref: '#/components/responses/BadRequest'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+            "'404'":
+              $ref: '#/components/responses/NotFound'
+        patch:
+          tags:
+          - Settings
+          summary: Update settings
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+            This method allows configuring system settings partially.
+          operationId: settingsPatch
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          requestBody:
+            description: ""
+            content:
+              application/json:
+                schema:
+                  properties:
+                    settings:
+                      properties:
+                        programName:
+                          type: string
+                          deprecated: true
+                        programUrl:
+                          type: string
+                          deprecated: true
+                        allowCustomersProfileEdits:
+                          type: boolean
+                        expirePointsNotificationDays:
+                          type: integer
+                        expireCouponsNotificationDays:
+                          type: integer
+                        expireLevelsNotificationDays:
+                          type: integer
+                        customersIdentificationConfigurations:
+                          type: array
+                          items:
+                            $ref: '#/components/schemas/CustomersIdentificationConfiguration'
+                        tierAssignType:
+                          type: string
+                          enum:
+                          - points
+                          - transactions
+                        tierWalletCode:
+                          type: string
+                        excludeDeliveryCostsFromTierAssignment:
+                          type: boolean
+                        excludedDeliverySKUs:
+                          type: array
+                          items:
+                            type: string
+                          deprecated: true
+                        excludedLevelSKUs:
+                          type: array
+                          items:
+                            type: string
+                          deprecated: true
+                        excludedLevelCategories:
+                          type: array
+                          items:
+                            type: string
+                        levelDowngradeMode:
+                          type: string
+                          enum:
+                          - none
+                          - automatic
+                          - after_x_days
+                        levelDowngradeDays:
+                          type: integer
+                        levelDowngradeBase:
+                          type: string
+                          enum:
+                          - none
+                          - active_points
+                          - earned_points
+                          - earned_points_since_last_level_change
+                        levelResetPointsOnDowngrade:
+                          type: boolean
+                        accountActivationRequired:
+                          type: boolean
+                        identificationMethod:
+                          type: string
+                          enum:
+                          - email
+                          - phone
+                          - loyaltyCardNumber
+                        timezone:
+                          type: string
+                          example: Europe/Warsaw
+                        rewardWalletCode:
+                          type: string
+                        activeMember:
+                          properties:
+                            transactionInXDays:
+                              description: Required if the customEventsInXDays field is not filled.
+                              type: integer
+                            customEventsInXDays:
+                              description: Required if the transactionInXDays field is not filled.
+                              required:
+                              - days
+                              - allEvents
+                              properties:
+                                days:
+                                  type: integer
+                                allEvents:
+                                  type: boolean
+                                eventTypes:
+                                  type: array
+                                  items:
+                                    type: string
+                              type: object
+                            operator:
+                              description: Required if the customEventsInXDays and transactionInXDays fields are filled.
+                              type: string
+                              enum:
+                              - and
+                              - or
+                          type: object
+                      type: object
+                  type: object
+          responses:
+            "'200'":
+              description: Returned when successful
+            "'400'":
+              $ref: '#/components/responses/BadRequest'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+            "'404'":
+              $ref: '#/components/responses/NotFound'
+

@@ -1,0 +1,17 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        total:
+          title: total
+          properties:
+            all:
+              type: integer
+              deprecated: true
+            estimated:
+              type: boolean
+              deprecated: true
+          type: object
+          deprecated: true
+          additionalProperties: false
+

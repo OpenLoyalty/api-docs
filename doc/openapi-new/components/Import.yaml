@@ -1,0 +1,64 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        Import:
+          required:
+          - importId
+          - type
+          - uploadedDate
+          - fileName
+          - status
+          - itemsToImport
+          properties:
+            importId:
+              type: string
+              format: uuid
+            type:
+              type: string
+              enum:
+              - member
+              - groupValue
+              - segmentMembers
+              - unitTransferAdding
+              - unitTransferSpending
+              - transaction
+              - rewardCoupon
+            uploadedDate:
+              type: string
+              format: date-time
+            fileName:
+              type: string
+            status:
+              type: string
+              enum:
+              - pending
+              - queued
+              - failed
+              - error
+            itemsToImport:
+              type: integer
+            user:
+              type: string
+              format: uuid
+            errorMessage:
+              type: string
+            additionalData:
+              type: object
+              additionalProperties:
+                oneOf:
+                - type: string
+                - type: integer
+                - type: boolean
+                - type: array
+                  items:
+                    type: string
+                - type: array
+                  items:
+                    type: integer
+                - type: array
+                  items:
+                    type: boolean
+          type: object
+          additionalProperties: false
+

@@ -1,0 +1,1579 @@
+﻿nelmio_api_doc:
+  documentation:
+    x:
+      webhooks:
+        AchievementCreated:
+          post:
+            operationId: AchievementCreated
+            tags:
+            - Webhook event
+            description: Achievement Created
+            requestBody:
+              content:
+                application/json:
+                  schema:
+                    type: object
+                    properties:
+                      messageId:
+                        type: string
+                        format: uuid
+                        description: Unique identifier for each webhook
+                      requestId:
+                        type: string
+                        format: uuid
+                        description: Unique identifier for each webhook send attempt
+                      eventName:
+                        type: string
+                      storeCode:
+                        type: string
+                      createdAt:
+                        type: string
+                        format: date-time
+                      data:
+                        type: object
+                        properties:
+                          achievement:
+                            $ref: '#/components/schemas/WebhookAchievement'
+            responses:
+              2XX:
+                description: Return any 2XX status to indicate that the data was received successfully
+        AchievementUpdated:
+          post:
+            operationId: AchievementUpdated
+            tags:
+            - Webhook event
+            description: Achievement Updated
+            requestBody:
+              content:
+                application/json:
+                  schema:
+                    type: object
+                    properties:
+                      messageId:
+                        type: string
+                        format: uuid
+                        description: Unique identifier for each webhook
+                      requestId:
+                        type: string
+                        format: uuid
+                        description: Unique identifier for each webhook send attempt
+                      eventName:
+                        type: string
+                      storeCode:
+                        type: string
+                      createdAt:
+                        type: string
+                        format: date-time
+                      data:
+                        type: object
+                        properties:
+                          achievement:
+                            $ref: '#/components/schemas/WebhookAchievement'
+            responses:
+              2XX:
+                description: Return any 2XX status to indicate that the data was received successfully
+        CampaignCreated:
+          post:
+            operationId: CampaignCreated
+            tags:
+            - Webhook event
+            description: Campaign Created
+            requestBody:
+              content:
+                application/json:
+                  schema:
+                    type: object
+                    properties:
+                      messageId:
+                        type: string
+                        format: uuid
+                        description: Unique identifier for each webhook
+                      requestId:
+                        type: string
+                        format: uuid
+                        description: Unique identifier for each webhook send attempt
+                      eventName:
+                        type: string
+                      storeCode:
+                        type: string
+                      createdAt:
+                        type: string
+                        format: date-time
+                      data:
+                        type: object
+                        properties:
+                          campaign:
+                            $ref: '#/components/schemas/WebhookCampaign'
+            responses:
+              2XX:
+                description: Return any 2XX status to indicate that the data was received successfully
+        CampaignUpdated:
+          post:
+            operationId: CampaignUpdated
+            tags:
+            - Webhook event
+            description: Campaign Updated
+            requestBody:
+              content:
+                application/json:
+                  schema:
+                    type: object
+                    properties:
+                      messageId:
+                        type: string
+                        format: uuid
+                        description: Unique identifier for each webhook
+                      requestId:
+                        type: string
+                        format: uuid
+                        description: Unique identifier for each webhook send attempt
+                      eventName:
+                        type: string
+                      storeCode:
+                        type: string
+                      createdAt:
+                        type: string
+                        format: date-time
+                      data:
+                        type: object
+                        properties:
+                          campaign:
+                            $ref: '#/components/schemas/WebhookCampaign'
+            responses:
+              2XX:
+                description: Return any 2XX status to indicate that the data was received successfully
+        AvailablePointsAmountChanged:
+          post:
+            operationId: AvailablePointsAmountChanged
+            tags:
+            - Webhook event
+            description: The number of available units on the member's account has changed
+            requestBody:
+              content:
+                application/json:
+                  schema:
+                    type: object
+                    properties:
+                      messageId:
+                        type: string
+                        format: uuid
+                        description: Unique identifier for each webhook
+                      requestId:
+                        type: string
+                        format: uuid
+                        description: Unique identifier for each webhook send attempt
+                      eventName:
+                        type: string
+                      storeCode:
+                        type: string
+                      createdAt:
+                        type: string
+                        format: date-time
+                      data:
+                        type: object
+                        properties:
+                          customer:
+                            $ref: '#/components/schemas/WebhookCustomer'
+                          accountId:
+                            type: string
+                            deprecated: true
+                            description: same as data.wallet.walletId
+                            format: uuid
+                          amount:
+                            type: number
+                            format: float
+                          amountChange:
+                            type: number
+                            format: float
+                          amountChangeType:
+                            type: string
+                          transferId:
+                            type: string
+                            format: uuid
+                            example: 00000000-0000-0000-0000-000000000000
+                          wallet:
+                            type: object
+                            properties:
+                              walletId:
+                                type: string
+                                description: same as data.accountId
+                              walletType:
+                                $ref: '#/components/schemas/WalletType'
+                          actionCause:
+                            oneOf:
+                            - $ref: '#/components/schemas/ActionCause'
+                            - type: 
+            responses:
+              2XX:
+                description: Return any 2XX status to indicate that the data was received successfully
+        CouponWillExpire:
+          post:
+            operationId: CouponWillExpire
+            tags:
+            - Webhook event
+            description: Member coupon is about to expire
+            requestBody:
+              content:
+                application/json:
+                  schema:
+                    type: object
+                    properties:
+                      messageId:
+                        type: string
+                        format: uuid
+                        description: Unique identifier for each webhook
+                      requestId:
+                        type: string
+                        format: uuid
+                        description: Unique identifier for each webhook send attempt
+                      eventName:
+                        type: string
+                      storeCode:
+                        type: string
+                      createdAt:
+                        type: string
+                        format: date-time
+                      data:
+                        type: object
+                        properties:
+                          customer:
+                            $ref: '#/components/schemas/WebhookCustomer'
+                          issuedCoupon:
+                            type: object
+                            properties:
+                              valueType:
+                                type: string
+                              code:
+                                type: string
+                              value:
+                                type: float
+                              activeFrom:
+                                type: string
+                                format: date-time
+                              activeTo:
+                                type: string
+                                format: date-time
+                              usedAt:
+                                type: string
+                                format: date-time
+            responses:
+              2XX:
+                description: Return any 2XX status to indicate that the data was received successfully
+        CustomerBoughtReward:
+          post:
+            operationId: CustomerBoughtReward
+            tags:
+            - Webhook event
+            description: Member has redeemed a reward
+            requestBody:
+              content:
+                application/json:
+                  schema:
+                    type: object
+                    properties:
+                      messageId:
+                        type: string
+                        format: uuid
+                        description: Unique identifier for each webhook
+                      requestId:
+                        type: string
+                        format: uuid
+                        description: Unique identifier for each webhook send attempt
+                      eventName:
+                        type: string
+                      storeCode:
+                        type: string
+                      createdAt:
+                        type: string
+                        format: date-time
+                      data:
+                        type: object
+                        properties:
+                          customer:
+                            $ref: '#/components/schemas/WebhookCustomer'
+                          coupon:
+                            type: object
+                            properties:
+                              code:
+                                type: string
+                              value:
+                                type: float
+                              status:
+                                type: string
+                              activeFrom:
+                                type: string
+                                format: date-time
+                              activeTo:
+                                type: string
+                                format: date-time
+                              usedAt:
+                                type: string
+                                format: date-time
+                          reward:
+                            type: object
+                            properties:
+                              rewardId:
+                                type: string
+                                format: uuid
+                                example: 00000000-0000-0000-0000-000000000000
+                              rewardName:
+                                type: string
+                              rewardType:
+                                type: string
+                          rewardRedemption:
+                            type: object
+                            properties:
+                              redeemedRewardId:
+                                type: string
+                                format: uuid
+                                example: 00000000-0000-0000-0000-000000000000
+                          costInPoints:
+                            type: float
+                          actionCause:
+                            type: object
+                            nullable: true
+                            properties:
+                              customerId:
+                                type: string
+                                format: uuid
+                                nullable: true
+                              campaignId:
+                                type: string
+                                format: uuid
+                                nullable: true
+                              transactionId:
+                                type: string
+                                format: uuid
+                                nullable: true
+                              customEventId:
+                                type: string
+                                format: uuid
+                                nullable: true
+                              internalEventName:
+                                type: string
+                                nullable: true
+            responses:
+              2XX:
+                description: Return any 2XX status to indicate that the data was received successfully
+        CustomerDeactivated:
+          post:
+            operationId: CustomerDeactivated
+            tags:
+            - Webhook event
+            description: Member account has been deactivated
+            requestBody:
+              content:
+                application/json:
+                  schema:
+                    type: object
+                    properties:
+                      messageId:
+                        type: string
+                        format: uuid
+                        description: Unique identifier for each webhook
+                      requestId:
+                        type: string
+                        format: uuid
+                        description: Unique identifier for each webhook send attempt
+                      eventName:
+                        type: string
+                      storeCode:
+                        type: string
+                      createdAt:
+                        type: string
+                        format: date-time
+                      data:
+                        type: object
+                        properties:
+                          customer:
+                            $ref: '#/components/schemas/WebhookCustomer'
+            responses:
+              2XX:
+                description: Return any 2XX status to indicate that the data was received successfully
+        CustomerEmailWasChanged:
+          post:
+            operationId: CustomerEmailWasChanged
+            tags:
+            - Webhook event
+            description: Member email address has been updated
+            requestBody:
+              content:
+                application/json:
+                  schema:
+                    type: object
+                    properties:
+                      messageId:
+                        type: string
+                        format: uuid
+                        description: Unique identifier for each webhook
+                      requestId:
+                        type: string
+                        format: uuid
+                        description: Unique identifier for each webhook send attempt
+                      eventName:
+                        type: string
+                      storeCode:
+                        type: string
+                      createdAt:
+                        type: string
+                        format: date-time
+                      data:
+                        type: object
+                        properties:
+                          customer:
+                            $ref: '#/components/schemas/WebhookCustomer'
+                          code:
+                            type: string
+                          codeNumber:
+                            type: integer
+            responses:
+              2XX:
+                description: Return any 2XX status to indicate that the data was received successfully
+        CustomerLevelChanged:
+          post:
+            operationId: CustomerLevelChanged
+            tags:
+            - Webhook event
+            description: Member tier has changed
+            requestBody:
+              content:
+                application/json:
+                  schema:
+                    type: object
+                    properties:
+                      messageId:
+                        type: string
+                        format: uuid
+                        description: Unique identifier for each webhook
+                      requestId:
+                        type: string
+                        format: uuid
+                        description: Unique identifier for each webhook send attempt
+                      eventName:
+                        type: string
+                      storeCode:
+                        type: string
+                      createdAt:
+                        type: string
+                        format: date-time
+                      data:
+                        type: object
+                        properties:
+                          customer:
+                            $ref: '#/components/schemas/WebhookCustomer'
+                          level:
+                            type: object
+                            properties:
+                              levelId:
+                                type: string
+                              name:
+                                type: string
+                              levelMoveUp:
+                                type: boolean
+                                example: true
+                              levelMoveDown:
+                                type: boolean
+                                example: false
+            responses:
+              2XX:
+                description: Return any 2XX status to indicate that the data was received successfully
+        CustomerPhoneNumberWasChanged:
+          post:
+            operationId: CustomerPhoneNumberWasChanged
+            tags:
+            - Webhook event
+            description: Member phone number has been updated
+            requestBody:
+              content:
+                application/json:
+                  schema:
+                    type: object
+                    properties:
+                      messageId:
+                        type: string
+                        format: uuid
+                        description: Unique identifier for each webhook
+                      requestId:
+                        type: string
+                        format: uuid
+                        description: Unique identifier for each webhook send attempt
+                      eventName:
+                        type: string
+                      storeCode:
+                        type: string
+                      createdAt:
+                        type: string
+                        format: date-time
+                      data:
+                        type: object
+                        properties:
+                          customer:
+                            $ref: '#/components/schemas/WebhookCustomer'
+                          code:
+                            type: string
+                          codeNumber:
+                            type: integer
+            responses:
+              2XX:
+                description: Return any 2XX status to indicate that the data was received successfully
+        CustomerRequestedPasswordReset:
+          post:
+            operationId: CustomerRequestedPasswordReset
+            tags:
+            - Webhook event
+            description: A member has requested a password reset
+            requestBody:
+              content:
+                application/json:
+                  schema:
+                    type: object
+                    properties:
+                      messageId:
+                        type: string
+                        format: uuid
+                        description: Unique identifier for each webhook
+                      requestId:
+                        type: string
+                        format: uuid
+                        description: Unique identifier for each webhook send attempt
+                      eventName:
+                        type: string
+                      storeCode:
+                        type: string
+                      createdAt:
+                        type: string
+                        format: date-time
+                      data:
+                        type: object
+                        properties:
+                          customer:
+                            $ref: '#/components/schemas/WebhookCustomer'
+                          code:
+                            type: string
+                          codeNumber:
+                            type: integer
+            responses:
+              2XX:
+                description: Return any 2XX status to indicate that the data was received successfully
+        CustomerRequestedSendActivationCode:
+          post:
+            operationId: CustomerRequestedSendActivationCode
+            tags:
+            - Webhook event
+            description: Member has requested an activation code
+            requestBody:
+              content:
+                application/json:
+                  schema:
+                    type: object
+                    properties:
+                      messageId:
+                        type: string
+                        format: uuid
+                        description: Unique identifier for each webhook
+                      requestId:
+                        type: string
+                        format: uuid
+                        description: Unique identifier for each webhook send attempt
+                      eventName:
+                        type: string
+                      storeCode:
+                        type: string
+                      createdAt:
+                        type: string
+                        format: date-time
+                      data:
+                        type: object
+                        properties:
+                          customer:
+                            $ref: '#/components/schemas/WebhookCustomer'
+                          code:
+                            type: string
+                          codeNumber:
+                            type: integer
+            responses:
+              2XX:
+                description: Return any 2XX status to indicate that the data was received successfully
+        CustomerUpdated:
+          post:
+            operationId: CustomerUpdated
+            tags:
+            - Webhook event
+            description: Member profile information has been updated
+            requestBody:
+              content:
+                application/json:
+                  schema:
+                    type: object
+                    properties:
+                      messageId:
+                        type: string
+                        format: uuid
+                        description: Unique identifier for each webhook
+                      requestId:
+                        type: string
+                        format: uuid
+                        description: Unique identifier for each webhook send attempt
+                      eventName:
+                        type: string
+                      storeCode:
+                        type: string
+                      createdAt:
+                        type: string
+                        format: date-time
+                      data:
+                        type: object
+                        properties:
+                          customer:
+                            $ref: '#/components/schemas/WebhookCustomer'
+            responses:
+              2XX:
+                description: Return any 2XX status to indicate that the data was received successfully
+        CustomerWasRegisteredWithoutActivation:
+          post:
+            operationId: CustomerWasRegisteredWithoutActivation
+            tags:
+            - Webhook event
+            description: New member has been registered without activation
+            requestBody:
+              content:
+                application/json:
+                  schema:
+                    type: object
+                    properties:
+                      messageId:
+                        type: string
+                        format: uuid
+                        description: Unique identifier for each webhook
+                      requestId:
+                        type: string
+                        format: uuid
+                        description: Unique identifier for each webhook send attempt
+                      eventName:
+                        type: string
+                      storeCode:
+                        type: string
+                      createdAt:
+                        type: string
+                        format: date-time
+                      data:
+                        type: object
+                        properties:
+                          customer:
+                            $ref: '#/components/schemas/WebhookCustomer'
+                          code:
+                            type: string
+                          codeNumber:
+                            type: integer
+            responses:
+              2XX:
+                description: Return any 2XX status to indicate that the data was received successfully
+        TransactionAssignedToCustomer:
+          post:
+            operationId: TransactionAssignedToCustomer
+            tags:
+            - Webhook event
+            description: Transaction has been matched with a member
+            requestBody:
+              content:
+                application/json:
+                  schema:
+                    type: object
+                    properties:
+                      messageId:
+                        type: string
+                        format: uuid
+                        description: Unique identifier for each webhook
+                      requestId:
+                        type: string
+                        format: uuid
+                        description: Unique identifier for each webhook send attempt
+                      eventName:
+                        type: string
+                      storeCode:
+                        type: string
+                      createdAt:
+                        type: string
+                        format: date-time
+                      data:
+                        type: object
+                        properties:
+                          transactionId:
+                            type: string
+                            format: uuid
+                          grossValue:
+                            type: number
+                            format: float
+                          customer:
+                            $ref: '#/components/schemas/WebhookCustomer'
+            responses:
+              2XX:
+                description: Return any 2XX status to indicate that the data was received successfully
+        LevelWillExpire:
+          post:
+            operationId: LevelWillExpire
+            tags:
+            - Webhook event
+            description: Member tier is about to downgrade
+            requestBody:
+              content:
+                application/json:
+                  schema:
+                    type: object
+                    properties:
+                      messageId:
+                        type: string
+                        format: uuid
+                        description: Unique identifier for each webhook
+                      requestId:
+                        type: string
+                        format: uuid
+                        description: Unique identifier for each webhook send attempt
+                      eventName:
+                        type: string
+                      storeCode:
+                        type: string
+                      createdAt:
+                        type: string
+                        format: date-time
+                      data:
+                        type: object
+                        properties:
+                          customerId:
+                            type: string
+                            format: uuid
+                          customerEmail:
+                            type: string
+                          customerPhone:
+                            type: string
+                          customerLoyaltyCardNumber:
+                            type: string
+                          customerFirstName:
+                            type: string
+                          customerLastName:
+                            type: string
+                          levelId:
+                            type: string
+                            format: uuid
+                          levelName:
+                            type: string
+                          futureLevelId:
+                            type: string
+                            format: uuid
+                          futureLevelName:
+                            type: string
+            responses:
+              2XX:
+                description: Return any 2XX status to indicate that the data was received successfully
+        PointsWillExpire:
+          post:
+            operationId: PointsWillExpire
+            tags:
+            - Webhook event
+            description: Units on a member account are about to expire
+            requestBody:
+              content:
+                application/json:
+                  schema:
+                    type: object
+                    properties:
+                      messageId:
+                        type: string
+                        format: uuid
+                        description: Unique identifier for each webhook
+                      requestId:
+                        type: string
+                        format: uuid
+                        description: Unique identifier for each webhook send attempt
+                      eventName:
+                        type: string
+                      storeCode:
+                        type: string
+                      createdAt:
+                        type: string
+                        format: date-time
+                      data:
+                        type: object
+                        properties:
+                          accountId:
+                            type: string
+                            format: uuid
+                          points:
+                            type: number
+                            format: float
+                          remainingUnits:
+                            type: number
+                            format: float
+                          pointsWillExpire:
+                            type: string
+                            format: date-time
+            responses:
+              2XX:
+                description: Return any 2XX status to indicate that the data was received successfully
+        CustomerRegistered:
+          post:
+            operationId: CustomerRegistered
+            tags:
+            - Webhook event
+            description: New member has registered
+            requestBody:
+              content:
+                application/json:
+                  schema:
+                    type: object
+                    properties:
+                      messageId:
+                        type: string
+                        format: uuid
+                        description: Unique identifier for each webhook
+                      requestId:
+                        type: string
+                        format: uuid
+                        description: Unique identifier for each webhook send attempt
+                      eventName:
+                        type: string
+                      storeCode:
+                        type: string
+                      createdAt:
+                        type: string
+                        format: date-time
+                      data:
+                        type: object
+                        properties:
+                          customerId:
+                            type: string
+                            format: uuid
+                          customerData:
+                            type: object
+                            properties:
+                              referralToken:
+                                type: string
+                              firstName:
+                                type: string
+                              lastName:
+                                type: string
+                              email:
+                                type: string
+                              phone:
+                                type: string
+                              gender:
+                                type: string
+                              birthDate:
+                                type: string
+                                format: date-time
+                              registeredAt:
+                                type: string
+                                format: date-time
+                              address:
+                                $ref: '#/components/schemas/CustomerAddressFormType'
+                              company:
+                                type: object
+                                properties:
+                                  name:
+                                    type: string
+                                  nip:
+                                    type: string
+                              loyaltyCardNumber:
+                                type: string
+                              customAttributes:
+                                type: array
+                                items:
+                                  type: object
+                                  properties:
+                                    key:
+                                      type: string
+                                    value:
+                                      type: mixed
+                              agreement1:
+                                type: boolean
+                              agreement2:
+                                type: boolean
+                              agreement3:
+                                type: boolean
+            responses:
+              2XX:
+                description: Return any 2XX status to indicate that the data was received successfully
+        TransactionRegistered:
+          post:
+            operationId: TransactionRegistered
+            tags:
+            - Webhook event
+            description: Transaction has been registered
+            requestBody:
+              content:
+                application/json:
+                  schema:
+                    type: object
+                    properties:
+                      messageId:
+                        type: string
+                        format: uuid
+                        description: Unique identifier for each webhook
+                      requestId:
+                        type: string
+                        format: uuid
+                        description: Unique identifier for each webhook send attempt
+                      eventName:
+                        type: string
+                      storeCode:
+                        type: string
+                      createdAt:
+                        type: string
+                        format: date-time
+                      data:
+                        type: object
+                        properties:
+                          transactionId:
+                            type: string
+                            format: uuid
+                          documentNumber:
+                            type: string
+                          purchasedAt:
+                            type: string
+                            format: date-time
+                          documentType:
+                            type: string
+                          customerData:
+                            type: object
+                            properties:
+                              email:
+                                type: string
+                              name:
+                                type: string
+                              nip:
+                                type: string
+                              phone:
+                                type: string
+                              loyaltyCardNumber:
+                                type: string
+                              address:
+                                $ref: '#/components/schemas/CustomerAddressFormType'
+                          items:
+                            type: array
+                            items:
+                              type: object
+                              properties:
+                                sku:
+                                  type: object
+                                  properties:
+                                    code:
+                                      type: string
+                                name:
+                                  type: string
+                                quantity:
+                                  type: integer
+                                grossValue:
+                                  type: float
+                                category:
+                                  type: string
+                                maker:
+                                  type: string
+                                labels:
+                                  type: array
+                                  items:
+                                    type: object
+                                    properties:
+                                      key:
+                                        type: string
+                                      value:
+                                        type: mixed
+                          channelId:
+                            type: string
+                            format: uuid
+            responses:
+              2XX:
+                description: Return any 2XX status to indicate that the data was received successfully
+        RewardRedemptionStatusChanged:
+          post:
+            operationId: RewardRedemptionStatusChanged
+            tags:
+            - Webhook event
+            description: Reward redemption status has changed
+            requestBody:
+              content:
+                application/json:
+                  schema:
+                    type: object
+                    properties:
+                      messageId:
+                        type: string
+                        format: uuid
+                        description: Unique identifier for each webhook
+                      requestId:
+                        type: string
+                        format: uuid
+                        description: Unique identifier for each webhook send attempt
+                      eventName:
+                        type: string
+                      storeCode:
+                        type: string
+                      createdAt:
+                        type: string
+                        format: date-time
+                      data:
+                        type: object
+                        properties:
+                          issuedReward:
+                            type: object
+                            properties:
+                              issuedRewardId:
+                                type: string
+                              token:
+                                type: string
+                              name:
+                                type: string
+                              customerId:
+                                type: string
+                              status:
+                                type: string
+                              costInPoints:
+                                type: float
+                              tax:
+                                type: float
+                              taxPriceValue:
+                                type: float
+                              price:
+                                type: float
+                              redemptionDate:
+                                type: string
+                                format: date-time
+                              customerData:
+                                type: object
+                                properties:
+                                  email:
+                                    type: string
+                                  firstName:
+                                    type: string
+                                  lastName:
+                                    type: string
+                                  companyName:
+                                    type: string
+                                  nip:
+                                    type: string
+                                  phone:
+                                    type: string
+                                  loyaltyCardNumber:
+                                    type: string
+                                  address:
+                                    $ref: '#/components/schemas/CustomerAddressFormType'
+                              rewardType:
+                                type: string
+                              rewardId:
+                                type: string
+                              issuedCoupon:
+                                type: object
+                                properties:
+                                  code:
+                                    type: string
+                                  value:
+                                    type: float
+                                  activeFrom:
+                                    type: string
+                                    format: date-time
+                                  activeTo:
+                                    type: string
+                                    format: date-time
+                          newStatus:
+                            type: string
+                          newComment:
+                            type: string
+                          newDate:
+                            type: string
+                            format: date-time
+                          oldStatus:
+                            type: string
+                          oldComment:
+                            type: string
+                          oldDate:
+                            type: string
+                            format: date-time
+            responses:
+              2XX:
+                description: Return any 2XX status to indicate that the data was received successfully
+        RewardCreated:
+          post:
+            operationId: RewardCreated
+            tags:
+            - Webhook event
+            description: Reward Created
+            requestBody:
+              content:
+                application/json:
+                  schema:
+                    type: object
+                    properties:
+                      messageId:
+                        type: string
+                        format: uuid
+                        description: Unique identifier for each webhook
+                      requestId:
+                        type: string
+                        format: uuid
+                        description: Unique identifier for each webhook send attempt
+                      eventName:
+                        type: string
+                      storeCode:
+                        type: string
+                      createdAt:
+                        type: string
+                        format: date-time
+                      data:
+                        type: object
+                        properties:
+                          reward:
+                            $ref: '#/components/schemas/WebhookReward'
+            responses:
+              2XX:
+                description: Return any 2XX status to indicate that the data was received successfully
+        RewardUpdated:
+          post:
+            operationId: RewardUpdated
+            tags:
+            - Webhook event
+            description: Reward Updated
+            requestBody:
+              content:
+                application/json:
+                  schema:
+                    type: object
+                    properties:
+                      messageId:
+                        type: string
+                        format: uuid
+                        description: Unique identifier for each webhook
+                      requestId:
+                        type: string
+                        format: uuid
+                        description: Unique identifier for each webhook send attempt
+                      eventName:
+                        type: string
+                      storeCode:
+                        type: string
+                      createdAt:
+                        type: string
+                        format: date-time
+                      data:
+                        type: object
+                        properties:
+                          reward:
+                            $ref: '#/components/schemas/WebhookReward'
+            responses:
+              2XX:
+                description: Return any 2XX status to indicate that the data was received successfully
+        CampaignEffectWasApplied:
+          post:
+            operationId: CampaignEffectWasApplied
+            tags:
+            - Webhook event
+            description: Campaign effect has been applied to a member account
+            requestBody:
+              content:
+                application/json:
+                  schema:
+                    type: object
+                    properties:
+                      messageId:
+                        type: string
+                        format: uuid
+                        description: Unique identifier for each webhook
+                      requestId:
+                        type: string
+                        format: uuid
+                        description: Unique identifier for each webhook send attempt
+                      eventName:
+                        type: string
+                      storeCode:
+                        type: string
+                      createdAt:
+                        type: string
+                        format: date-time
+                      data:
+                        type: object
+                        properties:
+                          member:
+                            $ref: '#/components/schemas/WebhookCustomer'
+                          campaign:
+                            $ref: '#/components/schemas/WebhookCampaign'
+                          effectsGiven:
+                            type: array
+                            items:
+                              $ref: '#/components/schemas/WebhookCampaignEffect'
+                          redemptionCode:
+                            type: string
+            responses:
+              2XX:
+                description: Return any 2XX status to indicate that the data was received successfully
+        MemberAchievementProgressWasChanged:
+          post:
+            operationId: MemberAchievementProgressWasChanged
+            tags:
+            - Webhook event
+            description: Member achievement progress has changed
+            requestBody:
+              content:
+                application/json:
+                  schema:
+                    type: object
+                    properties:
+                      messageId:
+                        type: string
+                        format: uuid
+                        description: Unique identifier for each webhook
+                      requestId:
+                        type: string
+                        format: uuid
+                        description: Unique identifier for each webhook send attempt
+                      eventName:
+                        type: string
+                      storeCode:
+                        type: string
+                      createdAt:
+                        type: string
+                        format: date-time
+                      data:
+                        type: object
+                        properties:
+                          member:
+                            $ref: '#/components/schemas/WebhookCustomer'
+                          achievement:
+                            type: object
+                            properties:
+                              achievementId:
+                                type: string
+                              achievementName:
+                                type: string
+                              limitReached:
+                                type: boolean
+                              manuallyEdited:
+                                type: boolean
+                              memberProgress:
+                                type: object
+                                properties:
+                                  completedCount:
+                                    type: integer
+                                  reset:
+                                    type: boolean
+                                  rules:
+                                    type: array
+                                    items:
+                                      type: object
+                                      properties:
+                                        achievementRuleId:
+                                          type: string
+                                        periodGoal:
+                                          type: float
+                                        currentPeriodValue:
+                                          type: float
+                                        periodType:
+                                          type: string
+                                        consecutivePeriods:
+                                          type: integer
+                                          nullable: true
+                                        completedConsecutivePeriods:
+                                          type: integer
+                                        type:
+                                          type: string
+                                        trigger:
+                                          type: string
+                                          enum:
+                                          - transaction
+                                          - custom_event
+                                        translations:
+                                          $ref: '#/components/schemas/Translations'
+                              previousMemberProgress:
+                                type: object
+                                properties:
+                                  completedCount:
+                                    type: integer
+                                  rules:
+                                    type: array
+                                    items:
+                                      type: object
+                                      properties:
+                                        achievementRuleId:
+                                          type: string
+                                        periodGoal:
+                                          type: float
+                                        currentPeriodValue:
+                                          type: float
+                                        periodType:
+                                          type: string
+                                        consecutivePeriods:
+                                          type: integer
+                                          nullable: true
+                                        completedConsecutivePeriods:
+                                          type: integer
+                                        type:
+                                          type: string
+                                        trigger:
+                                          type: string
+                                          enum:
+                                          - transaction
+                                          - custom_event
+                                        translations:
+                                          $ref: '#/components/schemas/Translations'
+                          triggerType:
+                            type: string
+                            deprecated: true
+                            enum:
+                            - transaction
+                            - custom_event
+                          trigger:
+                            type: object
+                            required:
+                            - triggerId
+                            - type
+                            - createdAt
+                            properties:
+                              triggerId:
+                                type: string
+                                format: uuid
+                              type:
+                                type: string
+                                enum:
+                                - transaction
+                                - custom_event
+                              createdAt:
+                                type: string
+                                format: date-time
+                              purchasedAt:
+                                type: string
+                                format: date-time
+                              documentNumber:
+                                type: string
+                              eventDate:
+                                type: string
+                                format: date-time
+                              eventId:
+                                type: string
+                            oneOf:
+                            - properties:
+                                type:
+                                  const: transaction
+                              required:
+                              - purchasedAt
+                              - documentNumber
+                            - properties:
+                                type:
+                                  const: custom_event
+                              required:
+                              - eventDate
+                              - eventId
+            responses:
+              2XX:
+                description: Return any 2XX status to indicate that the data was received successfully
+        UnitsTransferWasAdded:
+          post:
+            operationId: UnitsTransferWasAdded
+            tags:
+            - Webhook event
+            description: Units transfer has been added
+            requestBody:
+              content:
+                application/json:
+                  schema:
+                    type: object
+                    properties:
+                      messageId:
+                        type: string
+                        format: uuid
+                        description: Unique identifier for each webhook
+                      requestId:
+                        type: string
+                        format: uuid
+                        description: Unique identifier for each webhook send attempt
+                      eventName:
+                        type: string
+                      storeCode:
+                        type: string
+                      createdAt:
+                        type: string
+                        format: date-time
+                      data:
+                        type: object
+                        properties:
+                          member:
+                            $ref: '#/components/schemas/WebhookCustomer'
+                          wallet:
+                            type: object
+                            properties:
+                              walletId:
+                                type: string
+                                format: uuid
+                                description: same as data.accountId
+                              walletType:
+                                $ref: '#/components/schemas/WalletType'
+                          createdAt:
+                            type: string
+                            format: date-time
+                          expiresAt:
+                            type: string
+                            format: date-time
+                          units:
+                            type: number
+                            format: float
+                          comment:
+                            type: string
+                          type:
+                            type: string
+                            enum:
+                            - adding
+                            - spending
+                            - p2p_adding
+                            - p2p_spending
+                            - blocked
+                            - expired
+                          pending:
+                            type: boolean
+                          lockedUntil:
+                            type: string
+                            format: date-time
+                          transferId:
+                            type: string
+                            format: uuid
+                          relatedTransferId:
+                            type: string
+                            format: uuid
+                            description: Only for transfers with type 'expired'
+                          actionCause:
+                            oneOf:
+                            - $ref: '#/components/schemas/ActionCause'
+                            - type: 
+            responses:
+              2XX:
+                description: Return any 2XX status to indicate that the data was received successfully
+        AchievementsWereProcessed:
+          post:
+            operationId: AchievementsWereProcessed
+            tags:
+            - Webhook event
+            description: Provides information about all achievement progress changes for all members that were triggered by a specific trigger
+            requestBody:
+              content:
+                application/json:
+                  schema:
+                    type: object
+                    properties:
+                      messageId:
+                        type: string
+                        format: uuid
+                        description: Unique identifier for each webhook
+                      requestId:
+                        type: string
+                        format: uuid
+                        description: Unique identifier for each webhook send attempt
+                      eventName:
+                        type: string
+                      storeCode:
+                        type: string
+                      createdAt:
+                        type: string
+                        format: date-time
+                      data:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            member:
+                              $ref: '#/components/schemas/WebhookCustomer'
+                            achievement:
+                              type: object
+                              properties:
+                                achievementId:
+                                  type: string
+                                achievementName:
+                                  type: string
+                                limitReached:
+                                  type: boolean
+                                manuallyEdited:
+                                  type: boolean
+                                memberProgress:
+                                  type: object
+                                  properties:
+                                    completedCount:
+                                      type: integer
+                                    reset:
+                                      type: boolean
+                                    rules:
+                                      type: array
+                                      items:
+                                        type: object
+                                        properties:
+                                          achievementRuleId:
+                                            type: string
+                                          periodGoal:
+                                            type: float
+                                          currentPeriodValue:
+                                            type: float
+                                          periodType:
+                                            type: string
+                                          consecutivePeriods:
+                                            type: integer
+                                            nullable: true
+                                          completedConsecutivePeriods:
+                                            type: integer
+                                          type:
+                                            type: string
+                                          trigger:
+                                            type: string
+                                            enum:
+                                            - transaction
+                                            - custom_event
+                                          translations:
+                                            $ref: '#/components/schemas/Translations'
+                            triggerType:
+                              type: string
+                              deprecated: true
+                              enum:
+                              - transaction
+                              - custom_event
+                            trigger:
+                              type: object
+                              properties:
+                                triggerId:
+                                  type: string
+                                  format: uuid
+                                type:
+                                  type: string
+                                  enum:
+                                  - transaction
+                                  - custom_event
+            responses:
+              2XX:
+                description: Return any 2XX status to indicate that the data was received successfully
+        SegmentMembershipDropped:
+          post:
+            operationId: SegmentMembershipDropped
+            tags:
+            - Webhook event
+            description: Segment Membership Dropped
+            requestBody:
+              content:
+                application/json:
+                  schema:
+                    type: object
+                    properties:
+                      messageId:
+                        type: string
+                        format: uuid
+                        description: Unique identifier for each webhook
+                      requestId:
+                        type: string
+                        format: uuid
+                        description: Unique identifier for each webhook send attempt
+                      eventName:
+                        type: string
+                      storeCode:
+                        type: string
+                      createdAt:
+                        type: string
+                        format: date-time
+                      data:
+                        type: object
+                        properties:
+                          segment:
+                            $ref: '#/components/schemas/WebhookSegment'
+            responses:
+              2XX:
+                description: Return any 2XX status to indicate that the data was received successfully
+

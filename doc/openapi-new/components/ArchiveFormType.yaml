@@ -1,0 +1,13 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        ArchiveFormType:
+          required:
+          - beforeDate
+          properties:
+            beforeDate:
+              type: string
+              format: date
+          type: object
+

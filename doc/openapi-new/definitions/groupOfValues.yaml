@@ -1,0 +1,302 @@
+﻿nelmio_api_doc:
+  documentation:
+    paths:
+      /api/{storeCode}/groupOfValues:
+        get:
+          tags:
+          - Group Of Values
+          summary: Get collections list
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+          operationId: groupOfValuesGetList
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          - name: name
+            in: query
+            required: false
+            schema:
+              type: string
+          - name: active
+            in: query
+            required: false
+            schema:
+              type: boolean
+          - name: createdAt
+            in: query
+            required: false
+            schema:
+              type: string
+              format: date-time
+          - $ref: '#/components/parameters/page'
+          - $ref: '#/components/parameters/itemsOnPage'
+          - $ref: '#/components/parameters/orderBy'
+          - $ref: '#/components/parameters/scroll'
+          responses:
+            "'200'":
+              description: List of groupOfValues
+              content:
+                application/json:
+                  schema:
+                    oneOf:
+                    - title: GroupOfValuesResponse
+                      required:
+                      - items
+                      - total
+                      properties:
+                        items:
+                          type: array
+                          items:
+                            $ref: '#/components/schemas/GroupOfValues'
+                        total:
+                          $ref: '#/components/schemas/SearchableTotalResponse'
+                      type: object
+                      additionalProperties: false
+                    - title: GroupOfValuesResponseWithScroll
+                      required:
+                      - items
+                      - scroll
+                      properties:
+                        items:
+                          type: array
+                          items:
+                            $ref: '#/components/schemas/GroupOfValues'
+                        scroll:
+                          $ref: '#/components/schemas/ScrollResponse'
+                      type: object
+                      additionalProperties: false
+            "'403'":
+              description: Access Denied
+        post:
+          tags:
+          - Group Of Values
+          summary: Create collection
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+          operationId: createGroup
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          requestBody:
+            required: true
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/CreateGroupRequest'
+          responses:
+            "'200'":
+              description: Group created successfully
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/GroupOfValuesId'
+            "'400'":
+              description: Invalid input
+            "'403'":
+              description: Access Denied
+      /api/{storeCode}/groupOfValues/{groupOfValueId}:
+        get:
+          tags:
+          - Group Of Values
+          summary: Get single collection
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+          operationId: getGroup
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          - name: groupOfValueId
+            in: path
+            description: Group of values ID
+            required: true
+            schema:
+              type: string
+              format: uuid
+          responses:
+            "'200'":
+              description: Collection details
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/GroupOfValues'
+            "'403'":
+              description: Access Denied
+            "'404'":
+              description: Collection not found
+        put:
+          tags:
+          - Group Of Values
+          summary: Update collection
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+          operationId: updateGroup
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          - name: groupOfValueId
+            in: path
+            description: Group of values ID
+            required: true
+            schema:
+              type: string
+              format: uuid
+          requestBody:
+            required: true
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/UpdateGroupRequest'
+          responses:
+            "'204'":
+              description: Collection updated successfully
+            "'400'":
+              description: Invalid input
+            "'403'":
+              description: Access Denied
+            "'404'":
+              description: Collection not found
+      /api/{storeCode}/groupOfValues/value:
+        post:
+          tags:
+          - Group Of Values
+          summary: Add value to collection
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+          operationId: createValue
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          requestBody:
+            required: true
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/CreateValueRequest'
+          responses:
+            "'200'":
+              description: Value created successfully
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/ValueId'
+            "'400'":
+              description: Invalid input
+            "'403'":
+              description: Access Denied
+      /api/{storeCode}/groupOfValues/value/{valueId}:
+        get:
+          tags:
+          - Group Of Values
+          summary: Get single value
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+          operationId: getValue
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          - name: valueId
+            in: path
+            description: Value ID
+            required: true
+            schema:
+              type: string
+              format: uuid
+          responses:
+            "'200'":
+              description: Value details
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/GroupValue'
+            "'403'":
+              description: Access Denied
+            "'404'":
+              description: Value not found
+        put:
+          tags:
+          - Group Of Values
+          summary: Update value
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+          operationId: updateValue
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          - name: valueId
+            in: path
+            description: Value ID
+            required: true
+            schema:
+              type: string
+              format: uuid
+          requestBody:
+            required: true
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/UpdateValueRequest'
+          responses:
+            "'204'":
+              description: Value updated successfully
+            "'400'":
+              description: Invalid input
+            "'403'":
+              description: Access Denied
+            "'404'":
+              description: Value not found
+        delete:
+          tags:
+          - Group Of Values
+          summary: Delete value
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+          operationId: deleteValue
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          - name: valueId
+            in: path
+            description: Value ID
+            required: true
+            schema:
+              type: string
+              format: uuid
+          responses:
+            "'204'":
+              description: Value deleted successfully
+            "'403'":
+              description: Access Denied
+            "'404'":
+              description: Value not found
+      /api/{storeCode}/groupOfValues/{groupOfValuesId}/values:
+        get:
+          tags:
+          - Group Of Values
+          summary: Get values for specific group
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+          operationId: getGroupValues
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          - name: groupOfValuesId
+            in: path
+            description: Collection ID
+            required: true
+            schema:
+              type: string
+              format: uuid
+          responses:
+            "'200'":
+              description: List of values
+              content:
+                application/json:
+                  schema:
+                    required:
+                    - items
+                    - total
+                    properties:
+                      items:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/GroupValue'
+                      total:
+                        $ref: '#/components/schemas/SearchableTotalResponse'
+                    type: object
+                    additionalProperties: false
+            "'403'":
+              description: Access Denied
+            "'404'":
+              description: Group not found
+

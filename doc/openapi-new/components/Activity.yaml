@@ -1,0 +1,14 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        Activity:
+          properties:
+            startsAt:
+              type: string
+              format: date-time
+            endsAt:
+              type: string
+              format: date-time
+          type: object
+

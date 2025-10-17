@@ -1,0 +1,22 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        CampaignCode:
+          properties:
+            codeId:
+              type: string
+            code:
+              type: string
+            status:
+              type: string
+            usedAt:
+              type: string
+              format: date-time
+            createdAt:
+              type: string
+              format: date-time
+            createdBy:
+              type: string
+          type: object
+

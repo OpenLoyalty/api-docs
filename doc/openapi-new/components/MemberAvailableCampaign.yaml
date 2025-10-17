@@ -1,0 +1,92 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        MemberAvailableCampaign:
+          required:
+          - campaignId
+          - translations
+          - name
+          - limitReached
+          properties:
+            campaignId:
+              type: string
+              format: uuid
+            translations:
+              type: array
+              items:
+                properties:
+                  name:
+                    type: string
+                  description:
+                    type: string
+                  id:
+                    type: integer
+                  locale:
+                    type: string
+                type: object
+            name:
+              type: string
+            description:
+              type: string
+            relatedAchievement:
+              $ref: '#/components/schemas/RelatedAchievement'
+            limitReached:
+              description: This property indicates if the campaign is available to a member
+              type: boolean
+            limitUsages:
+              properties:
+                pointsPerMember:
+                  properties:
+                    currentValue:
+                      type: number
+                      format: float
+                    limitValue:
+                      type: number
+                      format: float
+                    remaining:
+                      type: number
+                      format: float
+                    interval:
+                      properties:
+                        type:
+                          type: string
+                          enum:
+                          - calendarHours
+                          - calendarDays
+                          - calendarWeeks
+                          - calendarMonths
+                          - calendarYears
+                        value:
+                          type: integer
+                      type: object
+                  type: object
+                executionsPerMember:
+                  properties:
+                    currentValue:
+                      type: number
+                      format: float
+                    limitValue:
+                      type: number
+                      format: float
+                    remaining:
+                      type: number
+                      format: float
+                    interval:
+                      properties:
+                        type:
+                          type: string
+                          enum:
+                          - calendarHours
+                          - calendarDays
+                          - calendarWeeks
+                          - calendarMonths
+                          - calendarYears
+                        value:
+                          type: integer
+                      type: object
+                  type: object
+              type: object
+          type: object
+          additionalProperties: false
+

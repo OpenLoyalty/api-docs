@@ -1,0 +1,33 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        DateTimeCriteriaField:
+          oneOf:
+          - description: Date and time value
+            type: string
+            format: date-time
+          - description: Date and time value with optional comparison operators like lt (less than), gt (greater than), etc.
+            properties:
+              lt:
+                description: Less than the specified date-time
+                type: string
+                format: date-time
+              lte:
+                description: Less than or equal to the specified date-time
+                type: string
+                format: date-time
+              gt:
+                description: Greater than the specified date-time
+                type: string
+                format: date-time
+              gte:
+                description: Greater than or equal to the specified date-time
+                type: string
+                format: date-time
+              eq:
+                description: Equal to the specified date-time
+                type: string
+                format: date-time
+            type: object
+

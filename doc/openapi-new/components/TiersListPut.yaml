@@ -1,0 +1,86 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        TiersListPut:
+          type: array
+          items:
+            required:
+            - conditions
+            - translations
+            properties:
+              levelId:
+                description: Leave empty to add a new tier. Use existing id to update specific tier.
+                type: string
+                format: uuid
+              translations:
+                $ref: '#/components/schemas/Translations'
+              active:
+                description: Tier availability
+                type: boolean
+              conditions:
+                description: Conditions are determined by the tier set configuration
+                type: array
+                items:
+                  required:
+                  - conditionId
+                  - value
+                  properties:
+                    conditionId:
+                      description: Relevant conditionId from the tier set configuration
+                      type: string
+                      format: uuid
+                    value:
+                      description: Minimal value for the tier. Remember it must not be lower than the lower tier’s value.
+                      type: number
+                      format: float
+                  type: object
+              rewards:
+                description: Lifetime benefits associated with tier.
+                type: array
+                items:
+                  required:
+                  - name
+                  - code
+                  properties:
+                    rewardId:
+                      description: Reward ID. Leave empty to to add a new benefit.
+                      type: string
+                      format: uuid
+                    name:
+                      description: Benefit name.
+                      type: string
+                    value:
+                      description: Benefit value.
+                      type: number
+                      format: float
+                    code:
+                      description: Benefit code.
+                      type: string
+                    labels:
+                      description: Custom attributes
+                      type: array
+                      items:
+                        properties:
+                          key:
+                            description: Custom attribute key
+                            type: string
+                          value:
+                            description: Custom attribute value
+                            type: string
+                        type: object
+                    active:
+                      description: Benefit availability
+                      type: boolean
+                    startAt:
+                      description: Benefit availability start date
+                      type: string
+                      format: date-time
+                    endAt:
+                      description: Benefit availability end date
+                      type: string
+                      format: date-time
+                  type: object
+            type: object
+            additionalProperties: false
+

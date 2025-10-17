@@ -1,0 +1,26 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        CustomerWasActivated:
+          required:
+          - customerId
+          - type
+          - createdAt
+          properties:
+            customerId:
+              type: string
+            type:
+              type: string
+              enum:
+              - CustomerWasActivated
+            accountId:
+              type: string
+            createdAt:
+              type: string
+              format: date-time
+            flatVariables:
+              type: object
+          type: object
+          additionalProperties: false
+

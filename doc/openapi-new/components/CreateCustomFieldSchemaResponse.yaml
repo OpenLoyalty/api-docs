@@ -1,0 +1,14 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        CreateCustomFieldSchemaResponse:
+          required:
+          - customFieldSchemaId
+          properties:
+            customFieldSchemaId:
+              description: ID of the created custom field schema
+              type: string
+              format: uuid
+          type: object
+

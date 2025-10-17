@@ -1,0 +1,90 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        PutUniqueCodeCampaignRequestBody:
+          title: RedemptionCampaign
+          required:
+          - campaign
+          properties:
+            campaign:
+              required:
+              - type
+              - trigger
+              - translations
+              - activity
+              - eventCodeAttribute
+              - codeGenerator
+              - rules
+              properties:
+                type:
+                  type: string
+                  example: referral
+                trigger:
+                  type: string
+                  example: custom_event_unique_code
+                activity:
+                  required:
+                  - startsAt
+                  properties:
+                    startsAt:
+                      type: string
+                      example: 2024-09-17 '00':00+02:00
+                    endsAt:
+                      type: string
+                      example: 2024-09-17 '00':00+02:00
+                      nullable: true
+                  type: object
+                displayOrder:
+                  type: number
+                  example: 1
+                active:
+                  type: boolean
+                labels:
+                  type: array
+                  items:
+                    properties:
+                      key:
+                        type: string
+                      value:
+                        type: string
+                    type: object
+                translations:
+                  $ref: '#/components/schemas/CampaignTranslations'
+                rules:
+                  $ref: '#/components/schemas/Rule'
+                limits:
+                  $ref: '#/components/schemas/Limit'
+                visibility:
+                  $ref: '#/components/schemas/Visibility'
+                audience:
+                  $ref: '#/components/schemas/Audience'
+                event:
+                  type: string
+                eventCodeAttribute:
+                  type: string
+                  example: qrCode
+                generateCodes:
+                  type: integer
+                  example: 100000
+                codeGenerator:
+                  required:
+                  - characterSet
+                  - length
+                  properties:
+                    characterSet:
+                      type: string
+                      example: alphanum
+                    length:
+                      type: integer
+                      example: 12
+                    prefix:
+                      type: string
+                      example: Code
+                  type: object
+                  additionalProperties: false
+              type: object
+              additionalProperties: false
+          type: object
+          additionalProperties: false
+

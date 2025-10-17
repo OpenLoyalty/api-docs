@@ -1,0 +1,20 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        StoreFormType:
+          required:
+          - name
+          - currency
+          - active
+          properties:
+            code:
+              type: string
+            name:
+              type: string
+            currency:
+              type: string
+            active:
+              type: boolean
+          type: object
+

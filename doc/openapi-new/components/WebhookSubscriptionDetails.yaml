@@ -1,0 +1,35 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        WebhookSubscriptionDetails:
+          properties:
+            webhookSubscriptionId:
+              type: string
+              format: uuid
+            eventName:
+              type: string
+            url:
+              type: string
+            headerName:
+              description: Use 'headers' field instead.
+              type: string
+              deprecated: true
+            headerValue:
+              description: Use 'headers' field instead.
+              type: string
+              deprecated: true
+            headers:
+              type: array
+              items:
+                $ref: '#/components/schemas/WebhookHeader2'
+            legacy:
+              type: boolean
+              deprecated: true
+            createdAt:
+              type: string
+              format: date-time
+            destinationType:
+              type: string
+          type: object
+

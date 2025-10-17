@@ -1,0 +1,70 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        criteriaObject:
+          properties:
+            pending:
+              type: boolean
+            createdAt:
+              $ref: '#/components/schemas/DateTimeCriteriaField'
+            transferId:
+              type: string
+              format: uuid
+            walletId:
+              type: string
+              format: uuid
+            type:
+              type: string
+              enum:
+              - adding
+              - spending
+              - expired
+              - blocked
+              - p2p_adding
+              - p2p_spending
+            value:
+              $ref: '#/components/schemas/NumericCriteriaField'
+            comment:
+              type: string
+            createdBy:
+              type: string
+              format: uuid
+            registeredOn:
+              $ref: '#/components/schemas/DateTimeCriteriaField'
+            lockedUntil:
+              $ref: '#/components/schemas/DateTimeCriteriaField'
+            expiresAt:
+              $ref: '#/components/schemas/DateTimeCriteriaField'
+            canceled:
+              type: boolean
+            actionCause:transactionId:
+              type: string
+              format: uuid
+            actionCause:customerId:
+              type: string
+              format: uuid
+            actionCause:campaignId:
+              type: string
+              format: uuid
+            actionCause:customerEventId:
+              type: string
+              format: uuid
+            actionCause:internalEventName:
+              type: string
+              format: uuid
+            actionCause:campaignName:
+              type: string
+            walletType:code:
+              type: string
+            member:id:
+              type: string
+              format: uuid
+            member:email:
+              type: string
+            member:phoneNumber:
+              type: string
+            member:loyaltyCardNumber:
+              type: string
+          type: object
+

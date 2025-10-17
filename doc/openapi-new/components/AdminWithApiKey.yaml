@@ -1,0 +1,40 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        AdminWithApiKey:
+          properties:
+            admin:
+              required:
+              - email
+              - roles
+              - apiKey
+              properties:
+                plainPassword:
+                  type: string
+                external:
+                  type: boolean
+                  example: false
+                apiKey:
+                  description: Use "apiKeyPost" endpoint instead.
+                  type: string
+                  deprecated: true
+                isActive:
+                  type: boolean
+                notificationsEnabled:
+                  type: boolean
+                firstName:
+                  type: string
+                lastName:
+                  type: string
+                phone:
+                  type: string
+                roles:
+                  type: array
+                  items:
+                    type: integer
+                email:
+                  type: string
+              type: object
+          type: object
+

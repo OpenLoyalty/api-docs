@@ -1,0 +1,43 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        CustomerWasMovedToLevel:
+          required:
+          - customerId
+          - type
+          - createdAt
+          properties:
+            customerId:
+              type: string
+            type:
+              type: string
+              enum:
+              - CustomerWasMovedToLevel
+            accountId:
+              type: string
+            createdAt:
+              type: string
+              format: date-time
+            flatVariables:
+              required:
+              - manually
+              - removedManually
+              properties:
+                newLevelId:
+                  type: string
+                newLevelName:
+                  type: string
+                tierSetId:
+                  type: string
+                tierSetName:
+                  type: string
+                manually:
+                  type: boolean
+                removedManually:
+                  type: boolean
+              type: object
+              additionalProperties: false
+          type: object
+          additionalProperties: false
+

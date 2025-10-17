@@ -1,0 +1,47 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        AchievementCompleted:
+          required:
+          - customerId
+          - type
+          - createdAt
+          properties:
+            customerId:
+              type: string
+            type:
+              type: string
+              enum:
+              - AchievementCompleted
+            accountId:
+              type: string
+            createdAt:
+              type: string
+              format: date-time
+            flatVariables:
+              required:
+              - adminId
+              - achievementName
+              - achievementId
+              - manuallyEdited
+              properties:
+                adminId:
+                  type: string
+                manuallyEdited:
+                  type: boolean
+                achievementName:
+                  type: string
+                achievementId:
+                  type: string
+                previousCompletionCount:
+                  type: integer
+                currentCompletionCount:
+                  type: integer
+                completedAt:
+                  type: string
+              type: object
+              additionalProperties: false
+          type: object
+          additionalProperties: false
+

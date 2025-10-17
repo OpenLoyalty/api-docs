@@ -1,0 +1,24 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        CreateAchievementFormType:
+          required:
+          - translations
+          - activity
+          - rules
+          properties:
+            translations:
+              $ref: '#/components/schemas/TranslationsType'
+            activity:
+              $ref: '#/components/schemas/ActivityFormType'
+            active:
+              type: boolean
+            rules:
+              type: array
+              items:
+                $ref: '#/components/schemas/RuleFormType'
+            limit:
+              $ref: '#/components/schemas/LimitFormType'
+          type: object
+

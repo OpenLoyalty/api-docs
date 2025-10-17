@@ -1,0 +1,12 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        Limit2:
+          properties:
+            interval:
+              $ref: '#/components/schemas/LimitInterval'
+            value:
+              type: integer
+          type: object
+

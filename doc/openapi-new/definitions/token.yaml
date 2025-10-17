@@ -1,0 +1,69 @@
+﻿nelmio_api_doc:
+  documentation:
+    paths:
+      /api/token/revoke:
+        get:
+          tags:
+          - Authorization
+          summary: Log user out
+          description: |
+            <label style="background-color: #BFE1F6;padding:5px;">Integration</label><br><br>
+            This method can be used to log out current user.<br>
+            It will revoke all refresh tokens assigned to current user so it will not be possible
+            to obtain new token based on stored refresh token.
+          operationId: userGetTokenRevoke
+          responses:
+            "'204'":
+              $ref: '#/components/responses/NoContent'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+      /api/token/refresh:
+        post:
+          tags:
+          - Authorization
+          summary: Refresh admin token
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+          operationId: tokenRefresh
+          requestBody:
+            description: ""
+            content:
+              application/json:
+                schema:
+                  properties:
+                    refresh_token:
+                      type: string
+                      example: 0558f8bb29948c4e54c443f...
+                  type: object
+          responses:
+            "'200'":
+              $ref: '#/components/responses/TokenAndRefreshToken'
+            "'401'":
+              $ref: '#/components/responses/BadCredentials'
+          security: []
+      /api/{storeCode}/token/refresh:
+        post:
+          tags:
+          - Authorization
+          summary: Refresh member token
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+          operationId: tokenRefreshMember
+          requestBody:
+            description: ""
+            content:
+              application/json:
+                schema:
+                  properties:
+                    refresh_token:
+                      type: string
+                      example: 0558f8bb29948c4e54c443f...
+                  type: object
+          responses:
+            "'200'":
+              $ref: '#/components/responses/TokenAndRefreshToken'
+            "'401'":
+              $ref: '#/components/responses/BadCredentials'
+          deprecated: true
+          security: []
+

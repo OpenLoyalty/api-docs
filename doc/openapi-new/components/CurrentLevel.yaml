@@ -1,0 +1,17 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        CurrentLevel:
+          properties:
+            levelId:
+              type: string
+              format: uuid
+            name:
+              type: string
+            description:
+              type: string
+            translations:
+              $ref: '#/components/schemas/ResponseTranslations'
+          type: object
+

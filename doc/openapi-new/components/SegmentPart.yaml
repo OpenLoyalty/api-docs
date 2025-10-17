@@ -1,0 +1,12 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        SegmentPart:
+          properties:
+            segmentPartId:
+              type: string
+            segment:
+              $ref: '#/components/schemas/Segment'
+          type: object
+

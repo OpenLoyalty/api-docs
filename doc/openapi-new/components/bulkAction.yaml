@@ -1,0 +1,41 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        bulkAction:
+          required:
+          - bulkActionId
+          - requestedAt
+          - criteria
+          - resource
+          - type
+          properties:
+            bulkActionId:
+              type: string
+              format: uuid
+            requestedAt:
+              type: string
+              format: date-time
+            criteria:
+              $ref: '#/components/schemas/criteriaObject'
+            resource:
+              type: string
+            type:
+              type: string
+              enum:
+              - cancelTransfers
+              - activateTransfers
+              - expireTransfers
+            processedRowCount:
+              type: integer
+            message:
+              type: string
+            userId:
+              type: string
+              format: uuid
+            email:
+              type: string
+            comment:
+              type: string
+          type: object
+

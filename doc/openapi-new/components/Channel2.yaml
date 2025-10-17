@@ -1,0 +1,14 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        Channel2:
+          properties:
+            name:
+              type: string
+            identifier:
+              type: string
+            description:
+              type: string
+          type: object
+

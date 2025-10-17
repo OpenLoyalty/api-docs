@@ -1,0 +1,54 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        PermissionFormType:
+          required:
+          - resource
+          - access
+          properties:
+            resource:
+              type: string
+              enum:
+              - LEVEL
+              - TRANSACTION
+              - ADMIN
+              - ACL
+              - ANALYTICS
+              - CHANNEL
+              - POINT_TRANSFER
+              - SEGMENT
+              - SETTINGS
+              - TECH_SETTINGS
+              - CUSTOMER
+              - REWARDS
+              - AUDIT
+              - EVENT
+              - EVENTS
+              - LANGUAGE
+              - TRANSLATIONS
+              - STORES
+              - CAMPAIGN
+              - REWARDS_CATEGORIES
+              - ISSUED_REWARDS
+              - CUSTOM_EVENT
+              - WALLET
+              - WEBHOOK_SUBSCRIPTION
+              - DATA_ANALYTICS
+              - DATA_ANALYTICS_CAMPAIGN
+              - IMPORT
+              - EXPORT
+              - GROUP_OF_VALUES
+              - BILLABLE_REPORTS
+              - BULK_ACTIONS
+              - GLOBAL_MANAGEMENT
+              - BADGE
+            access:
+              type: string
+              enum:
+              - VIEW
+              - MODIFY
+            filterQuery:
+              type: string
+          type: object
+

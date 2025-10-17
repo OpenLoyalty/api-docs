@@ -1,0 +1,26 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        WebhookCampaignEffect:
+          properties:
+            status:
+              type: string
+            target:
+              description: Member who is the target of the campaign (he got the effects of the campaign)
+              type: string
+            walletTypeCode:
+              type: string
+              nullable: true
+            type:
+              type: string
+            points:
+              type: number
+              format: float
+            couponValue:
+              type: number
+              format: float
+            rewardId:
+              type: string
+          type: object
+

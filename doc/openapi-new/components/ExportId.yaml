@@ -1,0 +1,13 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        ExportId:
+          required:
+          - exportId
+          properties:
+            exportId:
+              type: string
+              format: uuid
+          type: object
+

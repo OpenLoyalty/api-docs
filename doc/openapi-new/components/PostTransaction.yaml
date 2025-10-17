@@ -1,0 +1,97 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        PostTransaction:
+          properties:
+            transaction:
+              required:
+              - header
+              - items
+              properties:
+                customerData:
+                  properties:
+                    customerId:
+                      type: string
+                    address:
+                      $ref: '#/components/schemas/CustomerAddressFormType'
+                    email:
+                      type: string
+                    loyaltyCardNumber:
+                      type: string
+                    name:
+                      type: string
+                    nip:
+                      type: string
+                    phone:
+                      type: string
+                  type: object
+                  additionalProperties: false
+                items:
+                  type: array
+                  items:
+                    required:
+                    - sku
+                    - name
+                    - grossValue
+                    - category
+                    properties:
+                      category:
+                        type: string
+                      grossValue:
+                        type: number
+                        format: float
+                      maker:
+                        type: string
+                      name:
+                        type: string
+                      quantity:
+                        description: The quantity of the product. This field is required if 'highPrecisionQuantity' is not provided. It is recommended to use 'highPrecisionQuantity', as 'quantity' is deprecated.
+                        type: integer
+                        deprecated: true
+                      highPrecisionQuantity:
+                        description: The precise quantity of the product, with a maximum of 3 decimal places. This field is required if 'quantity' is not provided.
+                        type: number
+                        format: float
+                      sku:
+                        type: string
+                      labels:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/TransactionLabelFormType'
+                    type: object
+                    additionalProperties: false
+                channelId:
+                  type: string
+                  format: uuid
+                header:
+                  required:
+                  - documentNumber
+                  - purchasedAt
+                  properties:
+                    documentNumber:
+                      description: Specifies the document number used in the transaction.
+                      type: string
+                    linkedDocumentNumber:
+                      description: Used only for return transactions and refers to the original ‘sell’ document.
+                      type: string
+                    documentType:
+                      type: string
+                      enum:
+                      - sell
+                      - return
+                    labels:
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/TransactionLabelFormType'
+                    purchasedAt:
+                      type: string
+                    purchasePlace:
+                      type: string
+                  type: object
+                  additionalProperties: false
+              type: object
+              additionalProperties: false
+          type: object
+          additionalProperties: false
+

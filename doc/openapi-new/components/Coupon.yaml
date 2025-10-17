@@ -1,0 +1,12 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        Coupon:
+          properties:
+            code:
+              type: string
+            issued:
+              type: boolean
+          type: object
+

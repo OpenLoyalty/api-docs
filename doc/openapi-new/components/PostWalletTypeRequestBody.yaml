@@ -1,0 +1,86 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        PostWalletTypeRequestBody:
+          properties:
+            walletType:
+              required:
+              - translations
+              - unitSingularName
+              - unitPluralName
+              - unitDaysExpiryAfter
+              - code
+              properties:
+                translations:
+                  properties:
+                    en:
+                      required:
+                      - name
+                      properties:
+                        name:
+                          description: Wallet name
+                          type: string
+                        description:
+                          description: Wallet description
+                          type: string
+                      type: object
+                  type: object
+                unitSingularName:
+                  description: Singular name of the unit
+                  type: string
+                unitPluralName:
+                  description: Plural name of the unit
+                  type: string
+                active:
+                  description: Indicates if the wallet type is active
+                  type: boolean
+                unitDaysExpiryAfter:
+                  description: |
+                    Expiry time for the unit:
+
+
+                     * `all_time_active` - Units never expire
+                     * `after_x_days` - Units will expire after `unitDaysActiveCount` days
+                     * `at_the_end_of_the_x_th_year` - Units will expire at the end of the `unitYearsActiveCount`-th year
+                     * `at_the_end_of_the_month` - Units will expire at the end of the month
+                     * `at_the_end_of_the_chosen_date` - Units will expire at chosen day of the month
+                  type: string
+                  enum:
+                  - all_time_active
+                  - after_x_days
+                  - at_the_end_of_the_month
+                  - at_the_end_of_the_x_th_year
+                  - at_the_end_of_the_chosen_date
+                unitDaysActiveCount:
+                  description: Number of days to expire units. Required when `unitDaysExpiryAfter` is `after_x_days`
+                  type: integer
+                unitYearsActiveCount:
+                  description: Number of year when units will expire. `0` means this year. Required when `unitDaysExpiryAfter` is `at_the_end_of_the_x_th_year`
+                  type: integer
+                unitDaysLocked:
+                  description: Number of days when units will be locked. `0` means this year. Required when `allTimeNotLocked` is `false`
+                  type: integer
+                allTimeNotLocked:
+                  description: Indicates if units will be locked after creation. If `false` then units will be locked after creation for `unitDaysLocked` days.
+                  type: boolean
+                  default: true
+                allowNegativeBalance:
+                  description: Indicates if negative balance is allowed
+                  type: boolean
+                  default: false
+                unitExpiryDate:
+                  description: Expiration date for unit in format `m-d`. Required when `unitDaysExpiryAfter` is `at_the_end_of_the_chosen_date`
+                  type: string
+                  example: 08-24
+                limits:
+                  $ref: '#/components/schemas/WalletTypeLimit'
+                code:
+                  description: Unique wallet type code
+                  type: string
+                  example: my_wallet
+              type: object
+              additionalProperties: false
+          type: object
+          additionalProperties: false
+

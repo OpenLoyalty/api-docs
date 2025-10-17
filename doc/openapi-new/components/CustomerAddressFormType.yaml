@@ -1,0 +1,23 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        CustomerAddressFormType:
+          properties:
+            street:
+              type: string
+            address1:
+              type: string
+            address2:
+              type: string
+            postal:
+              type: string
+            city:
+              type: string
+            province:
+              type: string
+            country:
+              description: 'The country code in ISO 3166-1 alpha-2 format. This should be a two-letter uppercase string representing a valid country code. Examples:  - `US` (United States) - `PL` (Poland)'
+              type: string
+          type: object
+

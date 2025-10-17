@@ -1,0 +1,14 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        TierSet:
+          properties:
+            tierSetId:
+              type: string
+            name:
+              type: string
+            isMigrated:
+              type: boolean
+          type: object
+

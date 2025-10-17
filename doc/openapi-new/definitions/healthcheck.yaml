@@ -1,0 +1,18 @@
+﻿nelmio_api_doc:
+  documentation:
+    paths:
+      /api/healthcheck:
+        get:
+          tags:
+          - HealthCheck
+          summary: Check system status
+          description: |
+            <label style="background-color: #E7E7E7;padding:5px;">System</label><br><br>
+            This method returns the status of API.
+          operationId: healthCheckGet
+          responses:
+            "'204'":
+              $ref: '#/components/responses/NoContent'
+            "'503'":
+              $ref: '#/components/responses/ServiceUnavailable'
+

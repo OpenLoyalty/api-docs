@@ -1,0 +1,31 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        RelatedAchievement:
+          properties:
+            achievementId:
+              type: string
+              format: uuid
+            achievementName:
+              type: string
+            limitReached:
+              description: This property indicates whether the limit for achievement is reached by member
+              type: boolean
+            memberProgress:
+              $ref: '#/components/schemas/MemberAchievementProgress'
+            lastTrigger:
+              description: Last trigger which triggered related achievement
+              properties:
+                triggerId:
+                  type: string
+                  format: uuid
+                triggerType:
+                  type: string
+                  enum:
+                  - transaction
+                  - custom_event
+              type: object
+          type: object
+          deprecated: true
+

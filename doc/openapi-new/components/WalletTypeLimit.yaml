@@ -1,0 +1,64 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        WalletTypeLimit:
+          properties:
+            points:
+              description: Global limit of units for wallet type
+              properties:
+                interval:
+                  properties:
+                    type:
+                      description: Interval of time
+                      type: string
+                      enum:
+                      - calendarHours
+                      - calendarDays
+                      - calendarWeeks
+                      - calendarMonths
+                      - calendarYears
+                    value:
+                      description: Number of next intervals
+                      type: integer
+                      default: 1
+                      minimum: 1
+                  type: object
+                value:
+                  description: Limit value in units
+                  type: number
+                  format: float
+                  minimum: 1
+              type: object
+            pointsPerMember:
+              description: Limit of units for wallet type and member
+              required:
+              - value
+              properties:
+                interval:
+                  properties:
+                    type:
+                      description: Interval of time
+                      type: string
+                      enum:
+                      - calendarHours
+                      - calendarDays
+                      - calendarWeeks
+                      - calendarMonths
+                      - calendarYears
+                    value:
+                      description: Number of next intervals
+                      type: integer
+                      default: 1
+                      minimum: 1
+                  type: object
+                value:
+                  description: Limit value in units
+                  type: number
+                  format: float
+                  minimum: 1
+              type: object
+              additionalProperties: false
+          type: object
+          additionalProperties: false
+

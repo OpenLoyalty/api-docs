@@ -1,0 +1,12 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        WebhookSubscriptionIdResponse:
+          properties:
+            webhookSubscriptionId:
+              type: string
+              format: uuid
+              example: 00000000-0000-0000-0000-000000000000
+          type: object
+

@@ -1,0 +1,49 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        PostMultiReferralCampaign:
+          required:
+          - type
+          - trigger
+          - translations
+          - activity
+          properties:
+            type:
+              type: string
+              example: referral
+            multiLevel:
+              type: number
+              example: 2
+            trigger:
+              type: string
+            activity:
+              required:
+              - startsAt
+              properties:
+                startsAt:
+                  type: string
+                  format: date-time
+                endsAt:
+                  type: string
+                  format: date-time
+                  nullable: true
+              type: object
+            displayOrder:
+              type: number
+              example: 1
+            active:
+              type: boolean
+            labels:
+              type: array
+              items:
+                properties:
+                  key:
+                    type: string
+                  value:
+                    type: string
+                type: object
+            translations:
+              $ref: '#/components/schemas/CampaignTranslations'
+          type: object
+

@@ -1,0 +1,75 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        AchievementCampaignRequestBody:
+          title: AchievementCampaign
+          required:
+          - campaign
+          properties:
+            campaign:
+              required:
+              - type
+              - trigger
+              - translations
+              - activity
+              - rules
+              - achievementId
+              properties:
+                triggerStrategy:
+                  $ref: '#/components/schemas/TriggerStrategy'
+                visibility:
+                  $ref: '#/components/schemas/Visibility'
+                audience:
+                  $ref: '#/components/schemas/Audience'
+                rules:
+                  $ref: '#/components/schemas/Rule'
+                limits:
+                  $ref: '#/components/schemas/Limit'
+                type:
+                  type: string
+                  enum:
+                  - direct
+                  - referral
+                trigger:
+                  type: string
+                  example: achievement
+                activity:
+                  required:
+                  - startsAt
+                  properties:
+                    startsAt:
+                      type: string
+                      example: 2024-09-17 '00':00+02:00
+                    endsAt:
+                      type: string
+                      example: 2024-09-17 '00':00+02:00
+                      nullable: true
+                  type: object
+                displayOrder:
+                  type: number
+                  example: 1
+                active:
+                  type: boolean
+                labels:
+                  type: array
+                  items:
+                    required:
+                    - key
+                    - value
+                    properties:
+                      key:
+                        type: string
+                      value:
+                        type: string
+                    type: object
+                translations:
+                  $ref: '#/components/schemas/CampaignTranslations'
+                achievementId:
+                  type: string
+                  format: uuid
+              type: object
+              additionalProperties: false
+          type: object
+          additionalProperties: false
+

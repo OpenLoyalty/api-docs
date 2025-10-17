@@ -1,0 +1,12 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        Company:
+          properties:
+            name:
+              type: string
+            nip:
+              type: string
+          type: object
+

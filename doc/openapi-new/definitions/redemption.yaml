@@ -1,0 +1,332 @@
+﻿nelmio_api_doc:
+  documentation:
+    paths:
+      /api/{storeCode}/redemption/{issuedReward}:
+        get:
+          tags:
+          - Reward
+          summary: Get redeemed reward's details
+          description: |
+            <label style="background-color: #BFE1F6;padding:5px;">Integration</label><br><br>
+            This method returns detailed information about a specific redeemed reward.
+          operationId: redemptionGet
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          - $ref: '#/components/parameters/issuedReward'
+          - name: format
+            in: query
+            description: If set to html, the descriptions will be in HTML format. Omit for raw output.
+            required: false
+            schema:
+              type: string
+              format: html|raw
+          responses:
+            "'200'":
+              description: Returned when successful
+              content:
+                application/json:
+                  schema:
+                    oneOf:
+                    - $ref: '#/components/schemas/StaticIssuedReward'
+                    - $ref: '#/components/schemas/MaterialIssuedReward'
+                    - $ref: '#/components/schemas/ConversionCouponIssuedReward'
+                    - $ref: '#/components/schemas/DynamicIssuedReward'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+            "'404'":
+              $ref: '#/components/responses/NotFound'
+      /api/{storeCode}/redemption:
+        get:
+          tags:
+          - Reward
+          summary: Get redeemed rewards list
+          description: |
+            <label style="background-color: #BFE1F6;padding:5px;">Integration</label><br><br>
+            This method returns a list of all redeemed rewards in the system.
+            If sorting is not chosen, the rows will be returned in an unspecified order.
+            To sort a result, use an `_orderBy` parameter in query.
+          operationId: redemptionGetList
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          - $ref: '#/components/parameters/page'
+          - $ref: '#/components/parameters/itemsOnPage'
+          - $ref: '#/components/parameters/orderBy'
+          - $ref: '#/components/parameters/scroll'
+          - name: rewardId
+            in: query
+            required: false
+            schema:
+              type: string
+          - name: name
+            in: query
+            required: false
+            schema:
+              type: string
+          - name: token
+            in: query
+            required: false
+            schema:
+              type: string
+          - name: status
+            in: query
+            required: false
+            schema:
+              type: string
+          - name: costInPoints
+            in: query
+            required: false
+            schema:
+              type: integer
+          - name: rewardType
+            in: query
+            required: false
+            schema:
+              type: string
+          - name: redemptionDate
+            in: query
+            required: false
+            schema:
+              type: string
+              format: date-time
+          - name: cancelledAt
+            in: query
+            required: false
+            schema:
+              type: string
+              format: date-time
+          - name: customerId
+            in: query
+            required: false
+            schema:
+              type: string
+          - name: customerData:email
+            in: query
+            required: false
+            schema:
+              type: string
+          - name: customerData:firstName
+            in: query
+            required: false
+            schema:
+              type: string
+          - name: customerData:lastName
+            in: query
+            required: false
+            schema:
+              type: string
+          - name: customerData:phone
+            in: query
+            required: false
+            schema:
+              type: string
+          - name: customerData:loyaltyCardNumber
+            in: query
+            required: false
+            schema:
+              type: string
+          - name: actionCause:transactionId
+            in: query
+            description: Transaction id related to
+            required: false
+            schema:
+              type: string
+          - name: actionCause:campaignId
+            in: query
+            description: Campaign id related to
+            required: false
+            schema:
+              type: string
+          - name: actionCause:customEventId
+            in: query
+            description: Custom event id related to
+            required: false
+            schema:
+              type: string
+          - name: actionCause:internalEventName
+            in: query
+            description: Internal event name related to
+            required: false
+            schema:
+              type: string
+          - name: reward:labels
+            in: query
+            description: Labels using pattern e.g. (key1;value1),(key2;value2),...
+            required: false
+            schema:
+              type: string
+          - name: reward:categories
+            in: query
+            required: false
+            schema:
+              type: string
+              format: uuid
+          responses:
+            "'200'":
+              description: List of Issued Reward
+              content:
+                application/json:
+                  schema:
+                    oneOf:
+                    - title: StaticIssuedRewardWithTotal
+                      properties:
+                        items:
+                          type: array
+                          items:
+                            $ref: '#/components/schemas/StaticIssuedReward'
+                        total:
+                          $ref: '#/components/schemas/SearchableTotalResponse'
+                      type: object
+                    - title: StaticIssuedRewardWithScroll
+                      properties:
+                        items:
+                          type: array
+                          items:
+                            $ref: '#/components/schemas/StaticIssuedReward'
+                        scroll:
+                          description: Scroll identifier for pagination
+                          type: string
+                      type: object
+                    - title: MaterialIssuedRewardWithTotal
+                      properties:
+                        items:
+                          type: array
+                          items:
+                            $ref: '#/components/schemas/MaterialIssuedReward'
+                        total:
+                          $ref: '#/components/schemas/SearchableTotalResponse'
+                      type: object
+                    - title: MaterialIssuedRewardWithScroll
+                      properties:
+                        items:
+                          type: array
+                          items:
+                            $ref: '#/components/schemas/MaterialIssuedReward'
+                        scroll:
+                          description: Scroll identifier for pagination
+                          type: string
+                      type: object
+                    - title: ConversionCouponIssuedRewardWithTotal
+                      properties:
+                        items:
+                          type: array
+                          items:
+                            $ref: '#/components/schemas/ConversionCouponIssuedReward'
+                        total:
+                          $ref: '#/components/schemas/SearchableTotalResponse'
+                      type: object
+                    - title: ConversionCouponIssuedRewardWithScroll
+                      properties:
+                        items:
+                          type: array
+                          items:
+                            $ref: '#/components/schemas/ConversionCouponIssuedReward'
+                        scroll:
+                          description: Scroll identifier for pagination
+                          type: string
+                      type: object
+                    - title: DynamicIssuedRewardWithTotal
+                      properties:
+                        items:
+                          type: array
+                          items:
+                            $ref: '#/components/schemas/DynamicIssuedReward'
+                        total:
+                          $ref: '#/components/schemas/SearchableTotalResponse'
+                      type: object
+                    - title: DynamicIssuedRewardWithScroll
+                      properties:
+                        items:
+                          type: array
+                          items:
+                            $ref: '#/components/schemas/DynamicIssuedReward'
+                        scroll:
+                          description: Scroll identifier for pagination
+                          type: string
+                      type: object
+            "'400'":
+              $ref: '#/components/responses/BadRequest'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+      /api/{storeCode}/redemption/{issuedReward}/status/history:
+        get:
+          tags:
+          - Reward
+          summary: Change redeemed reward’s status change history
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+            This method returns a Reward redemption's status change history.  
+            If sorting is not chosen, the rows will be returned in an unspecified order.  
+            To sort a result, use an `_orderBy` parameter in query.
+          operationId: redemptionGetStatusHistory
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          - $ref: '#/components/parameters/issuedReward'
+          responses:
+            "'200'":
+              description: Returned when successful
+              content:
+                application/json:
+                  schema:
+                    properties:
+                      items:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/IssuedRewardStatusChange'
+                      total:
+                        $ref: '#/components/schemas/SearchableTotalResponse2'
+                    type: object
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+            "'404'":
+              $ref: '#/components/responses/NotFound'
+      /api/{storeCode}/redemption/{issuedReward}/status:
+        post:
+          tags:
+          - Reward
+          summary: Change redeemed reward’s status
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+            This method allows changing a Reward redemption status.
+          operationId: redemptionPostStatus
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          - $ref: '#/components/parameters/issuedReward'
+          requestBody:
+            required: true
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/RedemptionStatusRequestBody'
+          responses:
+            "'204'":
+              $ref: '#/components/responses/NoContent'
+            "'401'":
+              $ref: '#/components/responses/Unauthorized'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+            "'404'":
+              $ref: '#/components/responses/NotFound'
+      /api/{storeCode}/redemption/{issuedReward}/cancel:
+        post:
+          tags:
+          - Reward
+          summary: Cancel redeemed reward
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+            This method allows cancelling a Reward redemption.
+          operationId: redemptionPostCancel
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          - $ref: '#/components/parameters/issuedReward'
+          responses:
+            "'204'":
+              $ref: '#/components/responses/NoContent'
+            "'400'":
+              $ref: '#/components/responses/BadRequest'
+            "'401'":
+              $ref: '#/components/responses/Unauthorized'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+            "'404'":
+              $ref: '#/components/responses/NotFound'
+

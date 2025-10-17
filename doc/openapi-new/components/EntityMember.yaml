@@ -1,0 +1,20 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        EntityMember:
+          properties:
+            id:
+              type: string
+            data:
+              properties:
+                email:
+                  type: string
+                loyaltyCardNumber:
+                  type: string
+                phone:
+                  type: string
+              type: object
+              additionalProperties: false
+          type: object
+

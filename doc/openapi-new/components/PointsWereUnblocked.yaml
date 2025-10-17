@@ -1,0 +1,55 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        PointsWereUnblocked:
+          required:
+          - customerId
+          - type
+          - createdAt
+          properties:
+            customerId:
+              type: string
+            type:
+              type: string
+              enum:
+              - PointsWereUnblocked
+            accountId:
+              type: string
+            createdAt:
+              type: string
+              format: date-time
+            flatVariables:
+              required:
+              - points
+              - transferId
+              - walletId
+              - walletTypeCode
+              - walletUnitSingularName
+              - walletUnitPluralName
+              - activePoints
+              properties:
+                points:
+                  type: number
+                  format: float
+                comment:
+                  type: string
+                transferId:
+                  type: string
+                walletId:
+                  type: string
+                walletTypeCode:
+                  type: string
+                walletTypeName:
+                  type: string
+                walletUnitSingularName:
+                  type: string
+                walletUnitPluralName:
+                  type: string
+                activePoints:
+                  type: integer
+              type: object
+              additionalProperties: false
+          type: object
+          additionalProperties: false
+

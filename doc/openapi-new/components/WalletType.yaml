@@ -1,0 +1,46 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        WalletType:
+          required:
+          - name
+          - walletTypeId
+          - code
+          - unitSingularName
+          - unitPluralName
+          - active
+          - isDefault
+          - createdAt
+          - limits
+          properties:
+            name:
+              type: string
+            walletTypeId:
+              type: string
+              format: uuid
+              example: 3eaea517-4336-45c0-b477-f5cc1081fcdb
+            code:
+              type: string
+            unitSingularName:
+              type: string
+            unitPluralName:
+              type: string
+            active:
+              type: boolean
+              example: true
+            isDefault:
+              description: Indicates if wallet type is default. Only one default wallet type can be defined in the tenant
+              type: boolean
+              example: true
+            createdAt:
+              type: string
+              format: date-time
+            limits:
+              $ref: '#/components/schemas/WalletTypeLimit'
+            allowNegativeBalance:
+              type: boolean
+              example: true
+          type: object
+          additionalProperties: false
+

@@ -1,0 +1,28 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        WalletTypeBasicData:
+          properties:
+            walletTypeId:
+              type: string
+              format: uuid
+            code:
+              type: string
+            name:
+              type: string
+            unitSingularName:
+              type: string
+            unitPluralName:
+              type: string
+            active:
+              type: boolean
+            isDefault:
+              type: boolean
+            createdAt:
+              type: string
+              format: date-time
+            limits:
+              $ref: '#/components/schemas/Limits'
+          type: object
+

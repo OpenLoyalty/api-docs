@@ -1,0 +1,12 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        ValueId:
+          properties:
+            valueId:
+              description: ID of the created values
+              type: string
+              format: uuid
+          type: object
+

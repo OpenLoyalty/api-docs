@@ -1,0 +1,15 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        CampaignsExecutions:
+          properties:
+            campaignId:
+              type: string
+              format: uuid
+            name:
+              type: string
+            executions:
+              type: integer
+          type: object
+

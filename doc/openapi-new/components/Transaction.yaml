@@ -1,0 +1,134 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        Transaction:
+          properties:
+            grossValue:
+              type: number
+              format: float
+              example: 3
+            metrics:
+              type: array
+              items:
+                properties:
+                  name:
+                    type: string
+                  value:
+                    type: number
+                    format: float
+                    example: 1
+                  calculatedAt:
+                    format: date-time
+                type: object
+            transactionId:
+              type: string
+              format: uuid
+            customerId:
+              type: string
+              format: uuid
+            customerData:
+              properties:
+                customerId:
+                  type: string
+                  format: uuid
+                email:
+                  type: string
+                  format: email
+                  example: example@example.com
+                name:
+                  type: string
+                nip:
+                  type: string
+                phone:
+                  type: string
+                loyaltyCardNumber:
+                  type: string
+                address:
+                  $ref: '#/components/schemas/CustomerAddressFormType'
+              type: object
+            items:
+              type: array
+              items:
+                properties:
+                  name:
+                    type: string
+                  quantity:
+                    description: The quantity of the product. This field is required if 'highPrecisionQuantity' is not provided. It is recommended to use 'highPrecisionQuantity', as 'quantity' is deprecated.
+                    type: integer
+                    deprecated: true
+                  highPrecisionQuantity:
+                    description: The precise quantity of the product, with a maximum of 3 decimal places. This field is required if 'quantity' is not provided.
+                    type: number
+                    format: float
+                    example: 1.125
+                  grossValue:
+                    type: number
+                    format: float
+                    example: 1
+                  category:
+                    type: string
+                  labels:
+                    type: array
+                    items:
+                      properties:
+                        key:
+                          type: string
+                        value:
+                          type: string
+                      type: object
+                  maker:
+                    type: string
+                  sku:
+                    type: string
+                type: object
+            header:
+              properties:
+                documentNumber:
+                  description: Specifies the document number used in the transaction.
+                  type: string
+                documentType:
+                  type: string
+                  enum:
+                  - sell
+                  - return
+                linkedDocumentNumber:
+                  description: 'Field is used with “documentType”: “return”'
+                  type: string
+                purchasedAt:
+                  type: string
+                  format: date-time
+                purchasePlace:
+                  type: string
+                excludedDeliverySKUs:
+                  type: array
+                  items: {}
+                excludedSKUs:
+                  type: array
+                  items: {}
+                excludedCategories:
+                  type: array
+                  items: {}
+                labels:
+                  type: array
+                  items: {}
+              type: object
+            matched:
+              type: boolean
+            currency:
+              type: string
+            pointsEarned:
+              type: integer
+            unitsDeducted:
+              type: integer
+            channelId:
+              type: string
+              format: uuid
+            channelName:
+              type: string
+            assignedToCustomerAt:
+              type: string
+              format: date-time
+              nullable: true
+          type: object
+

@@ -1,0 +1,42 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        bulkActionItem:
+          required:
+          - bulkActionItemId
+          - status
+          - createdAt
+          - updatedAt
+          - type
+          - objectToProcessId
+          properties:
+            bulkActionItemId:
+              type: string
+              format: uuid
+            createdAt:
+              type: string
+              format: date-time
+            updatedAt:
+              type: string
+              format: date-time
+            status:
+              type: string
+              enum:
+              - queued
+              - inprogress
+              - completed
+              - failed
+              - error
+            type:
+              type: string
+              enum:
+              - cancelTransfers
+              - activateTransfers
+              - expireTransfers
+            objectToProcessId:
+              type: string
+            message:
+              type: string
+          type: object
+

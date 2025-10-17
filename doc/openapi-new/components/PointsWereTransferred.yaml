@@ -1,0 +1,38 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        PointsWereTransferred:
+          required:
+          - customerId
+          - type
+          - createdAt
+          properties:
+            customerId:
+              type: string
+            type:
+              type: string
+              deprecated: true
+              enum:
+              - PointsWereTransferred
+            accountId:
+              type: string
+            createdAt:
+              type: string
+              format: date-time
+            flatVariables:
+              required:
+              - points
+              properties:
+                points:
+                  type: number
+                  format: float
+                receiverFirstName:
+                  type: string
+                receiverLastName:
+                  type: string
+              type: object
+              additionalProperties: false
+          type: object
+          additionalProperties: false
+

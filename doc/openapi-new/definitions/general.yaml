@@ -1,0 +1,27 @@
+﻿nelmio_api_doc:
+  documentation:
+    paths:
+      /api/:
+        get:
+          tags:
+          - HealthCheck
+          summary: Check application version
+          description: |
+            <label style="background-color: #E7E7E7;padding:5px;">System</label><br><br>
+            This method returns the application version.
+          operationId: healthCheckGetVersion
+          responses:
+            "'200'":
+              description: Returned when successful
+              content:
+                application/json:
+                  schema:
+                    properties:
+                      name:
+                        type: string
+                        example: OpenLoyalty
+                      version:
+                        type: string
+                        example: 5.0.0
+                    type: object
+

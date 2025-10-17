@@ -1,0 +1,23 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        AchievementActivity:
+          properties:
+            data:
+              oneOf:
+              - type: string
+              - properties:
+                  from:
+                    type: string
+                  to:
+                    type: string
+                type: object
+              - type: array
+                items:
+                  type: string
+            operator:
+              type: string
+              example: is_greater
+          type: object
+

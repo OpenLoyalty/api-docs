@@ -1,0 +1,20 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        cancelTransfersTypeRequestBody:
+          title: cancelTransfersTypeRequestBody
+          properties:
+            cancelTransfers:
+              required:
+              - requestedAt
+              properties:
+                requestedAt:
+                  type: string
+                  format: date-time
+                criteria:
+                  $ref: '#/components/schemas/criteriaObject'
+              type: object
+          type: object
+          additionalProperties: false
+

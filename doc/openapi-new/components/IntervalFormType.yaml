@@ -1,0 +1,21 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        IntervalFormType:
+          required:
+          - type
+          - value
+          properties:
+            type:
+              type: string
+              enum:
+              - calendarHours
+              - calendarDays
+              - calendarWeeks
+              - calendarMonths
+              - calendarYears
+            value:
+              type: integer
+          type: object
+

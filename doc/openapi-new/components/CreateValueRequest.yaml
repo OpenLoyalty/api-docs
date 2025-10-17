@@ -1,0 +1,27 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        CreateValueRequest:
+          required:
+          - value
+          properties:
+            value:
+              required:
+              - groupOfValuesId
+              - value
+              properties:
+                groupOfValuesId:
+                  description: ID of the parent collection
+                  type: string
+                  format: uuid
+                value:
+                  description: Actual value
+                  type: string
+                description:
+                  description: Actual value
+                  type: string
+              type: object
+              additionalProperties: false
+          type: object
+

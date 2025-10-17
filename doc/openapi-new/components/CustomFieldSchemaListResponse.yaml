@@ -1,0 +1,18 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        CustomFieldSchemaListResponse:
+          required:
+          - items
+          - total
+          properties:
+            items:
+              description: List of custom field schemas
+              type: array
+              items:
+                $ref: '#/components/schemas/CustomFieldSchemaResponse'
+            total:
+              $ref: '#/components/schemas/SearchableTotalResponse'
+          type: object
+

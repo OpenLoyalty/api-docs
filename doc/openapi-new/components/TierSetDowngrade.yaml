@@ -1,0 +1,22 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        TierSetDowngrade:
+          properties:
+            mode:
+              type: string
+              enum:
+              - none
+              - automatic
+              - periodic
+            period:
+              type: string
+              enum:
+              - registration_anniversary
+              - yearly
+              - monthly
+              - weekly
+              nullable: true
+          type: object
+

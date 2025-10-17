@@ -1,0 +1,23 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        SearchableTotalResponse:
+          required:
+          - all
+          - filtered
+          - estimated
+          properties:
+            all:
+              type: integer
+              deprecated: true
+            filtered:
+              type: integer
+              deprecated: true
+            estimated:
+              description: Field estimated is used to show that the results are estimated. It might happen when there are more than 5000 results due to performance optimization.
+              type: boolean
+              deprecated: true
+          type: object
+          deprecated: true
+

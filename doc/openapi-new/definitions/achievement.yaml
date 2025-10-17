@@ -1,0 +1,408 @@
+﻿nelmio_api_doc:
+  documentation:
+    paths:
+      /api/{storeCode}/achievement:
+        get:
+          tags:
+          - Achievement
+          summary: Get achievements list
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+            If sorting is not chosen, the rows will be returned in an unspecified order.  
+            To sort a result, use an `_orderBy` parameter in query.
+          operationId: achievementGetList
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          - name: name
+            in: query
+            required: false
+            schema:
+              type: string
+          - name: active
+            in: query
+            required: false
+            schema:
+              type: boolean
+          - name: createdAt
+            in: query
+            required: false
+            schema:
+              type: string
+              format: date-time
+          - $ref: '#/components/parameters/page'
+          - $ref: '#/components/parameters/itemsOnPage'
+          - $ref: '#/components/parameters/orderBy'
+          responses:
+            "'200'":
+              description: List of achievements
+              content:
+                application/json:
+                  schema:
+                    properties:
+                      items:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/AchievementBasicData'
+                      total:
+                        $ref: '#/components/schemas/SearchableTotalResponse2'
+                    type: object
+            "'401'":
+              description: ""
+              content:
+                application/json:
+                  schema:
+                    oneOf:
+                    - $ref: '#/components/schemas/ExpiredToken'
+                    - $ref: '#/components/schemas/InvalidToken'
+                    - $ref: '#/components/schemas/Unauthorized'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+        post:
+          tags:
+          - Achievement
+          summary: Add an achievement
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+            This method allows adding a new achievement to the system.
+          operationId: achievementPost
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          requestBody:
+            description: ""
+            content:
+              application/json:
+                schema:
+                  properties:
+                    achievement:
+                      allOf:
+                      - $ref: '#/components/schemas/CreateAchievementFormType'
+                      - properties:
+                          rules:
+                            type: array
+                            items:
+                              allOf:
+                              - properties:
+                                  completeRule:
+                                    allOf:
+                                    - properties:
+                                        period:
+                                          allOf:
+                                          - properties:
+                                              type:
+                                                $ref: '#/components/schemas/PeriodTypeFormType'
+                                              consecutive:
+                                                type: integer
+                                            type: object
+                                            property: 
+                                      type: object
+                                      property: 
+                                  aggregation:
+                                    allOf:
+                                    - properties:
+                                        rule:
+                                          type: string
+                                        type:
+                                          type: string
+                                      type: object
+                                      property: 
+                                  conditions:
+                                    type: array
+                                    items:
+                                      $ref: '#/components/schemas/ConditionType'
+                                  translations:
+                                    properties:
+                                      en:
+                                        properties:
+                                          name:
+                                            type: string
+                                          description:
+                                            type: string
+                                        type: object
+                                    type: object
+                                  event:
+                                    type: string
+                                  uniqueReferee:
+                                    type: boolean
+                                type: object
+                                property: 
+                        type: object
+                        property: 
+                  type: object
+          responses:
+            "'200'":
+              description: Return created achievement ID.
+              content:
+                application/json:
+                  schema:
+                    properties:
+                      achievementId:
+                        type: string
+                        format: uuid
+                        example: 00000000-0000-0000-0000-000000000000
+                    type: object
+            "'400'":
+              $ref: '#/components/responses/BadRequest'
+            "'401'":
+              description: ""
+              content:
+                application/json:
+                  schema:
+                    oneOf:
+                    - $ref: '#/components/schemas/ExpiredToken'
+                    - $ref: '#/components/schemas/InvalidToken'
+                    - $ref: '#/components/schemas/Unauthorized'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+      /api/{storeCode}/achievement/{achievement}:
+        get:
+          tags:
+          - Achievement
+          summary: Get achievement’s configuration
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+          operationId: _achievementGet
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          - $ref: '#/components/parameters/achievement'
+          responses:
+            "'200'":
+              description: Achievement details
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/Achievement'
+            "'401'":
+              description: Unauthorized
+              content:
+                application/json:
+                  schema:
+                    oneOf:
+                    - $ref: '#/components/schemas/ExpiredToken'
+                    - $ref: '#/components/schemas/InvalidToken'
+                    - $ref: '#/components/schemas/Unauthorized'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+            "'404'":
+              $ref: '#/components/responses/NotFound'
+        put:
+          tags:
+          - Achievement
+          summary: Update achievement’s configuration
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+          operationId: achievementPut
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          - $ref: '#/components/parameters/achievement'
+          requestBody:
+            description: ""
+            content:
+              application/json:
+                schema:
+                  properties:
+                    achievement:
+                      allOf:
+                      - $ref: '#/components/schemas/UpdateAchievementFormType'
+                      - properties:
+                          rules:
+                            type: array
+                            items:
+                              allOf:
+                              - properties:
+                                  completeRule:
+                                    allOf:
+                                    - properties:
+                                        period:
+                                          allOf:
+                                          - properties:
+                                              type:
+                                                $ref: '#/components/schemas/PeriodTypeFormType'
+                                              consecutive:
+                                                type: integer
+                                            type: object
+                                            property: 
+                                      type: object
+                                      property: 
+                                  aggregation:
+                                    allOf:
+                                    - properties:
+                                        rule:
+                                          type: string
+                                        type:
+                                          type: string
+                                      type: object
+                                      property: 
+                                  conditions:
+                                    type: array
+                                    items:
+                                      $ref: '#/components/schemas/ConditionType'
+                                  translations:
+                                    properties:
+                                      en:
+                                        properties:
+                                          name:
+                                            type: string
+                                          description:
+                                            type: string
+                                        type: object
+                                    type: object
+                                  event:
+                                    type: string
+                                  uniqueReferee:
+                                    type: boolean
+                                type: object
+                                property: 
+                        type: object
+                        property: 
+                  type: object
+          responses:
+            "'204'":
+              $ref: '#/components/responses/NoContent'
+            "'400'":
+              $ref: '#/components/responses/BadRequest'
+            "'401'":
+              description: ""
+              content:
+                application/json:
+                  schema:
+                    oneOf:
+                    - $ref: '#/components/schemas/ExpiredToken'
+                    - $ref: '#/components/schemas/InvalidToken'
+                    - $ref: '#/components/schemas/Unauthorized'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+            "'404'":
+              $ref: '#/components/responses/NotFound'
+        patch:
+          tags:
+          - Achievement
+          summary: Update achievement’s configuration
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+          operationId: achievementPatch
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          - $ref: '#/components/parameters/achievement'
+          requestBody:
+            description: ""
+            content:
+              application/json:
+                schema:
+                  properties:
+                    achievement:
+                      $ref: '#/components/schemas/PatchAchievementFormType'
+                  type: object
+          responses:
+            "'204'":
+              $ref: '#/components/responses/NoContent'
+            "'400'":
+              $ref: '#/components/responses/BadRequest'
+            "'401'":
+              description: ""
+              content:
+                application/json:
+                  schema:
+                    oneOf:
+                    - $ref: '#/components/schemas/ExpiredToken'
+                    - $ref: '#/components/schemas/InvalidToken'
+                    - $ref: '#/components/schemas/Unauthorized'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+            "'404'":
+              $ref: '#/components/responses/NotFound'
+      /api/{storeCode}/achievement/trigger/member/{member}:
+        get:
+          tags:
+          - Achievement
+          summary: Get member's achievements triggers list
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+            This endpoint provides a log of all events that contributed to the progress of a member's achievement.
+
+            If sorting is not chosen, the rows will be returned in an unspecified order.  
+            To sort a result, use an `_orderBy` parameter in query.
+          operationId: _achievementMemberTriggers
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          - name: member
+            in: path
+            required: true
+            schema:
+              type: string
+              pattern: "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}|email=[a-zA-Z0-9!#$%&'\\.*+\\-@=?^_`{|}~;]+|phone=[0-9+]+|loyaltyCardNumber=[0-9a-zA-Z\\._-]+"
+          - name: achievementId
+            in: query
+            required: false
+            schema:
+              type: string
+              format: uuid
+          - name: ruleId
+            in: query
+            required: false
+            schema:
+              type: string
+              format: uuid
+          - name: triggerId
+            in: query
+            required: false
+            schema:
+              type: string
+              format: uuid
+          - name: createdAt
+            in: query
+            required: false
+            schema:
+              type: string
+              format: date-time
+          - $ref: '#/components/parameters/page'
+          - $ref: '#/components/parameters/itemsOnPage'
+          - $ref: '#/components/parameters/orderBy'
+          responses:
+            "'200'":
+              description: List of achievements triggers for a member
+              content:
+                application/json:
+                  schema:
+                    properties:
+                      items:
+                        type: array
+                        items:
+                          required:
+                          - achievementId
+                          - ruleId
+                          - triggerId
+                          - createdAt
+                          properties:
+                            achievementId:
+                              type: string
+                              format: uuid
+                            achievementName:
+                              type: string
+                            ruleId:
+                              type: string
+                              format: uuid
+                            ruleName:
+                              type: string
+                            triggerId:
+                              type: string
+                              format: uuid
+                            createdAt:
+                              type: string
+                              format: date-time
+                          type: object
+                          additionalProperties: false
+                      total:
+                        $ref: '#/components/schemas/SearchableTotalResponse'
+                    type: object
+            "'401'":
+              description: Unauthorized
+              content:
+                application/json:
+                  schema:
+                    oneOf:
+                    - $ref: '#/components/schemas/ExpiredToken'
+                    - $ref: '#/components/schemas/InvalidToken'
+                    - $ref: '#/components/schemas/Unauthorized'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+

@@ -1,0 +1,29 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        UnitsOverviewHeader:
+          properties:
+            unitsIssued:
+              type: number
+              format: float
+            unitsSpent:
+              type: number
+              format: float
+            unitsExpired:
+              type: number
+              format: float
+            unitsPending:
+              type: number
+              format: float
+            unitsActive:
+              type: number
+              format: float
+            redemptionRate:
+              type: number
+              format: float
+            breakageRate:
+              type: number
+              format: float
+          type: object
+

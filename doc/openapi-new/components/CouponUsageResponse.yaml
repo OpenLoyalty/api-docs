@@ -1,0 +1,15 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        CouponUsageResponse:
+          properties:
+            code:
+              type: string
+            used:
+              type: boolean
+            customerId:
+              type: string
+              format: uuid
+          type: object
+

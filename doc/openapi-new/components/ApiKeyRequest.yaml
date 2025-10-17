@@ -1,0 +1,19 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        ApiKeyRequest:
+          properties:
+            apiKey:
+              required:
+              - name
+              properties:
+                name:
+                  type: string
+                expirationDate:
+                  type: string
+              type: object
+              additionalProperties: false
+          type: object
+          additionalProperties: false
+

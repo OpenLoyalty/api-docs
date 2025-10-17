@@ -1,0 +1,32 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        MemberTierSet:
+          required:
+          - currentTierId
+          - tierSetId
+          - tierSetName
+          - currentTierName
+          - manually
+          properties:
+            currentTierId:
+              description: Current member tier for tier set
+              type: string
+              format: uuid
+            tierSetId:
+              description: Tier set Id
+              type: string
+              format: uuid
+            tierSetName:
+              description: Tier set name
+              type: string
+            currentTierName:
+              description: Tier name
+              type: string
+            manually:
+              description: The field will indicate whether a given tier in tier set has been assigned manually
+              type: boolean
+          type: object
+          additionalProperties: false
+

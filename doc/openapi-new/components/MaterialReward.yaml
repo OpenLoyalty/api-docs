@@ -1,0 +1,21 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        MaterialReward:
+          required:
+          - customerId
+          - quantity
+          - withoutPoints
+          properties:
+            customerId:
+              type: string
+              format: uuid
+            quantity:
+              type: integer
+            withoutPoints:
+              type: boolean
+            rewardWalletCode:
+              type: string
+          type: object
+

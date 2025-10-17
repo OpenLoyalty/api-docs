@@ -1,0 +1,19 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        MemberAchievement:
+          properties:
+            achievementId:
+              type: string
+              format: uuid
+            achievementName:
+              type: string
+            achievementDescription:
+              type: string
+            limitReached:
+              type: boolean
+            memberProgress:
+              $ref: '#/components/schemas/MemberAchievementProgress'
+          type: object
+

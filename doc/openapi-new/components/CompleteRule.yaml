@@ -1,0 +1,14 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        CompleteRule:
+          properties:
+            periodGoal:
+              type: string
+            period:
+              $ref: '#/components/schemas/Period'
+            uniqueAttribute:
+              type: string
+          type: object
+

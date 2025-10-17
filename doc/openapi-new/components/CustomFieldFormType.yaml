@@ -1,0 +1,12 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        CustomFieldFormType:
+          required:
+          - customFieldSchemaId
+          properties:
+            customFieldSchemaId:
+              type: string
+          type: object
+

@@ -1,0 +1,175 @@
+﻿nelmio_api_doc:
+  documentation:
+    paths:
+      /api/{storeCode}/walletType:
+        get:
+          tags:
+          - Wallet
+          summary: Get wallets list
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+            If sorting is not chosen, the rows will be returned in an unspecified order.  
+            To sort a result, use an `_orderBy` parameter in query.
+          operationId: _walletTypeGetList
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          - name: name
+            in: query
+            required: false
+            style: deepObject
+            explode: true
+            schema:
+              type: object
+              additionalProperties:
+                type: string
+          - name: active
+            in: query
+            required: false
+            schema:
+              type: boolean
+          - name: isDefault
+            in: query
+            required: false
+            schema:
+              type: boolean
+          - name: createdAt
+            in: query
+            required: false
+            schema:
+              type: string
+              format: date-time
+          - $ref: '#/components/parameters/page'
+          - $ref: '#/components/parameters/itemsOnPage'
+          - $ref: '#/components/parameters/orderBy'
+          responses:
+            "'200'":
+              description: List of walletTypes
+              content:
+                application/json:
+                  schema:
+                    allOf:
+                    - $ref: '#/components/schemas/ListOfItems'
+                    - properties:
+                        items:
+                          type: array
+                          items:
+                            $ref: '#/components/schemas/WalletType'
+                      type: object
+            "'401'":
+              description: Unauthorized
+              content:
+                application/json:
+                  schema:
+                    oneOf:
+                    - $ref: '#/components/schemas/ExpiredToken'
+                    - $ref: '#/components/schemas/InvalidToken'
+                    - $ref: '#/components/schemas/Unauthorized'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+        post:
+          tags:
+          - Wallet
+          summary: Add a wallet
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+            This method allows adding a new wallet to the system.
+          operationId: _walletTypePost
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          requestBody:
+            required: true
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/PostWalletTypeRequestBody'
+          responses:
+            "'200'":
+              description: Return created walletType ID.
+              content:
+                application/json:
+                  schema:
+                    properties:
+                      walletTypeId:
+                        type: string
+                        format: uuid
+                        example: 00000000-0000-0000-0000-000000000000
+                    type: object
+            "'400'":
+              $ref: '#/components/responses/BadRequest'
+            "'401'":
+              description: Unauthorized
+              content:
+                application/json:
+                  schema:
+                    oneOf:
+                    - $ref: '#/components/schemas/ExpiredToken'
+                    - $ref: '#/components/schemas/InvalidToken'
+                    - $ref: '#/components/schemas/Unauthorized'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+      /api/{storeCode}/walletType/{walletType}:
+        get:
+          tags:
+          - Wallet
+          summary: Check wallet type details
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+          operationId: _walletTypeGet
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          - $ref: '#/components/parameters/walletType'
+          responses:
+            "'200'":
+              description: WalletType details
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/WalletTypeDetails'
+            "'401'":
+              description: Unauthorized
+              content:
+                application/json:
+                  schema:
+                    oneOf:
+                    - $ref: '#/components/schemas/ExpiredToken'
+                    - $ref: '#/components/schemas/InvalidToken'
+                    - $ref: '#/components/schemas/Unauthorized'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+            "'404'":
+              $ref: '#/components/responses/NotFound'
+        put:
+          tags:
+          - Wallet
+          summary: Update wallet’s configuration
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+          operationId: _walletTypePut
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          - $ref: '#/components/parameters/walletType'
+          requestBody:
+            required: true
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/PutWalletTypeRequestBody'
+          responses:
+            "'204'":
+              $ref: '#/components/responses/NoContent'
+            "'400'":
+              $ref: '#/components/responses/BadRequest'
+            "'401'":
+              description: Unauthorized
+              content:
+                application/json:
+                  schema:
+                    oneOf:
+                    - $ref: '#/components/schemas/ExpiredToken'
+                    - $ref: '#/components/schemas/InvalidToken'
+                    - $ref: '#/components/schemas/Unauthorized'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+            "'404'":
+              $ref: '#/components/responses/NotFound'
+

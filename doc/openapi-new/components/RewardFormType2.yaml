@@ -1,0 +1,67 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        RewardFormType2:
+          required:
+          - translations
+          - reward
+          - categories
+          - levels
+          - segments
+          - activity
+          - visibility
+          - labels
+          properties:
+            translations:
+              $ref: '#/components/schemas/TranslationsType'
+            reward:
+              type: string
+              enum:
+              - static_coupon
+              - material
+              - dynamic_coupon
+              - conversion_coupon
+            categories:
+              type: array
+              items:
+                type: string
+            tax:
+              type: number
+            price:
+              type: number
+            taxPriceValue:
+              type: number
+            active:
+              type: boolean
+            target:
+              type: string
+              enum:
+              - level
+              - segment
+            levels:
+              type: array
+              items:
+                type: string
+            segments:
+              type: array
+              items:
+                type: string
+            activity:
+              $ref: '#/components/schemas/RewardActivityFormType'
+            visibility:
+              $ref: '#/components/schemas/RewardVisibilityFormType'
+            labels:
+              type: array
+              items:
+                $ref: '#/components/schemas/TransactionLabelFormType'
+            featured:
+              type: boolean
+            public:
+              type: boolean
+            costInPoints:
+              type: number
+            sourceWalletTypeCode:
+              type: string
+          type: object
+

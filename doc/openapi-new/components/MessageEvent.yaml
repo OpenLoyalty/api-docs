@@ -1,0 +1,16 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        MessageEvent:
+          properties:
+            value:
+              type: string
+            label:
+              type: string
+            snippets:
+              type: array
+              items:
+                type: string
+          type: object
+

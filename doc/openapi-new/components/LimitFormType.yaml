@@ -1,0 +1,14 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        LimitFormType:
+          required:
+          - value
+          properties:
+            value:
+              type: integer
+            interval:
+              $ref: '#/components/schemas/IntervalFormType'
+          type: object
+

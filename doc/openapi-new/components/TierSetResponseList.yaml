@@ -1,0 +1,103 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        TierSetResponseList:
+          required:
+          - tierSetId
+          - name
+          - translations
+          - active
+          - conditions
+          - downgrade
+          - createdAt
+          - updatedAt
+          - isMigrated
+          - tiers
+          - labels
+          - isDefault
+          properties:
+            tierSetId:
+              description: Tier set id
+              type: string
+              format: uuid
+            name:
+              description: Tier set name
+              type: string
+            description:
+              description: Tier set description
+              type: string
+            active:
+              description: The field shows whether the tier set is active
+              type: boolean
+            createdAt:
+              description: Tier set created at date
+              type: string
+              format: date-time
+            updatedAt:
+              description: Tier set updated at date
+              type: string
+              format: date-time
+            labels:
+              $ref: '#/components/schemas/Labels'
+            conditions:
+              description: Conditions are determined by the tier set configuration
+              type: array
+              items:
+                required:
+                - id
+                - attribute
+                properties:
+                  id:
+                    type: string
+                    format: uuid
+                  attribute:
+                    description: |
+                      Specifies the type of attribute. The possible values are:
+                      - `activeUnits`: The number of units currently active. - `totalEarnedUnits`: The total number of units earned. - `monthsSinceJoiningProgram`: The number of months since the program was joined. - `totalSpending`: The total amount of spending. - `cumulatedEarnedUnits`: The total number of units earned that will be reset when recalculation occur
+                    type: string
+                    enum:
+                    - activeUnits
+                    - totalEarnedUnits
+                    - monthsSinceJoiningProgram
+                    - totalSpending
+                    - cumulatedEarnedUnits
+                  walletType:
+                    description: This field occurs for attributes related to units
+                    type: string
+                    example: default
+                type: object
+                additionalProperties: false
+            tiers:
+              description: This field return tiers belong to tier set
+              type: array
+              items:
+                required:
+                - levelId
+                - name
+                - active
+                properties:
+                  levelId:
+                    type: string
+                    format: uuid
+                  name:
+                    type: string
+                  description:
+                    type: string
+                  active:
+                    description: The field shows whether the tier is active
+                type: object
+                additionalProperties: false
+            translations:
+              $ref: '#/components/schemas/Translations'
+            isMigrated:
+              description: This field shows whether the tier set has been migrated from the old tier system
+              type: boolean
+            isDefault:
+              description: This field shows which tier set was added first, which means that the tier set is default
+              type: boolean
+            downgrade:
+              $ref: '#/components/schemas/Downgrade'
+          type: object
+          additionalProperties: false
+

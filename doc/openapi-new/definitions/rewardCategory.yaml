@@ -1,0 +1,200 @@
+﻿nelmio_api_doc:
+  documentation:
+    paths:
+      /api/{storeCode}/rewardCategory/{rewardCategory}:
+        get:
+          tags:
+          - Reward category
+          summary: Get reward category details
+          description: |
+            <label style="background-color: #BFE1F6;padding:5px;">Integration</label><br><br>
+            This method returns a specific Reward Category.
+          operationId: rewardCategoryGet
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          - $ref: '#/components/parameters/rewardCategory'
+          responses:
+            "'200'":
+              description: ""
+              content:
+                application/json:
+                  schema:
+                    type: object
+                    allOf:
+                    - properties:
+                        name:
+                          type: string
+                          example: Category name
+                      type: object
+                      property: 
+                    - $ref: '#/components/schemas/RewardCategory'
+            "'401'":
+              $ref: '#/components/responses/Unauthorized'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+            "'404'":
+              $ref: '#/components/responses/NotFound'
+        put:
+          tags:
+          - Reward category
+          summary: Update a reward category
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+            This method allows updating data a specific Reward Category.
+          operationId: rewardCategoryPut
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          - $ref: '#/components/parameters/rewardCategory'
+          requestBody:
+            description: ""
+            content:
+              application/json:
+                schema:
+                  properties:
+                    reward_category:
+                      $ref: '#/components/schemas/EditRewardCategoryFormType'
+                  type: object
+          responses:
+            "'200'":
+              description: Return updated reward category ID.
+              content:
+                application/json:
+                  schema:
+                    properties:
+                      rewardCategoryId:
+                        type: string
+                        example: 00000000-0000-0000-0000-000000000000
+                    type: object
+            "'400'":
+              $ref: '#/components/responses/BadRequest'
+            "'401'":
+              $ref: '#/components/responses/Unauthorized'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+            "'404'":
+              $ref: '#/components/responses/NotFound'
+      /api/{storeCode}/rewardCategory:
+        get:
+          tags:
+          - Reward category
+          summary: Get reward categories list
+          description: |
+            <label style="background-color: #BFE1F6;padding:5px;">Integration</label><br><br>
+            This method returns a list of all Reward Categories.  
+            If sorting is not chosen, the rows will be returned in an unspecified order.  
+            To sort a result, use an `_orderBy` parameter in query.
+          operationId: rewardCategoryGetList
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          - name: active
+            in: query
+            required: false
+            schema:
+              type: boolean
+          - name: name
+            in: query
+            required: false
+            schema:
+              type: string
+          - $ref: '#/components/parameters/page'
+          - $ref: '#/components/parameters/itemsOnPage'
+          - $ref: '#/components/parameters/orderBy'
+          responses:
+            "'200'":
+              description: List of messages
+              content:
+                application/json:
+                  schema:
+                    properties:
+                      items:
+                        type: array
+                        items:
+                          allOf:
+                          - properties:
+                              name:
+                                type: string
+                                example: Category name
+                            type: object
+                            property: 
+                          - $ref: '#/components/schemas/RewardCategory'
+                      total:
+                        $ref: '#/components/schemas/SearchableTotalResponse2'
+                    type: object
+            "'400'":
+              $ref: '#/components/responses/BadRequest'
+            "'401'":
+              $ref: '#/components/responses/Unauthorized'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+        post:
+          tags:
+          - Reward category
+          summary: Add a new reward category
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+            This method allows adding anew Reward Category.
+          operationId: rewardCategoryPost
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          requestBody:
+            description: ""
+            content:
+              application/json:
+                schema:
+                  properties:
+                    reward_category:
+                      $ref: '#/components/schemas/RewardCategoryFormType'
+                  type: object
+          responses:
+            "'200'":
+              description: Return created reward category ID.
+              content:
+                application/json:
+                  schema:
+                    properties:
+                      rewardCategoryId:
+                        type: string
+                        example: 00000000-0000-0000-0000-000000000000
+                    type: object
+            "'400'":
+              $ref: '#/components/responses/BadRequest'
+            "'401'":
+              $ref: '#/components/responses/Unauthorized'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+      /api/{storeCode}/rewardCategory/{rewardCategory}/active:
+        post:
+          tags:
+          - Reward category
+          summary: Activate a reward category
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+            This method allows activating a specific Reward Category.
+          operationId: rewardCategoryPostChangeState
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          - $ref: '#/components/parameters/rewardCategory'
+          requestBody:
+            description: ""
+            content:
+              application/json:
+                schema:
+                  required:
+                  - active
+                  properties:
+                    active:
+                      description: If the category should be active
+                      type: boolean
+                  type: object
+          responses:
+            "'204'":
+              $ref: '#/components/responses/NoContent'
+            "'404'":
+              description: Returned when reward category does not exist
+            "'400'":
+              $ref: '#/components/responses/BadRequest'
+            "'401'":
+              $ref: '#/components/responses/Unauthorized'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+

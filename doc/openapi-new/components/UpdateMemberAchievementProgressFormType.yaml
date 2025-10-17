@@ -1,0 +1,26 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        UpdateMemberAchievementProgressFormType:
+          properties:
+            completedCount:
+              type: integer
+            rules:
+              type: array
+              items:
+                required:
+                - achievementRuleId
+                - currentPeriodValue
+                properties:
+                  achievementRuleId:
+                    type: string
+                    format: uuid
+                  currentPeriodValue:
+                    type: number
+                    format: float
+                  completedConsecutivePeriods:
+                    type: integer
+                type: object
+          type: object
+

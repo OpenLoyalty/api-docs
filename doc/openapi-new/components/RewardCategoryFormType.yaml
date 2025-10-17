@@ -1,0 +1,17 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        RewardCategoryFormType:
+          required:
+          - sortOrder
+          - translations
+          properties:
+            active:
+              type: boolean
+            sortOrder:
+              type: integer
+            translations:
+              $ref: '#/components/schemas/TranslationsType'
+          type: object
+

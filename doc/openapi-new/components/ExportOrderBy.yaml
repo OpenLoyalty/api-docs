@@ -1,0 +1,15 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        ExportOrderBy:
+          description: 'Sorting order. If sorting is not chosen, the rows will be returned in an unspecified order. Sort order: * `asc` - Ascending, from A to Z * `desc` - Descending, from Z to A'
+          type: object
+          example:
+            fieldName: desc
+          additionalProperties:
+            type: string
+            enum:
+            - asc
+            - desc
+

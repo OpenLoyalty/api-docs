@@ -1,0 +1,139 @@
+﻿nelmio_api_doc:
+  documentation:
+    paths:
+      /api/{storeCode}/badge-type:
+        get:
+          tags:
+          - Member
+          summary: Return Badge types list
+          operationId: _getBadgeTypeList
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          - name: badgeTypeId
+            in: query
+            required: false
+            schema:
+              type: string
+          - name: name
+            in: query
+            description: Filter by name
+            required: false
+            schema:
+              type: string
+          - name: createdAt
+            in: query
+            required: false
+            schema:
+              type: object
+              format: date-time
+          - name: updatedAt
+            in: query
+            required: false
+            schema:
+              type: object
+              format: date-time
+          responses:
+            "'200'":
+              description: List of badge types
+              content:
+                application/json:
+                  schema:
+                    required:
+                    - items
+                    - total
+                    properties:
+                      items:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/BadgeType'
+                      total:
+                        $ref: '#/components/schemas/SearchableTotalResponse'
+                    type: object
+            "'400'":
+              $ref: '#/components/responses/BadRequest'
+            "'401'":
+              description: Unauthorized
+              content:
+                application/json:
+                  schema:
+                    oneOf:
+                    - $ref: '#/components/schemas/ExpiredToken'
+                    - $ref: '#/components/schemas/InvalidToken'
+                    - $ref: '#/components/schemas/Unauthorized'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+      /api/{storeCode}/badge-type/{badgeType}:
+        get:
+          tags:
+          - Member
+          summary: Return Badge type
+          operationId: _getBadgeType
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          - name: badgeType
+            in: path
+            required: true
+            schema:
+              type: string
+              format: uuid
+          responses:
+            "'200'":
+              description: Badge type
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/BadgeType'
+            "'400'":
+              $ref: '#/components/responses/BadRequest'
+            "'401'":
+              description: Unauthorized
+              content:
+                application/json:
+                  schema:
+                    oneOf:
+                    - $ref: '#/components/schemas/ExpiredToken'
+                    - $ref: '#/components/schemas/InvalidToken'
+                    - $ref: '#/components/schemas/Unauthorized'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+        put:
+          tags:
+          - Member
+          summary: Update badge type
+          operationId: _badgeTypePut
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          - name: badgeType
+            in: path
+            required: true
+            schema:
+              type: string
+              format: uuid
+          requestBody:
+            required: true
+            content:
+              application/json:
+                schema:
+                  required:
+                  - badgeType
+                  properties:
+                    badgeType:
+                      required:
+                      - name
+                      properties:
+                        name:
+                          type: string
+                      type: object
+                      additionalProperties: false
+                  type: object
+                  additionalProperties: false
+          responses:
+            "'204'":
+              $ref: '#/components/responses/NoContent'
+            "'400'":
+              $ref: '#/components/responses/BadRequest'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+            "'404'":
+              $ref: '#/components/responses/NotFound'
+

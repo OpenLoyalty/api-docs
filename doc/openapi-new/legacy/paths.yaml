@@ -1,0 +1,1098 @@
+﻿nelmio_api_doc:
+  documentation:
+    paths:
+      /api/acl/role/{role}:
+        get:
+          tags:
+          - ACL
+          summary: Get role details
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+            This method returns all Role details.
+          operationId: aclGetRole
+          parameters:
+          - $ref: '#/components/parameters/role'
+          responses:
+            "'200'":
+              description: ""
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/Role'
+            "'401'":
+              description: ""
+              content:
+                application/json:
+                  schema:
+                    oneOf:
+                    - $ref: '#/components/schemas/ExpiredToken'
+                    - $ref: '#/components/schemas/InvalidToken'
+                    - $ref: '#/components/schemas/Unauthorized'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+            "'404'":
+              $ref: '#/components/responses/NotFound'
+        put:
+          tags:
+          - ACL
+          summary: Modify role
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+            This method allows modifying specific Role.
+          operationId: aclPutRole
+          parameters:
+          - name: role
+            in: path
+            required: true
+            schema:
+              type: string
+              pattern: '\d+'
+          requestBody:
+            description: ""
+            content:
+              application/json:
+                schema:
+                  properties:
+                    role:
+                      $ref: '#/components/schemas/RoleFormType'
+                  type: object
+          responses:
+            "'204'":
+              $ref: '#/components/responses/NoContent'
+            "'400'":
+              $ref: '#/components/responses/BadRequest'
+            "'401'":
+              description: ""
+              content:
+                application/json:
+                  schema:
+                    oneOf:
+                    - $ref: '#/components/schemas/ExpiredToken'
+                    - $ref: '#/components/schemas/InvalidToken'
+                    - $ref: '#/components/schemas/Unauthorized'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+            "'404'":
+              $ref: '#/components/responses/NotFound'
+        delete:
+          tags:
+          - ACL
+          summary: Delete role
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+            This method allows deleting specific Role.
+          operationId: aclDeleteRole
+          parameters:
+          - $ref: '#/components/parameters/role'
+          responses:
+            "'204'":
+              $ref: '#/components/responses/NoContent'
+            "'401'":
+              description: ""
+              content:
+                application/json:
+                  schema:
+                    oneOf:
+                    - $ref: '#/components/schemas/ExpiredToken'
+                    - $ref: '#/components/schemas/InvalidToken'
+                    - $ref: '#/components/schemas/Unauthorized'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+            "'404'":
+              $ref: '#/components/responses/NotFound'
+      /api/acl/accesses:
+        get:
+          tags:
+          - ACL
+          summary: Get permission accesses
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+            This method returns available permission accesses.  
+
+            If sorting is not chosen, the rows will be returned in an unspecified order.  
+            To sort a result, use an `_orderBy` parameter in query.
+          operationId: aclGetAccesses
+          responses:
+            "'200'":
+              description: ""
+              content:
+                application/json:
+                  schema:
+                    properties:
+                      items:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/AclAvailableObject'
+                      total:
+                        properties:
+                          all:
+                            example: 0
+                        type: object
+                    type: object
+            "'401'":
+              description: ""
+              content:
+                application/json:
+                  schema:
+                    oneOf:
+                    - $ref: '#/components/schemas/ExpiredToken'
+                    - $ref: '#/components/schemas/InvalidToken'
+                    - $ref: '#/components/schemas/Unauthorized'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+      /api/acl/role:
+        get:
+          tags:
+          - ACL
+          summary: Get roles list
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+            This method returns a list of all Roles that have been created in the system.  
+
+            If sorting is not chosen, the rows will be returned in an unspecified order.  
+            To sort a result, use an `_orderBy` parameter in query.
+          operationId: aclGetList
+          parameters:
+          - name: id
+            in: query
+            required: false
+            schema:
+              type: string
+          - name: role
+            in: query
+            required: false
+            schema:
+              type: string
+          - name: name
+            in: query
+            required: false
+            schema:
+              type: string
+          - name: master
+            in: query
+            required: false
+            schema:
+              type: boolean
+          - name: default
+            in: query
+            required: false
+            schema:
+              type: boolean
+          - $ref: '#/components/parameters/page'
+          - $ref: '#/components/parameters/itemsOnPage'
+          - $ref: '#/components/parameters/orderBy'
+          responses:
+            "'200'":
+              description: ""
+              content:
+                application/json:
+                  schema:
+                    properties:
+                      items:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/Role'
+                      total:
+                        $ref: '#/components/schemas/SearchableTotalResponse2'
+                    type: object
+            "'201'":
+              $ref: '#/components/responses/NoContent'
+            "'401'":
+              description: ""
+              content:
+                application/json:
+                  schema:
+                    oneOf:
+                    - $ref: '#/components/schemas/ExpiredToken'
+                    - $ref: '#/components/schemas/InvalidToken'
+                    - $ref: '#/components/schemas/Unauthorized'
+            "'400'":
+              $ref: '#/components/responses/BadRequest'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+        post:
+          tags:
+          - ACL
+          summary: Add a new role
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+            This method allows creating a new Role in the system.
+          operationId: aclPostRole
+          requestBody:
+            description: ""
+            content:
+              application/json:
+                schema:
+                  properties:
+                    role:
+                      $ref: '#/components/schemas/RoleFormType'
+                  type: object
+          responses:
+            "'201'":
+              $ref: '#/components/responses/NoContent'
+            "'204'":
+              $ref: '#/components/responses/NoContent'
+            "'400'":
+              $ref: '#/components/responses/BadRequest'
+            "'401'":
+              description: ""
+              content:
+                application/json:
+                  schema:
+                    oneOf:
+                    - $ref: '#/components/schemas/ExpiredToken'
+                    - $ref: '#/components/schemas/InvalidToken'
+                    - $ref: '#/components/schemas/Unauthorized'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+      /api/acl/resources:
+        get:
+          tags:
+          - ACL
+          summary: Get resources list
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+            This method returns all available permission resources in the system that you can dedicate to a specific Role.  
+
+            If sorting is not chosen, the rows will be returned in an unspecified order.  
+            To sort a result, use an `_orderBy` parameter in query.
+          operationId: aclGetResources
+          responses:
+            "'200'":
+              description: ""
+              content:
+                application/json:
+                  schema:
+                    properties:
+                      items:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/AclAvailableObject'
+                      total:
+                        properties:
+                          all:
+                            example: "0"
+                        type: object
+                    type: object
+            "'401'":
+              description: ""
+              content:
+                application/json:
+                  schema:
+                    oneOf:
+                    - $ref: '#/components/schemas/ExpiredToken'
+                    - $ref: '#/components/schemas/InvalidToken'
+                    - $ref: '#/components/schemas/Unauthorized'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+      /api/admin/data/{admin}:
+        get:
+          tags:
+          - Admin
+          summary: Get admin details
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+            This method returns all specific Admin details.
+          operationId: adminGetData
+          parameters:
+          - $ref: '#/components/parameters/admin'
+          responses:
+            "'200'":
+              description: ""
+              content:
+                application/json:
+                  schema:
+                    oneOf:
+                    - $ref: '#/components/schemas/AdminInternal'
+                    - $ref: '#/components/schemas/AdminExternal'
+            "'401'":
+              description: ""
+              content:
+                application/json:
+                  schema:
+                    oneOf:
+                    - $ref: '#/components/schemas/ExpiredToken'
+                    - $ref: '#/components/schemas/InvalidToken'
+                    - $ref: '#/components/schemas/Unauthorized'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+        put:
+          tags:
+          - Admin
+          summary: Update admin details
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+            This method allows updating specific Admin data.
+          operationId: adminPutData
+          parameters:
+          - $ref: '#/components/parameters/admin'
+          requestBody:
+            description: ""
+            content:
+              application/json:
+                schema:
+                  oneOf:
+                  - $ref: '#/components/schemas/AdminWithApiKey'
+                  - $ref: '#/components/schemas/AdminWithPlainPassword'
+          responses:
+            "'200'":
+              description: ""
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/AdminId'
+            "'400'":
+              $ref: '#/components/responses/BadRequest'
+            "'401'":
+              description: ""
+              content:
+                application/json:
+                  schema:
+                    oneOf:
+                    - $ref: '#/components/schemas/ExpiredToken'
+                    - $ref: '#/components/schemas/InvalidToken'
+                    - $ref: '#/components/schemas/Unauthorized'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+            "'404'":
+              $ref: '#/components/responses/NotFound'
+            "'405'":
+              $ref: '#/components/responses/MethodNotAllowed'
+      /api/admin/permissions:
+        get:
+          tags:
+          - Admin
+          summary: Get admin permissions
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+            This method returns all permissions information for current logged in Admin.
+          operationId: adminGetPermissions
+          responses:
+            "'200'":
+              description: ""
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/AdminPermissions'
+            "'401'":
+              description: ""
+              content:
+                application/json:
+                  schema:
+                    oneOf:
+                    - $ref: '#/components/schemas/ExpiredToken'
+                    - $ref: '#/components/schemas/InvalidToken'
+                    - $ref: '#/components/schemas/Unauthorized'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+      /api/admin/data:
+        post:
+          tags:
+          - Admin
+          summary: Add a new admin
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+            This method allows creating a new Admin in the system.
+            The required fields are dependent on the value of the "external" field.
+            If the value of the "external" field is set to false, then it is required to provide the value for the "plainPassword" field.
+            Otherwise, it is required to provide a value for the "apiKey" field.
+          operationId: adminPostData
+          requestBody:
+            description: ""
+            content:
+              application/json:
+                schema:
+                  oneOf:
+                  - $ref: '#/components/schemas/AdminWithApiKey'
+                  - $ref: '#/components/schemas/AdminWithPlainPassword'
+          responses:
+            "'200'":
+              description: ""
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/AdminId'
+            "'400'":
+              $ref: '#/components/responses/BadRequest'
+            "'401'":
+              description: ""
+              content:
+                application/json:
+                  schema:
+                    oneOf:
+                    - $ref: '#/components/schemas/ExpiredToken'
+                    - $ref: '#/components/schemas/InvalidToken'
+                    - $ref: '#/components/schemas/Unauthorized'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+      /api/admin/password:
+        put:
+          tags:
+          - Admin
+          summary: Changged logged admin’s password
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+            This method allows changing the password of the logged Admin.
+          operationId: adminPutPassword
+          requestBody:
+            description: ""
+            content:
+              application/json:
+                schema:
+                  required:
+                  - currentPassword
+                  - plainPassword
+                  properties:
+                    currentPassword:
+                      type: string
+                    plainPassword:
+                      type: string
+                  type: object
+          responses:
+            "'204'":
+              $ref: '#/components/responses/NoContent'
+            "'400'":
+              $ref: '#/components/responses/BadRequest'
+            "'401'":
+              description: ""
+              content:
+                application/json:
+                  schema:
+                    oneOf:
+                    - $ref: '#/components/schemas/ExpiredToken'
+                    - $ref: '#/components/schemas/InvalidToken'
+                    - $ref: '#/components/schemas/Unauthorized'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+      /api/admin/password/reset:
+        post:
+          tags:
+          - Admin
+          summary: Set a new password
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+            This method allows you to set a new password when a password reset is requested.
+          operationId: adminPostPasswordReset
+          requestBody:
+            description: ""
+            content:
+              application/json:
+                schema:
+                  required:
+                  - token
+                  - reset
+                  properties:
+                    reset:
+                      $ref: '#/components/schemas/PasswordResetFormType'
+                    token:
+                      type: string
+                  type: object
+          responses:
+            "'204'":
+              $ref: '#/components/responses/NoContent'
+            "'400'":
+              $ref: '#/components/responses/BadRequest'
+            "'401'":
+              description: ""
+              content:
+                application/json:
+                  schema:
+                    oneOf:
+                    - $ref: '#/components/schemas/ExpiredToken'
+                    - $ref: '#/components/schemas/InvalidToken'
+                    - $ref: '#/components/schemas/Unauthorized'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+      /api/admin/password/reset/request:
+        post:
+          tags:
+          - Admin
+          summary: Request password reset
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+            This method sends a message to the Admin with a password reset URL.
+          operationId: adminPostPasswordResetRequest
+          requestBody:
+            required: true
+            content:
+              application/json:
+                schema:
+                  required:
+                  - username
+                  properties:
+                    username:
+                      type: string
+                  type: object
+          responses:
+            "'204'":
+              $ref: '#/components/responses/NoContent'
+            "'400'":
+              $ref: '#/components/responses/BadRequest'
+            "'401'":
+              description: ""
+              content:
+                application/json:
+                  schema:
+                    oneOf:
+                    - $ref: '#/components/schemas/ExpiredToken'
+                    - $ref: '#/components/schemas/InvalidToken'
+                    - $ref: '#/components/schemas/Unauthorized'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+      /api/audit/log:
+        get:
+          tags:
+          - Audit
+          summary: Get all audit logs
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+            This method returns all actions logged in system logs.  
+
+            If sorting is not chosen, the rows will be returned in an unspecified order.  
+            To sort a result, use an `_orderBy` parameter in query.
+          operationId: auditLogGetList
+          parameters:
+          - name: eventType
+            in: query
+            required: false
+            schema:
+              type: string
+          - name: entityId
+            in: query
+            required: false
+            schema:
+              type: string
+          - name: entityType
+            in: query
+            required: false
+            schema:
+              type: string
+          - name: username
+            in: query
+            required: false
+            schema:
+              type: string
+          - name: auditLogId
+            in: query
+            required: false
+            schema:
+              type: string
+          - name: createdAt
+            in: query
+            required: false
+            schema:
+              type: string
+          - name: ip
+            in: query
+            required: false
+            schema:
+              type: string
+          - name: userType
+            in: query
+            required: false
+            schema:
+              type: string
+          - name: store
+            in: query
+            required: false
+            schema:
+              type: string
+          - name: _page
+            in: query
+            required: false
+            schema:
+              type: integer
+          - $ref: '#/components/parameters/itemsOnPage'
+          - name: _orderBy
+            in: query
+            required: false
+            schema:
+              type: string
+          responses:
+            "'200'":
+              description: Returned when successful
+              content:
+                application/json:
+                  schema:
+                    properties:
+                      items:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/AuditLog'
+                      total:
+                        $ref: '#/components/schemas/SearchableTotalResponse2'
+                    type: object
+            "'400'":
+              $ref: '#/components/responses/BadRequest'
+            "'401'":
+              description: ""
+              content:
+                application/json:
+                  schema:
+                    oneOf:
+                    - $ref: '#/components/schemas/ExpiredToken'
+                    - $ref: '#/components/schemas/InvalidToken'
+                    - $ref: '#/components/schemas/Unauthorized'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+      /api/audit/log/archive/{filename}:
+        get:
+          tags:
+          - Audit
+          summary: Get audit log archive
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+            This method exports Audit Log archive.
+          operationId: auditLogArchiveGet
+          parameters:
+          - name: filename
+            in: path
+            required: true
+            schema:
+              type: string
+          responses:
+            "'200'":
+              description: Returned when successful
+              content:
+                application/xml:
+                  schema:
+                    type: string
+                    format: binary
+            "'401'":
+              description: ""
+              content:
+                application/json:
+                  schema:
+                    oneOf:
+                    - $ref: '#/components/schemas/ExpiredToken'
+                    - $ref: '#/components/schemas/InvalidToken'
+                    - $ref: '#/components/schemas/Unauthorized'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+            "'404'":
+              $ref: '#/components/responses/NotFound'
+      /api/audit/log/archive:
+        get:
+          tags:
+          - Audit
+          summary: Get audit log archives list
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+            This method exports Audit Log archives file list.  
+
+            If sorting is not chosen, the rows will be returned in an unspecified order.  
+            To sort a result, use an `_orderBy` parameter in query.
+          operationId: auditLogArchiveGetList
+          responses:
+            "'200'":
+              description: Returned when successful
+              content:
+                application/json:
+                  schema:
+                    properties:
+                      items:
+                        type: array
+                        items:
+                          type: string
+                      total:
+                        $ref: '#/components/schemas/SearchableTotalResponse2'
+                    type: object
+            "'401'":
+              description: ""
+              content:
+                application/json:
+                  schema:
+                    oneOf:
+                    - $ref: '#/components/schemas/ExpiredToken'
+                    - $ref: '#/components/schemas/InvalidToken'
+                    - $ref: '#/components/schemas/Unauthorized'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+        post:
+          tags:
+          - Audit
+          summary: Create a new audit log archive
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+            This method creates a new Audit Log archive.
+          operationId: auditLogArchivePost
+          requestBody:
+            description: ""
+            content:
+              application/json:
+                schema:
+                  properties:
+                    archive:
+                      $ref: '#/components/schemas/ArchiveFormType'
+                  type: object
+          responses:
+            "'200'":
+              description: Returned when successful
+              content:
+                application/json:
+                  schema:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/TotalLogsArchived'
+            "'400'":
+              $ref: '#/components/responses/BadRequest'
+            "'401'":
+              description: ""
+              content:
+                application/json:
+                  schema:
+                    oneOf:
+                    - $ref: '#/components/schemas/ExpiredToken'
+                    - $ref: '#/components/schemas/InvalidToken'
+                    - $ref: '#/components/schemas/Unauthorized'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+      /api/audit/log/export:
+        get:
+          tags:
+          - Audit
+          summary: Export audit log
+          description: |
+            This method exports Audit Log.
+          operationId: auditLogExportGet
+          parameters:
+          - name: eventType
+            in: query
+            description: Event type
+            required: false
+            allowEmptyValue: true
+            schema:
+              type: string
+              default: 
+          - name: entityId
+            in: query
+            description: Entity ID
+            required: false
+            allowEmptyValue: true
+            schema:
+              type: string
+              default: 
+          - name: userId
+            in: query
+            description: User ID
+            required: false
+            allowEmptyValue: true
+            schema:
+              type: string
+              default: 
+          - name: entityType
+            in: query
+            description: Entity Type
+            required: false
+            allowEmptyValue: true
+            schema:
+              type: string
+              default: 
+          - name: username
+            in: query
+            description: username
+            required: false
+            allowEmptyValue: true
+            schema:
+              type: string
+              default: 
+          - name: auditLogId
+            in: query
+            description: audit log ID
+            required: false
+            allowEmptyValue: true
+            schema:
+              type: string
+              default: 
+          - name: createdAt
+            in: query
+            description: created at from
+            required: false
+            allowEmptyValue: true
+            schema:
+              type: string
+              default: 
+          - name: direction
+            in: query
+            description: Sorting direction
+            required: false
+            schema:
+              type: string
+              format: asc|desc
+          - name: _page
+            in: query
+            description: Page number
+            required: false
+            schema:
+              type: integer
+          - $ref: '#/components/parameters/itemsOnPage'
+          - name: _orderBy
+            in: query
+            description: Field to sort by
+            required: false
+            schema:
+              type: string
+          responses:
+            "'200'":
+              description: Returned when successful
+              content:
+                text/plain:
+                  schema:
+                    type: string
+                    format: text
+            "'400'":
+              $ref: '#/components/responses/BadRequest'
+            "'401'":
+              description: ""
+              content:
+                application/json:
+                  schema:
+                    oneOf:
+                    - $ref: '#/components/schemas/ExpiredToken'
+                    - $ref: '#/components/schemas/InvalidToken'
+                    - $ref: '#/components/schemas/Unauthorized'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+          deprecated: true
+      /api/admin/login_check:
+        post:
+          tags:
+          - Authorization
+          summary: Get admin token
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+            This method allows to login and get a JWT token for the admin
+          operationId: adminLoginCheck
+          requestBody:
+            description: ""
+            content:
+              application/json:
+                schema:
+                  properties:
+                    username:
+                      type: string
+                      example: admin
+                    password:
+                      type: string
+                      example: password
+                  type: object
+          responses:
+            "'200'":
+              $ref: '#/components/responses/TokenAndRefreshToken'
+            "'401'":
+              $ref: '#/components/responses/BadCredentials'
+          security: []
+      /api/admin/{admin}/api-key:
+        get:
+          tags:
+          - Admin
+          summary: Gives a list of api keys
+          description: |
+            <label style="background-color: #BFE1F6;padding:5px;">Management</label><br><br>
+          operationId: _apiKeyGetList
+          parameters:
+          - $ref: '#/components/parameters/admin'
+          - name: apiKeyId
+            in: path
+            description: API Key ID
+            required: false
+            schema:
+              type: string
+              format: uuid
+          - name: name
+            in: path
+            description: Name
+            required: false
+            schema:
+              type: string
+          - name: token
+            in: path
+            description: Token
+            required: false
+            schema:
+              type: string
+          - name: expirationDate
+            in: path
+            description: Expiration date
+            required: false
+            schema:
+              type: string
+          - $ref: '#/components/parameters/page'
+          - $ref: '#/components/parameters/itemsOnPage'
+          - $ref: '#/components/parameters/orderBy'
+          responses:
+            "'200'":
+              description: API key list.
+              content:
+                application/json:
+                  schema:
+                    properties:
+                      items:
+                        type: array
+                        items:
+                          required:
+                          - apiKeyId
+                          - token
+                          - adminId
+                          - name
+                          - legacy
+                          properties:
+                            apiKeyId:
+                              type: string
+                              format: uuid
+                            token:
+                              type: string
+                            adminId:
+                              type: string
+                              format: uuid
+                            name:
+                              type: string
+                            legacy:
+                              type: boolean
+                            expirationDate:
+                              type: string
+                              format: date-time
+                          type: object
+                      total:
+                        $ref: '#/components/schemas/SearchableTotalResponse'
+                    type: object
+            "'400'":
+              $ref: '#/components/responses/BadRequest'
+            "'401'":
+              description: Unauthorized
+              content:
+                application/json:
+                  schema:
+                    oneOf:
+                    - $ref: '#/components/schemas/ExpiredToken'
+                    - $ref: '#/components/schemas/InvalidToken'
+                    - $ref: '#/components/schemas/Unauthorized'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+            "'404'":
+              $ref: '#/components/responses/NotFound'
+        post:
+          tags:
+          - Admin
+          summary: Add a new API key
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+            This method allows creating a new Api key.
+          operationId: _apiKeyPost
+          parameters:
+          - $ref: '#/components/parameters/admin'
+          requestBody:
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/ApiKeyRequest'
+          responses:
+            "'200'":
+              description: Return created API key.
+              content:
+                application/json:
+                  schema:
+                    required:
+                    - apiKeyId
+                    - token
+                    - adminId
+                    - name
+                    - legacy
+                    properties:
+                      apiKeyId:
+                        type: string
+                        format: uuid
+                      token:
+                        type: string
+                      adminId:
+                        type: string
+                        format: uuid
+                      name:
+                        type: string
+                      legacy:
+                        type: boolean
+                      expirationDate:
+                        type: string
+                        format: date-time
+                    type: object
+                    additionalProperties: false
+            "'400'":
+              $ref: '#/components/responses/BadRequest'
+            "'401'":
+              description: Unauthorized
+              content:
+                application/json:
+                  schema:
+                    oneOf:
+                    - $ref: '#/components/schemas/ExpiredToken'
+                    - $ref: '#/components/schemas/InvalidToken'
+                    - $ref: '#/components/schemas/Unauthorized'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+            "'404'":
+              $ref: '#/components/responses/NotFound'
+      /api/admin/{admin}/api-key/{apikey}:
+        put:
+          tags:
+          - Admin
+          summary: Edit API key
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+            This method allows edit a Api key.
+          operationId: _apiKeyPut
+          parameters:
+          - $ref: '#/components/parameters/admin'
+          - $ref: '#/components/parameters/apikey'
+          requestBody:
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/ApiKeyRequest'
+          responses:
+            "'204'":
+              $ref: '#/components/responses/NoContent'
+            "'400'":
+              $ref: '#/components/responses/BadRequest'
+            "'401'":
+              description: Unauthorized
+              content:
+                application/json:
+                  schema:
+                    oneOf:
+                    - $ref: '#/components/schemas/ExpiredToken'
+                    - $ref: '#/components/schemas/InvalidToken'
+                    - $ref: '#/components/schemas/Unauthorized'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+            "'404'":
+              $ref: '#/components/responses/NotFound'
+        delete:
+          tags:
+          - Admin
+          summary: Delete API key
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+            This method allows you to delete api key.
+          operationId: _apiKeyDelete
+          parameters:
+          - $ref: '#/components/parameters/admin'
+          - $ref: '#/components/parameters/apikey'
+          responses:
+            "'204'":
+              $ref: '#/components/responses/NoContent'
+            "'400'":
+              $ref: '#/components/responses/BadRequest'
+            "'401'":
+              description: Unauthorized
+              content:
+                application/json:
+                  schema:
+                    oneOf:
+                    - $ref: '#/components/schemas/ExpiredToken'
+                    - $ref: '#/components/schemas/InvalidToken'
+                    - $ref: '#/components/schemas/Unauthorized'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+            "'404'":
+              $ref: '#/components/responses/NotFound'
+

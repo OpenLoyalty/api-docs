@@ -1,0 +1,342 @@
+﻿nelmio_api_doc:
+  documentation:
+    paths:
+      /api/{storeCode}/segment/{segment}:
+        get:
+          tags:
+          - Segment
+          summary: Get segment’s details
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+            This method returns all information about a specific Segment.
+          operationId: segmentGet
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          - $ref: '#/components/parameters/segment'
+          responses:
+            "'200'":
+              description: Returned when successful
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/SegmentResponse'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+            "'404'":
+              $ref: '#/components/responses/NotFound'
+        put:
+          tags:
+          - Segment
+          summary: Update segment’s configuration
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+            This method allows updating data about a specific Segment.
+          operationId: segmentPut
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          - $ref: '#/components/parameters/segment'
+          requestBody:
+            description: ""
+            content:
+              application/json:
+                schema:
+                  properties:
+                    segment:
+                      $ref: '#/components/schemas/EditSegmentFormType'
+                  type: object
+          responses:
+            "'200'":
+              description: Return updated segment ID.
+              content:
+                application/json:
+                  schema:
+                    properties:
+                      segmentId:
+                        description: Updated segment ID
+                        type: string
+                        example: 00000000-0000-0000-0000-000000000000
+                    type: object
+            "'400'":
+              $ref: '#/components/responses/BadRequest'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+            "'404'":
+              $ref: '#/components/responses/NotFound'
+        delete:
+          tags:
+          - Segment
+          summary: Delete a segment
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+            This method allows removing a specific Segment.
+          operationId: segmentDelete
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          - $ref: '#/components/parameters/segment'
+          responses:
+            "'204'":
+              $ref: '#/components/responses/NoContent'
+            "'400'":
+              $ref: '#/components/responses/BadRequest'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+            "'404'":
+              $ref: '#/components/responses/NotFound'
+      /api/{storeCode}/segment:
+        get:
+          tags:
+          - Segment
+          summary: Get segments lists
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+            This method returns a list of all Segment in the system.  
+            If sorting is not chosen, the rows will be returned in an unspecified order.  
+            To sort a result, use an `_orderBy` parameter in query.
+          operationId: segmentGetList
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          - name: name
+            in: query
+            required: false
+            schema:
+              type: string
+          - name: active
+            in: query
+            required: false
+            schema:
+              type: boolean
+          - name: description
+            in: query
+            required: false
+            schema:
+              type: string
+          - name: customersCount
+            in: query
+            required: false
+            schema:
+              type: integer
+          - name: averageTransactionAmount
+            in: query
+            required: false
+            schema:
+              type: number
+          - name: averageTransactions
+            in: query
+            required: false
+            schema:
+              type: number
+          - name: averageClv
+            in: query
+            required: false
+            schema:
+              type: number
+          - name: createdAt
+            in: query
+            required: false
+            schema:
+              type: string
+              format: date-time
+          - $ref: '#/components/parameters/page'
+          - $ref: '#/components/parameters/itemsOnPage'
+          - $ref: '#/components/parameters/orderBy'
+          responses:
+            "'200'":
+              description: List of segments
+              content:
+                application/json:
+                  schema:
+                    properties:
+                      items:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/Segment'
+                      total:
+                        $ref: '#/components/schemas/SearchableTotalResponse2'
+                    type: object
+            "'400'":
+              $ref: '#/components/responses/BadRequest'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+            "'404'":
+              $ref: '#/components/responses/NotFound'
+        post:
+          tags:
+          - Segment
+          summary: Add a new segment
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+            This method allows adding a new Segment to the system.
+          operationId: segmentPost
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          requestBody:
+            description: ""
+            content:
+              application/json:
+                schema:
+                  properties:
+                    segment:
+                      $ref: '#/components/schemas/CreateSegmentFormType'
+                  type: object
+          responses:
+            "'200'":
+              description: Return created segment ID.
+              content:
+                application/json:
+                  schema:
+                    properties:
+                      segmentId:
+                        description: Created segment ID
+                        type: string
+                        example: 00000000-0000-0000-0000-000000000000
+                    type: object
+            "'400'":
+              $ref: '#/components/responses/BadRequest'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+            "'404'":
+              $ref: '#/components/responses/NotFound'
+      /api/{storeCode}/segment/{segment}/members:
+        get:
+          tags:
+          - Segment
+          summary: Get segment’s members
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+            This method returns a list of all Members assigned to a Segment.  
+            If sorting is not chosen, the rows will be returned in an unspecified order.  
+            To sort a result, use an `_orderBy` parameter in query.
+          operationId: segmentGetMembers
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          - $ref: '#/components/parameters/segment'
+          - name: customerId
+            in: query
+            required: false
+            schema:
+              type: string
+          - name: firstName
+            in: query
+            required: false
+            schema:
+              type: string
+          - name: lastName
+            in: query
+            required: false
+            schema:
+              type: string
+          - name: email
+            in: query
+            required: false
+            schema:
+              type: string
+          - name: phone
+            in: query
+            required: false
+            schema:
+              type: string
+          - $ref: '#/components/parameters/page'
+          - $ref: '#/components/parameters/itemsOnPage'
+          - $ref: '#/components/parameters/orderBy'
+          responses:
+            "'200'":
+              description: List of segmented members
+              content:
+                application/json:
+                  schema:
+                    properties:
+                      items:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/SegmentCustomer'
+                      total:
+                        $ref: '#/components/schemas/SearchableTotalResponse2'
+                    type: object
+            "'400'":
+              $ref: '#/components/responses/BadRequest'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+            "'404'":
+              $ref: '#/components/responses/NotFound'
+      /api/{storeCode}/segment/{segment}/activate:
+        post:
+          tags:
+          - Segment
+          summary: Activate a segment
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+            This method allows activating a specific Segment.
+          operationId: segmentPostActivate
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          - $ref: '#/components/parameters/segment'
+          responses:
+            "'204'":
+              $ref: '#/components/responses/NoContent'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+            "'404'":
+              $ref: '#/components/responses/NotFound'
+      /api/{storeCode}/segment/{segment}/deactivate:
+        post:
+          tags:
+          - Segment
+          summary: Deactivate a segment
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+            This method allows deactivating a specific Segment.
+          operationId: segmentPostDeactivate
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          - $ref: '#/components/parameters/segment'
+          responses:
+            "'204'":
+              $ref: '#/components/responses/NoContent'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+            "'404'":
+              $ref: '#/components/responses/NotFound'
+      /api/{storeCode}/segment/{segment}/association/{resourceName}:
+        get:
+          tags:
+          - Segment
+          summary: Get resources associated with segment
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+          operationId: _getSegmentAssociation
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          - $ref: '#/components/parameters/segment'
+          - name: resourceName
+            in: path
+            description: Resource name
+            required: true
+            schema:
+              type: string
+              enum:
+              - reward
+              - achievement
+              - campaign
+          - $ref: '#/components/parameters/page'
+          - $ref: '#/components/parameters/itemsOnPage'
+          responses:
+            "'200'":
+              description: ""
+              content:
+                application/json:
+                  schema:
+                    properties:
+                      items:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/associatedResource'
+                      total:
+                        $ref: '#/components/schemas/total'
+                    type: object
+            "'400'":
+              $ref: '#/components/responses/BadRequest'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+            "'404'":
+              $ref: '#/components/responses/NotFound'
+

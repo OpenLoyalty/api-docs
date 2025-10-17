@@ -1,0 +1,218 @@
+﻿nelmio_api_doc:
+  documentation:
+    paths:
+      /api/{storeCode}/channel/{channel}:
+        get:
+          tags:
+          - Channels
+          summary: Get channel’s details
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+            This method returns detailed information about specific Sales Channel in the system.
+          operationId: channelGet
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          - $ref: '#/components/parameters/channel'
+          responses:
+            "'200'":
+              description: Returned when successful
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/Channel2'
+            "'401'":
+              description: ""
+              content:
+                application/json:
+                  schema:
+                    oneOf:
+                    - $ref: '#/components/schemas/ExpiredToken'
+                    - $ref: '#/components/schemas/InvalidToken'
+                    - $ref: '#/components/schemas/Unauthorized'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+            "'404'":
+              $ref: '#/components/responses/NotFound'
+        put:
+          tags:
+          - Channels
+          summary: Update channel configuration
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+            This method allows update specific Sales Channel data.
+          operationId: channelPut
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          - $ref: '#/components/parameters/channel'
+          requestBody:
+            description: ""
+            content:
+              application/json:
+                schema:
+                  properties:
+                    channel:
+                      $ref: '#/components/schemas/EditChannelFormType'
+                  type: object
+          responses:
+            "'200'":
+              description: Returned when successful
+              content:
+                application/json:
+                  schema:
+                    properties:
+                      channelId:
+                        description: Channel Id
+                        type: string
+                        format: uuid
+                        example: 00000000-0000-0000-0000-000000000000
+                    type: object
+            "'400'":
+              $ref: '#/components/responses/BadRequest'
+            "'401'":
+              description: ""
+              content:
+                application/json:
+                  schema:
+                    oneOf:
+                    - $ref: '#/components/schemas/ExpiredToken'
+                    - $ref: '#/components/schemas/InvalidToken'
+                    - $ref: '#/components/schemas/Unauthorized'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+            "'404'":
+              $ref: '#/components/responses/NotFound'
+        delete:
+          tags:
+          - Channels
+          summary: Delete a channel
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+            This method allows deleting specific Sales Channel.
+          operationId: channelDelete
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          - $ref: '#/components/parameters/channel'
+          responses:
+            "'204'":
+              $ref: '#/components/responses/NoContent'
+            "'401'":
+              description: ""
+              content:
+                application/json:
+                  schema:
+                    oneOf:
+                    - $ref: '#/components/schemas/ExpiredToken'
+                    - $ref: '#/components/schemas/InvalidToken'
+                    - $ref: '#/components/schemas/Unauthorized'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+            "'404'":
+              $ref: '#/components/responses/NotFound'
+      /api/{storeCode}/channel:
+        get:
+          tags:
+          - Channels
+          summary: Get channels list
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+            This method returns a complete list of the Sales Channels that exist in the system.  
+
+            If sorting is not chosen, the rows will be returned in an unspecified order.  
+            To sort a result, use an `_orderBy` parameter in query.
+          operationId: channelGetList
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          - name: name
+            in: query
+            required: false
+            schema:
+              type: string
+          - name: identifier
+            in: query
+            required: false
+            schema:
+              type: string
+          - name: _page
+            in: query
+            required: false
+            schema:
+              type: integer
+          - $ref: '#/components/parameters/itemsOnPage'
+          - name: _orderBy
+            in: query
+            required: false
+            schema:
+              type: integer
+          responses:
+            "'200'":
+              description: Returned when successful
+              content:
+                application/json:
+                  schema:
+                    properties:
+                      items:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/Channel'
+                      total:
+                        $ref: '#/components/schemas/SearchableTotalResponse2'
+                    type: object
+            "'400'":
+              $ref: '#/components/responses/BadRequest'
+            "'401'":
+              description: ""
+              content:
+                application/json:
+                  schema:
+                    oneOf:
+                    - $ref: '#/components/schemas/ExpiredToken'
+                    - $ref: '#/components/schemas/InvalidToken'
+                    - $ref: '#/components/schemas/Unauthorized'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+        post:
+          tags:
+          - Channels
+          summary: Add a channel
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+            This method allows creating a new Sales Channel in the system.
+          operationId: channelPost
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          requestBody:
+            description: ""
+            content:
+              application/json:
+                schema:
+                  properties:
+                    channel:
+                      $ref: '#/components/schemas/CreateChannelFormType'
+                  type: object
+          responses:
+            "'200'":
+              description: Returned when successful
+              content:
+                application/json:
+                  schema:
+                    properties:
+                      channelId:
+                        description: Channel Id
+                        type: string
+                        format: uuid
+                        example: 00000000-0000-0000-0000-000000000000
+                    type: object
+            "'400'":
+              $ref: '#/components/responses/BadRequest'
+            "'401'":
+              description: ""
+              content:
+                application/json:
+                  schema:
+                    oneOf:
+                    - $ref: '#/components/schemas/ExpiredToken'
+                    - $ref: '#/components/schemas/InvalidToken'
+                    - $ref: '#/components/schemas/Unauthorized'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+

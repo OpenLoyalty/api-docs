@@ -1,0 +1,23 @@
+﻿nelmio_api_doc:
+  documentation:
+    info:
+      title: Open Loyalty
+      description: |-
+        OpenLoyalty REST API
+        # Authentication
+        <!-- Redoc-Inject: <security-definitions> -->
+      version: ""
+      x:
+        logo:
+          url: https://docs.openloyalty.io/en/latest/_static/images/openloyalty.png
+          backgroundColor: '#47388C'
+          altText: Open Loyalty
+    servers:
+    - url: http://openloyalty.localhost
+    security:
+    - Bearer: []
+    - token: []
+    externalDocs:
+      description: Find out more about OpenLoyalty
+      url: https://docs.openloyalty.io
+

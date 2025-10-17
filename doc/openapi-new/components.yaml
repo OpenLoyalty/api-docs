@@ -1,0 +1,534 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      parameters:
+        admin:
+          name: admin
+          in: path
+          description: Admin ID
+          required: true
+          schema:
+            type: string
+            format: uuid
+        apikey:
+          name: apikey
+          in: path
+          description: API key ID
+          required: true
+          schema:
+            type: string
+            format: uuid
+        achievement:
+          name: achievement
+          in: path
+          description: Achievement ID
+          required: true
+          schema:
+            type: string
+            format: uuid
+        campaign:
+          name: campaign
+          in: path
+          description: Campaign ID
+          required: true
+          schema:
+            type: string
+            format: uuid
+        channel:
+          name: channel
+          in: path
+          description: Channel ID
+          required: true
+          schema:
+            type: string
+            format: uuid
+        issuedReward:
+          name: issuedReward
+          in: path
+          description: IssuedReward ID
+          required: true
+          schema:
+            type: string
+            format: uuid
+        member:
+          name: member
+          in: path
+          description: Member ID
+          required: true
+          schema:
+            type: string
+            format: uuid
+        message:
+          name: message
+          in: path
+          description: Message ID
+          required: true
+          schema:
+            type: string
+            format: uuid
+        rewardCategory:
+          name: rewardCategory
+          in: path
+          description: Reward category ID
+          required: true
+          schema:
+            type: string
+            format: uuid
+        reward:
+          name: reward
+          in: path
+          description: Reward ID
+          required: true
+          schema:
+            type: string
+            format: uuid
+        role:
+          name: role
+          in: path
+          description: Acl role
+          required: true
+          schema:
+            type: integer
+        segment:
+          name: segment
+          in: path
+          description: Segment ID
+          required: true
+          schema:
+            type: string
+            format: uuid
+        store:
+          name: store
+          in: path
+          description: Store ID
+          required: true
+          schema:
+            type: string
+            format: uuid
+        storeCode:
+          name: storeCode
+          in: path
+          description: Store code
+          required: true
+          schema:
+            type: string
+        customEvent:
+          name: customEvent
+          in: path
+          description: Custom Event ID
+          required: true
+          schema:
+            type: string
+            format: uuid
+        customEventSchema:
+          name: customEventSchema
+          in: path
+          description: Custom Event Schema
+          required: true
+          schema:
+            type: string
+        choicesType:
+          name: type
+          in: path
+          description: Choices type
+          required: true
+          schema:
+            type: string
+            enum:
+            - currency
+            - country
+            - availableFrontendTranslations
+            - availablePointExpireAfter
+            - identificationMethods
+            - issuedRewardStatus
+            - language
+            - timezone
+        eventType:
+          name: customEventSchema
+          in: path
+          description: Event type
+          required: true
+          schema:
+            type: string
+        export:
+          name: export
+          in: path
+          description: Export ID
+          required: true
+          schema:
+            type: string
+            format: uuid
+        webhookSubscription:
+          name: subscription
+          in: path
+          description: Webhook subscription ID
+          required: true
+          schema:
+            type: string
+            format: uuid
+        badgeType:
+          name: badgeType
+          in: path
+          description: Badge type ID
+          required: true
+          schema:
+            type: string
+            format: uuid
+        tier:
+          name: tier
+          in: path
+          description: Tier ID
+          required: true
+          schema:
+            type: string
+            format: uuid
+        tierSet:
+          name: tierSet
+          in: path
+          description: TierSet ID
+          required: true
+          schema:
+            type: string
+            format: uuid
+        transaction:
+          name: transaction
+          in: path
+          description: Transaction ID
+          required: true
+          schema:
+            type: string
+            format: uuid
+        transfer:
+          name: transfer
+          in: path
+          description: Points transfer ID
+          required: true
+          schema:
+            type: string
+            format: uuid
+        walletType:
+          name: walletType
+          in: path
+          description: WalletType ID
+          required: true
+          schema:
+            type: string
+            format: uuid
+        wallet:
+          name: wallet
+          in: path
+          description: Wallet ID
+          required: true
+          schema:
+            type: string
+        groupOfValues:
+          name: groupOfValues
+          in: path
+          description: GroupOfValues ID
+          required: true
+          schema:
+            type: string
+            format: uuid
+        itemsOnPage:
+          name: _itemsOnPage
+          in: query
+          description: Items on one page
+          required: false
+          schema:
+            type: integer
+            default: 10
+            maximum: 50
+            minimum: 1
+          example: 25
+        orderBy:
+          name: _orderBy
+          in: query
+          description: 'Sorting order. If sorting is not chosen, the rows will be returned in an unspecified order. Sort order: * `asc` - Ascending, from A to Z * `desc` - Descending, from Z to A'
+          required: false
+          style: deepObject
+          explode: true
+          schema:
+            type: object
+            additionalProperties:
+              type: string
+              enum:
+              - asc
+              - desc
+          example:
+            fieldName: desc
+        page:
+          name: _page
+          in: query
+          description: Number of page with results, starts from 1
+          required: false
+          schema:
+            type: integer
+            default: 1
+            minimum: 1
+          example: 1
+        scroll:
+          name: _scroll
+          in: query
+          description: |
+            To use scroll pagination, add the `_scroll` parameter to your query:
+              ?_scroll
+
+            To retrieve the next page, take the `scroll` value from the previous response and use it in the next request:
+              ?_scroll=eyJjcmVhdGVkQXQiOiIyMDI1LTA3LTAxIDEzOjU2OjI5LjAyMTcwMyIsImlkIjoiNTM5N2RiYzYtZGVkMi00MTQ0LTlhMjQtOTRjYmI5YWVjNDBjIn0=
+
+            Notes:
+              - Scroll pagination does not support sorting with `_orderBy`.
+              - Items are returned in ascending order by the `createdAt` field by default.
+          required: false
+          schema:
+            type: string
+          example: ""
+      responses:
+        AccessDenied:
+          description: Forbidden.
+          content:
+            application/json:
+              schema:
+                required:
+                - code
+                - message
+                properties:
+                  code:
+                    type: integer
+                    example: 403
+                  message:
+                    type: string
+                    example: Forbidden.
+                type: object
+        BadRequest:
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                required:
+                - code
+                - message
+                - errors
+                properties:
+                  code:
+                    type: integer
+                    example: 400
+                  message:
+                    type: string
+                    example: Validation failed
+                  errors:
+                    type: array
+                    items:
+                      required:
+                      - message
+                      - parameters
+                      - plural
+                      - code
+                      - path
+                      properties:
+                        message:
+                          type: string
+                        parameters: {}
+                        plural:
+                          type: integer
+                          example: 
+                          nullable: true
+                        code:
+                          type: string
+                        path:
+                          type: string
+                      type: object
+                type: object
+        NoContent:
+          description: Success. No content.
+        NotFound:
+          description: Not found.
+          content:
+            application/json:
+              schema:
+                required:
+                - code
+                - message
+                properties:
+                  code:
+                    type: integer
+                    example: 404
+                  message:
+                    type: string
+                    example: Not Found
+                type: object
+        MethodNotAllowed:
+          description: Method Not Allowed.
+          content:
+            application/json:
+              schema:
+                required:
+                - code
+                - message
+                properties:
+                  code:
+                    type: string
+                    example: 405
+                  message:
+                    type: string
+                    example: Method Not Allowed.
+                type: object
+        ServiceUnavailable:
+          description: Service Unavailable.
+          content:
+            application/json:
+              schema:
+                required:
+                - code
+                - message
+                type: array
+                items:
+                  properties:
+                    status:
+                      type: string
+                      enum:
+                      - OK
+                      - Problem
+                      - Warning
+                      example: Problem
+                    error:
+                      type: string
+                      example: Service unavailable
+                    message:
+                      type: string
+                      example: The server is temporarily down for maintenance. Please try again later.
+                    retryAfter:
+                      type: integer
+                      example: 3600
+                  type: object
+        ExpiredToken:
+          description: Expired Token
+          content:
+            application/json:
+              schema:
+                required:
+                - code
+                - message
+                properties:
+                  code:
+                    type: string
+                    example: 401
+                  message:
+                    type: string
+                    example: Expired JWT Token.
+                type: object
+        InvalidToken:
+          description: Invalid Token
+          content:
+            application/json:
+              schema:
+                required:
+                - code
+                - message
+                properties:
+                  code:
+                    type: string
+                    example: 401
+                  message:
+                    type: string
+                    example: Invalid JWT Token
+                type: object
+        Unauthorized:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                required:
+                - message
+                properties:
+                  message:
+                    type: string
+                    example: Authentication Required
+                type: object
+        BadCredentials:
+          description: Bad credentials.
+          content:
+            application/json:
+              schema:
+                required:
+                - message
+                properties:
+                  message:
+                    type: string
+                    example: Bad credentials.
+                type: object
+        TokenAndRefreshToken:
+          description: ""
+          content:
+            application/json:
+              schema:
+                properties:
+                  token:
+                    type: string
+                    example: eyJhbGciOiJSUzI1NiIsInR5cCI6...
+                  refresh_token:
+                    type: string
+                    example: 0558f8bb29948c4e54c443f...
+                type: object
+      securitySchemes:
+        token:
+          type: apiKey
+          name: X-AUTH-TOKEN
+          in: header
+        Bearer:
+          type: apiKey
+          description: |
+            Open Loyalty has the JWT authorization.
+            To learn what a JSON Web Token is and how it works, check out Introduction to JSON Web Tokens <https://jwt.io/introduction/>
+
+            ### Obtain an access token
+
+            Send a request with the parameters username and password
+
+            #### Definition
+
+            `POST /api/admin/login_check` [Go to definition](#operation/adminLoginCheck)\
+            `POST /api/{storeCode}/member/login_check` [Go to definition](#operation/memberLoginCheck)
+
+            #### Example
+
+            ```bash
+            curl {HOST}/api/admin/login_check
+                -H 'Content-Type: application/json;charset=UTF-8'
+                -H 'Accept: application/json, text/plain, */*'
+                --data-binary '{"username":"admin","password":"password"}'
+            ```
+
+            #### Example Response
+
+            ```json
+            {
+                "token":"eyJhbGciOiJSUzI1NiIsInR5cCI6...",
+                "refresh_token":"0558f8bb29948c4e54c443f..."
+            }
+            ```
+
+            ### Using JSON Web Token
+
+            Add authorization header to each request\
+            `Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6...`\
+            You can now access any API method you want under the /api prefix.
+
+            #### Example
+            ```bash
+            curl {HOST}/api/{storeCode}/analytics/members
+                -H 'Accept: application/json'
+                -H 'Content-type: application/x-www-form-urlencoded'
+                -H 'Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6...'
+            ```
+
+            ### Refresh JSON Web Token
+            You can refresh token using refresh_token that was given during login.\
+            There are two endpoints\
+            To refresh admin token `POST /api/token/refresh` [Go to definition](#operation/tokenRefresh)\
+            To refresh member token `POST /api/{storeCode}/token/refresh` [Go to definition](#operation/tokenRefreshMember)
+          name: Authorization
+          in: header
+          bearerFormat: JWT
+          scheme: bearer
+

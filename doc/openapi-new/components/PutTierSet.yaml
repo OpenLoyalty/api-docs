@@ -1,0 +1,54 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        PutTierSet:
+          required:
+          - tierSet
+          properties:
+            tierSet:
+              required:
+              - translations
+              - conditions
+              properties:
+                translations:
+                  $ref: '#/components/schemas/Translations'
+                active:
+                  description: The field determines whether the tier set will be active
+                  type: boolean
+                labels:
+                  $ref: '#/components/schemas/Labels'
+                conditions:
+                  type: array
+                  items:
+                    required:
+                    - attribute
+                    properties:
+                      id:
+                        description: Leave empty to add a new condition. Use existing id to update specific condition.
+                        type: string
+                        format: uuid
+                      attribute:
+                        description: |
+                          Specifies the type of attribute. The possible values are:
+                          - `activeUnits`: The number of units currently active. - `totalEarnedUnits`: The total number of units earned. - `monthsSinceJoiningProgram`: The number of months since the program was joined. - `totalSpending`: The total amount of spending. - `cumulatedEarnedUnits`: The total number of units earned that will be reset when recalculation occur
+                        type: string
+                        enum:
+                        - activeUnits
+                        - totalEarnedUnits
+                        - monthsSinceJoiningProgram
+                        - totalSpending
+                        - cumulatedEarnedUnits
+                      walletType:
+                        description: This field is only required for attributes related to units
+                        type: string
+                        example: default
+                    type: object
+                    additionalProperties: false
+                downgrade:
+                  $ref: '#/components/schemas/Downgrade'
+              type: object
+              additionalProperties: false
+          type: object
+          additionalProperties: false
+

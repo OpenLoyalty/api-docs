@@ -1,0 +1,77 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        PutMember:
+          properties:
+            registeredAt:
+              type: string
+              format: date-time
+            firstName:
+              type: string
+            lastName:
+              type: string
+            gender:
+              type: string
+              enum:
+              - male
+              - female
+              - not_disclosed
+            email:
+              type: string
+              format: email
+              example: example@example.com
+            phone:
+              type: string
+            loyaltyCardNumber:
+              type: string
+            birthDate:
+              type: string
+              format: date-time
+            address:
+              $ref: '#/components/schemas/CustomerAddressFormType'
+            company:
+              properties:
+                name:
+                  type: string
+                nip:
+                  type: string
+              type: object
+            labels:
+              type: array
+              items:
+                properties:
+                  key:
+                    type: string
+                  value:
+                    type: string
+                type: object
+            agreement1:
+              type: boolean
+            agreement2:
+              type: boolean
+            agreement3:
+              type: boolean
+            levelId:
+              description: Assign member to tier
+              type: string
+              format: uuid
+            customFieldsData:
+              description: Custom fields data for member
+              type: array
+              items:
+                required:
+                - customFieldSchemaId
+                - value
+                properties:
+                  customFieldSchemaId:
+                    description: ID of the custom field schema
+                    type: string
+                    format: uuid
+                  value:
+                    description: Value for the custom field (validated against schema requirements)
+                    type: string
+                type: object
+              nullable: true
+          type: object
+

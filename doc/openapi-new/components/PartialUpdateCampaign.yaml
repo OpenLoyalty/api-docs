@@ -1,0 +1,15 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        PartialUpdateCampaign:
+          properties:
+            campaign:
+              properties:
+                displayOrder:
+                  type: integer
+                active:
+                  type: boolean
+              type: object
+          type: object
+

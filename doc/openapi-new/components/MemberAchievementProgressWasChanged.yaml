@@ -1,0 +1,89 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        MemberAchievementProgressWasChanged:
+          required:
+          - customerId
+          - type
+          - createdAt
+          properties:
+            customerId:
+              type: string
+            type:
+              type: string
+              enum:
+              - MemberAchievementProgressWasChanged
+            accountId:
+              type: string
+            createdAt:
+              type: string
+              format: date-time
+            flatVariables:
+              required:
+              - adminId
+              - achievementName
+              properties:
+                adminId:
+                  type: string
+                achievementName:
+                  type: string
+                achievementId:
+                  type: string
+                campaignId:
+                  type: string
+                rulesBeforeChanges:
+                  type: array
+                  items:
+                    required:
+                    - achievementRuleId
+                    - periodGoal
+                    - currentPeriodValue
+                    properties:
+                      achievementRuleId:
+                        type: string
+                      periodGoal:
+                        type: number
+                        format: float
+                      currentPeriodValue:
+                        type: number
+                        format: float
+                      consecutivePeriods:
+                        type: integer
+                      completedConsecutivePeriods:
+                        type: integer
+                      periodValue:
+                        type: number
+                        format: float
+                    type: object
+                    additionalProperties: false
+                rulesAfterChanges:
+                  type: array
+                  items:
+                    required:
+                    - achievementRuleId
+                    - periodGoal
+                    - currentPeriodValue
+                    properties:
+                      achievementRuleId:
+                        type: string
+                      periodGoal:
+                        type: number
+                        format: float
+                      currentPeriodValue:
+                        type: number
+                        format: float
+                      consecutivePeriods:
+                        type: integer
+                      completedConsecutivePeriods:
+                        type: integer
+                      periodValue:
+                        type: number
+                        format: float
+                    type: object
+                    additionalProperties: false
+              type: object
+              additionalProperties: false
+          type: object
+          additionalProperties: false
+

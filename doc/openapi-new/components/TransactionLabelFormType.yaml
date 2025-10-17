@@ -1,0 +1,15 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        TransactionLabelFormType:
+          required:
+          - key
+          - value
+          properties:
+            key:
+              type: string
+            value:
+              type: string
+          type: object
+

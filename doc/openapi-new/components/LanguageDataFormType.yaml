@@ -1,0 +1,23 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        LanguageDataFormType:
+          required:
+          - name
+          - apiDefault
+          - adminDefault
+          - order
+          properties:
+            name:
+              type: string
+            code:
+              type: string
+            apiDefault:
+              type: boolean
+            adminDefault:
+              type: boolean
+            order:
+              type: integer
+          type: object
+

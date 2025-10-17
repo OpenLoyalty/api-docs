@@ -1,0 +1,346 @@
+﻿nelmio_api_doc:
+  documentation:
+    paths:
+      /api/{storeCode}/transaction/{transaction}:
+        get:
+          tags:
+          - Transactions
+          summary: Get transaction’s details
+          description: |
+            <label style="background-color: #BFE1F6;padding:5px;">Integration</label><br><br>
+            This method returns all information about a specific Transaction.
+          operationId: transactionGet
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          - $ref: '#/components/parameters/transaction'
+          responses:
+            "'200'":
+              description: Transaction details.
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/Transaction'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+            "'404'":
+              $ref: '#/components/responses/NotFound'
+        put:
+          tags:
+          - Transactions
+          summary: Update transaction’s details
+          description: |
+            <label style="background-color: #BFE1F6;padding:5px;">Integration</label><br><br>
+            This method allows updating data about a specific Transaction.
+          operationId: transactionPut
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          - $ref: '#/components/parameters/transaction'
+          requestBody:
+            description: ""
+            content:
+              application/json:
+                schema:
+                  properties:
+                    transaction:
+                      $ref: '#/components/schemas/PostTransaction'
+                  type: object
+          responses:
+            "'204'":
+              $ref: '#/components/responses/NoContent'
+            "'400'":
+              $ref: '#/components/responses/BadRequest'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+            "'404'":
+              $ref: '#/components/responses/NotFound'
+      /api/{storeCode}/transaction:
+        get:
+          tags:
+          - Transactions
+          summary: Get transactions list
+          description: |
+            <label style="background-color: #BFE1F6;padding:5px;">Integration</label><br><br>
+            This method returns a list of all Transaction in the system.  
+            If sorting is not chosen, the rows will be returned in an unspecified order.  
+            To sort a result, use an `_orderBy` parameter in query.
+          operationId: transactionGetList
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          - name: transactionId
+            in: query
+            required: false
+            schema:
+              type: string
+          - name: customerData:customerId
+            in: query
+            required: false
+            schema:
+              type: string
+          - name: customerData:loyaltyCardNumber
+            in: query
+            required: false
+            schema:
+              type: string
+          - name: customerData:name
+            in: query
+            required: false
+            schema:
+              type: string
+          - name: customerData:email
+            in: query
+            required: false
+            schema:
+              type: string
+          - name: customerData:phone
+            in: query
+            required: false
+            schema:
+              type: string
+          - name: customerData:nip
+            in: query
+            required: false
+            schema:
+              type: string
+          - name: customerId
+            in: query
+            required: false
+            schema:
+              type: string
+          - name: header:documentType
+            in: query
+            required: false
+            schema:
+              type: string
+          - name: header:documentNumber
+            in: query
+            description: Specifies the document number used in the transaction.
+            required: false
+            schema:
+              type: string
+          - name: header:linkedDocumentNumber
+            in: query
+            description: Used only for return transactions and refers to the original ‘sell’ document.
+            required: false
+            schema:
+              type: string
+          - name: header:purchasePlace
+            in: query
+            required: false
+            schema:
+              type: string
+          - name: channelId
+            in: query
+            required: false
+            schema:
+              type: string
+          - name: header:purchasedAt
+            in: query
+            required: false
+            schema:
+              type: string
+              format: date-time
+          - name: grossValue
+            in: query
+            required: false
+            schema:
+              type: number
+          - name: matched
+            in: query
+            required: false
+            schema:
+              type: boolean
+          - name: header:labels
+            in: query
+            description: Labels using pattern e.g. (key1;value1),(key2;value2),...
+            required: false
+            schema:
+              type: string
+          - name: items:labels
+            in: query
+            description: Labels using pattern e.g. (key1;value1),(key2;value2),...
+            required: false
+            schema:
+              type: string
+          - name: items:category
+            in: query
+            required: false
+            schema:
+              type: string
+          - name: items:sku
+            in: query
+            required: false
+            schema:
+              type: string
+          - name: items:maker
+            in: query
+            required: false
+            schema:
+              type: string
+          - $ref: '#/components/parameters/page'
+          - $ref: '#/components/parameters/itemsOnPage'
+          - $ref: '#/components/parameters/orderBy'
+          - $ref: '#/components/parameters/scroll'
+          responses:
+            "'200'":
+              description: List of transactions
+              content:
+                application/json:
+                  schema:
+                    oneOf:
+                    - title: TransactionsResponse
+                      properties:
+                        items:
+                          type: array
+                          items:
+                            $ref: '#/components/schemas/Transaction'
+                        total:
+                          $ref: '#/components/schemas/SearchableTotalResponse'
+                      type: object
+                    - title: TransactionsResponseWithScroll
+                      properties:
+                        items:
+                          type: array
+                          items:
+                            $ref: '#/components/schemas/Transaction'
+                        scroll:
+                          description: Scroll identifier for pagination
+                          type: string
+                      type: object
+            "'400'":
+              $ref: '#/components/responses/BadRequest'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+        post:
+          tags:
+          - Transactions
+          summary: Add a transaction
+          description: |
+            <label style="background-color: #BFE1F6;padding:5px;">Integration</label><br><br>
+            This method allows creating a new Transaction.
+          operationId: _transactionPost
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          requestBody:
+            required: true
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/PostTransaction'
+          responses:
+            "'200'":
+              description: Return registered transaction id.
+              content:
+                application/json:
+                  schema:
+                    properties:
+                      transactionId:
+                        description: Registered transaction identity
+                        type: string
+                        format: uuid
+                        example: 00000000-0000-0000-0000-000000000000
+                    type: object
+            "'400'":
+              $ref: '#/components/responses/BadRequest'
+            "'401'":
+              description: Unauthorized
+              content:
+                application/json:
+                  schema:
+                    oneOf:
+                    - $ref: '#/components/schemas/ExpiredToken'
+                    - $ref: '#/components/schemas/InvalidToken'
+                    - $ref: '#/components/schemas/Unauthorized'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+      /api/{storeCode}/transaction/{transaction}/labels:
+        put:
+          tags:
+          - Transactions
+          summary: Update transaction’s custom attribute
+          description: |
+            <label style="background-color: #BFE1F6;padding:5px;">Integration</label><br><br>
+            This method allows editing of Transaction labels.
+          operationId: labelPut
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          - $ref: '#/components/parameters/transaction'
+          requestBody:
+            description: ""
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/AddLabelsFormType'
+          responses:
+            "'204'":
+              $ref: '#/components/responses/NoContent'
+            "'400'":
+              $ref: '#/components/responses/BadRequest'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+            "'404'":
+              $ref: '#/components/responses/NotFound'
+        delete:
+          tags:
+          - Transactions
+          summary: Delete transaction’s custom attribute
+          description: |
+            <label style="background-color: #BFE1F6;padding:5px;">Integration</label><br><br>
+            This method allows removing a Transaction labels.
+          operationId: lebelDelete
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          - $ref: '#/components/parameters/transaction'
+          requestBody:
+            description: ""
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/RemoveLabelsFormType'
+          responses:
+            "'204'":
+              $ref: '#/components/responses/NoContent'
+            "'400'":
+              $ref: '#/components/responses/BadRequest'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+            "'404'":
+              $ref: '#/components/responses/NotFound'
+      /api/{storeCode}/transaction/assign:
+        post:
+          tags:
+          - Transactions
+          summary: Match the transaction
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+            This method allows importing assignments to Transaction.
+          operationId: transactionPostMemberAssign
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          requestBody:
+            description: ""
+            content:
+              application/json:
+                schema:
+                  properties:
+                    assign:
+                      $ref: '#/components/schemas/ManuallyAssignCustomerToTransactionFormType'
+                  type: object
+          responses:
+            "'200'":
+              description: Return transaction ID and assigned member ID.
+              content:
+                application/json:
+                  schema:
+                    properties:
+                      transactionId:
+                        type: string
+                        example: 00000000-0000-0000-0000-000000000000
+                      customerId:
+                        type: string
+                        example: 00000000-0000-0000-0000-000000000000
+                    type: object
+            "'400'":
+              $ref: '#/components/responses/BadRequest'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+

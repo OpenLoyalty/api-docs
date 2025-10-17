@@ -1,0 +1,25 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        ActionCause2:
+          properties:
+            campaignId:
+              type: string
+              format: uuid
+            customerId:
+              type: string
+              format: uuid
+            transactionId:
+              type: string
+              format: uuid
+            customEventId:
+              type: string
+              format: uuid
+            internalEventName:
+              type: string
+            performedAt:
+              type: string
+              format: date-time
+          type: object
+

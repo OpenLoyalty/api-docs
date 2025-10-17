@@ -1,0 +1,14 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        TranslationsType:
+          required:
+          - en
+          properties:
+            en:
+              $ref: '#/components/schemas/LocaleTranslation'
+            es:
+              $ref: '#/components/schemas/LocaleTranslation'
+          type: object
+

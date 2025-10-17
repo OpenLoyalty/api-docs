@@ -1,0 +1,44 @@
+﻿nelmio_api_doc:
+  documentation:
+    paths:
+      /api/billable-report:
+        get:
+          tags:
+          - Billable Report
+          summary: Get billable reports list
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+            This method returns a list of billable members, transactions and events per last 12 months and sum of those period.<br>
+            If `tenantId` is provided, it will return the billable report for that tenant otherwise it will return the billable report for all tenants.
+          operationId: _billableReportGetList
+          parameters:
+          - name: tenantId
+            in: query
+            description: Store ID
+            required: false
+            style: deepObject
+            explode: true
+            schema:
+              type: string
+              format: uuid
+          responses:
+            "'200'":
+              description: Billable report.
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/BillableReportResponse'
+            "'401'":
+              description: Unauthorized
+              content:
+                application/json:
+                  schema:
+                    oneOf:
+                    - $ref: '#/components/schemas/ExpiredToken'
+                    - $ref: '#/components/schemas/InvalidToken'
+                    - $ref: '#/components/schemas/Unauthorized'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+            "'404'":
+              $ref: '#/components/responses/NotFound'
+

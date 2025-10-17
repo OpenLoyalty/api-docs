@@ -1,0 +1,19 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        Channel:
+          properties:
+            channelId:
+              type: string
+              format: uuid
+            name:
+              type: string
+            identifier:
+              type: string
+            description:
+              type: string
+            currency:
+              type: string
+          type: object
+

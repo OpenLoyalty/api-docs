@@ -1,0 +1,56 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        Limit:
+          properties:
+            points:
+              required:
+              - value
+              properties:
+                interval:
+                  properties:
+                    type:
+                      type: string
+                      example: days
+                    value:
+                      type: integer
+                  type: object
+                value:
+                  type: number
+                  format: float
+              type: object
+            pointsPerMember:
+              required:
+              - value
+              properties:
+                interval:
+                  properties:
+                    type:
+                      type: string
+                      example: days
+                    value:
+                      type: integer
+                  type: object
+                value:
+                  type: number
+                  format: float
+              type: object
+            executionsPerMember:
+              required:
+              - value
+              properties:
+                interval:
+                  properties:
+                    type:
+                      type: string
+                      example: days
+                    value:
+                      type: integer
+                  type: object
+                value:
+                  type: number
+                  format: float
+              type: object
+          type: object
+

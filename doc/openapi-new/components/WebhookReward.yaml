@@ -1,0 +1,172 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        WebhookReward:
+          properties:
+            rewardId:
+              type: string
+              format: uuid
+            active:
+              type: boolean
+            fulfillmentTracking:
+              type: boolean
+            canBeBoughtManually:
+              type: boolean
+            type:
+              type: string
+            name:
+              type: string
+            price:
+              type: number
+            levels:
+              description: Selects specific tiers of the member
+              type: array
+              items:
+                type: string
+                format: uuid
+            segments:
+              type: array
+              items:
+                type: string
+                format: uuid
+            categories:
+              type: array
+              items:
+                type: string
+                format: uuid
+            photos:
+              type: array
+              items:
+                type: object
+            translations:
+              type: array
+              items:
+                properties:
+                  name:
+                    type: string
+                  id:
+                    type: integer
+                  locale:
+                    type: string
+                type: object
+            createdAt:
+              type: string
+              format: date-time
+            activity:
+              description: Activity period
+              required:
+              - allTime
+              properties:
+                allTime:
+                  description: Marked as unlimited period
+                  type: boolean
+                from:
+                  type: string
+                  format: date-time
+                to:
+                  type: string
+                  format: date-time
+              type: object
+              additionalProperties: false
+            visibility:
+              description: Visibility period
+              required:
+              - allTime
+              properties:
+                allTime:
+                  description: Marked as unlimited period
+                  type: boolean
+                from:
+                  type: string
+                  format: date-time
+                to:
+                  type: string
+                  format: date-time
+              type: object
+              additionalProperties: false
+            labels:
+              description: Labels
+              type: array
+              items:
+                required:
+                - key
+                - value
+                properties:
+                  key:
+                    type: string
+                  value:
+                    type: string
+                type: object
+                additionalProperties: false
+            featured:
+              type: boolean
+            public:
+              type: boolean
+            costInPoints:
+              description: Cost of reward in units
+              type: number
+              format: float
+              minimum: 0
+              example: 60.8
+              nullable: true
+            usageLimit:
+              required:
+              - perUser
+              properties:
+                perUser:
+                  description: Usages limit per member (-1 means unlimited)
+                  type: number
+                  format: int32
+                  minimum: -1
+                general:
+                  description: Global usages limit (-1 means unlimited). Required only when couponGenerator is defined.
+                  type: number
+                  format: int32
+                  minimum: -1
+              type: object
+              additionalProperties: false
+            limits:
+              description: New limits structure with intervals
+              properties:
+                general:
+                  required:
+                  - value
+                  properties:
+                    interval:
+                      properties:
+                        type:
+                          type: string
+                          enum:
+                          - calendarHours
+                          - calendarDays
+                          - calendarWeeks
+                          - calendarMonths
+                          - calendarYears
+                      type: object
+                    value:
+                      type: number
+                      format: float
+                  type: object
+                perMember:
+                  required:
+                  - value
+                  properties:
+                    interval:
+                      properties:
+                        type:
+                          type: string
+                          enum:
+                          - calendarHours
+                          - calendarDays
+                          - calendarWeeks
+                          - calendarMonths
+                          - calendarYears
+                      type: object
+                    value:
+                      type: number
+                      format: float
+                  type: object
+              type: object
+          type: object
+

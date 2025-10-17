@@ -1,0 +1,12 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        Period:
+          properties:
+            consecutive:
+              type: integer
+            value:
+              type: integer
+          type: object
+

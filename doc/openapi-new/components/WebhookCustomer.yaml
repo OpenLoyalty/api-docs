@@ -1,0 +1,19 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        WebhookCustomer:
+          description: Member whose action triggered the campaign
+          properties:
+            customerId:
+              type: string
+              format: uuid
+            email:
+              type: string
+              format: email
+            phone:
+              type: string
+            loyaltyCardNumber:
+              type: string
+          type: object
+

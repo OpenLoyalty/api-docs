@@ -1,0 +1,201 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        UpdateDynamicCouponRewardRequestBody:
+          title: Dynamic coupon
+          required:
+          - translations
+          - activity
+          - visibility
+          properties:
+            translations:
+              properties:
+                en:
+                  required:
+                  - name
+                  properties:
+                    name:
+                      description: Reward name
+                      type: string
+                    shortDescription:
+                      description: Reward short description
+                      type: string
+                    usageInstruction:
+                      description: Reward usage instruction
+                      type: string
+                    conditionsDescription:
+                      description: Reward conditions description
+                      type: string
+                    brandDescription:
+                      description: Brand description
+                      type: string
+                    brandName:
+                      description: Brand description
+                      type: string
+                  type: object
+              type: object
+            categories:
+              description: Categories
+              type: array
+              items:
+                type: string
+                format: uuid
+            tax:
+              description: Price tax
+              type: number
+              format: float
+              maximum: 100
+              minimum: 0
+              example: 23
+            price:
+              description: Price
+              type: number
+              format: float
+              minimum: 0
+              example: 200
+            taxPriceValue:
+              description: Tax price value
+              type: number
+              format: float
+              minimum: 0
+              example: 46
+            active:
+              type: boolean
+            target:
+              description: |
+                Link to tiers or segments:
+
+
+                 * `level` - Property `levels` is required
+                 * `segment` - Property `segments` is required
+              type: string
+              enum:
+              - level
+              - segment
+            levels:
+              description: Selects specific tiers of the member
+              type: array
+              items:
+                type: string
+                format: uuid
+            segments:
+              description: Selects specific segments of the member
+              type: array
+              items:
+                type: string
+                format: uuid
+            activity:
+              description: Activity period
+              required:
+              - allTime
+              properties:
+                allTime:
+                  description: Marked as unlimited period
+                  type: boolean
+                from:
+                  type: string
+                  format: date-time
+                to:
+                  type: string
+                  format: date-time
+              type: object
+              additionalProperties: false
+            visibility:
+              description: Visibility period
+              required:
+              - allTime
+              properties:
+                allTime:
+                  description: Marked as unlimited period
+                  type: boolean
+                from:
+                  type: string
+                  format: date-time
+                to:
+                  type: string
+                  format: date-time
+              type: object
+              additionalProperties: false
+            labels:
+              description: Labels
+              type: array
+              items:
+                required:
+                - key
+                - value
+                properties:
+                  key:
+                    type: string
+                  value:
+                    type: string
+                type: object
+                additionalProperties: false
+            featured:
+              type: boolean
+            public:
+              type: boolean
+            costInPoints:
+              description: Cost of reward in units
+              type: number
+              format: float
+              minimum: 0
+              example: 60.8
+              nullable: true
+            sourceWalletTypeCode:
+              description: Wallet code as a source of units
+              type: string
+              nullable: true
+            limits:
+              $ref: '#/components/schemas/RewardLimit'
+            usageLimit:
+              description: Legacy usage limits structure. Cannot be used together with limits.
+              required:
+              - perUser
+              properties:
+                perUser:
+                  description: Usages limit per member (-1 means unlimited)
+                  type: number
+                  format: int32
+                  minimum: -1
+                general:
+                  description: Global usages limit (-1 means unlimited). Required only when couponGenerator is defined.
+                  type: number
+                  format: int32
+                  minimum: -1
+              type: object
+              additionalProperties: false
+            daysInactive:
+              description: Inactive coupon period after redeem in days
+              type: number
+              format: int32
+            daysValid:
+              description: Active coupon period after redeem in days. Not valid if dateValid is defined.
+              type: number
+              format: int32
+            dateValid:
+              description: Active coupon period after redeem in days
+              type: string
+              format: date-time
+            couponGenerator:
+              description: If defined then coupon will be generated automatically based on defined strategy. Otherwise must be import manually.
+              required:
+              - length
+              - characterSet
+              properties:
+                length:
+                  description: Length of coupon
+                  type: number
+                characterSet:
+                  type: string
+                  enum:
+                  - alphanum
+                  - alpha
+                  - num
+                prefix:
+                  type: string
+              type: object
+              additionalProperties: false
+          type: object
+          additionalProperties: false
+

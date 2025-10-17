@@ -1,0 +1,25 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        RedemptionStatusRequestBody:
+          properties:
+            status:
+              description: Current status of the redemeed reward. By default, all rewards are redeemed with issued status.
+              type: string
+              enum:
+              - issued
+              - pending
+              - approved
+              - packing
+              - awaiting_shipping
+              - shipped
+              - returned
+              - completed
+              - canceled
+              - rejected
+            comment:
+              description: Comment related to the status change (optional).
+              type: string
+          type: object
+

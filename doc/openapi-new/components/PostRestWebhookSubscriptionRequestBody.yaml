@@ -1,0 +1,39 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        PostRestWebhookSubscriptionRequestBody:
+          title: REST Webhook
+          properties:
+            webhookSubscription:
+              required:
+              - eventName
+              - url
+              properties:
+                eventName:
+                  description: Name of the event to subscribe to (e.g. "AchievementsWereProcessed")
+                  type: string
+                destinationType:
+                  description: Type of destination for the webhook
+                  type: string
+                  enum:
+                  - rest
+                url:
+                  description: URL to send the webhook to
+                  type: string
+                headerName:
+                  description: Name of the header (deprecated, use headers instead)
+                  type: string
+                  deprecated: true
+                headerValue:
+                  description: Value of the header (deprecated, use headers instead)
+                  type: string
+                  deprecated: true
+                headers:
+                  description: Headers to include in the webhook request (for REST destination type)
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/WebhookHeader'
+              type: object
+          type: object
+

@@ -1,0 +1,42 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        ConditionType:
+          required:
+          - attribute
+          - operator
+          properties:
+            attribute:
+              type: string
+            operator:
+              type: string
+              enum:
+              - expression
+              - is_equal
+              - has_at_least_one_label
+              - contains
+              - not_contains
+              - contains_one_of
+              - not_contains_one_of
+              - is_not_equal
+              - is_not_one_of
+              - is_one_of
+              - matches_regex
+              - is_greater
+              - is_greater_or_equal
+              - is_less
+              - is_less_or_equal
+              - ends_with
+              - starts_with
+              - is_after
+              - is_before
+              - is_between
+              - is_day_of_week
+              - is_month_of_year
+              - is_not_between
+              - is_day_of_month
+              - is_time_between
+              - is_number_between
+          type: object
+

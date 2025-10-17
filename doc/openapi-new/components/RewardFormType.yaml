@@ -1,0 +1,32 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        RewardFormType:
+          required:
+          - name
+          - value
+          - code
+          - startAt
+          - endAt
+          properties:
+            name:
+              type: string
+            value:
+              type: number
+            code:
+              type: string
+            active:
+              type: boolean
+            startAt:
+              type: string
+              format: date
+            endAt:
+              type: string
+              format: date
+            labels:
+              type: array
+              items:
+                $ref: '#/components/schemas/LabelType'
+          type: object
+

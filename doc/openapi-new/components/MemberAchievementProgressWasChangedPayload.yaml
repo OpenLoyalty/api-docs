@@ -1,0 +1,25 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        MemberAchievementProgressWasChangedPayload:
+          properties:
+            achievementId:
+              type: string
+              format: uuid
+            completedCount:
+              type: integer
+            progressStatuses:
+              type: object
+            trigger:
+              properties:
+                triggerId:
+                  type: string
+                type:
+                  type: string
+                  enum:
+                  - transaction
+                  - custom_event
+              type: object
+          type: object
+

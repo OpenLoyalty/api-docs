@@ -1,0 +1,17 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        CreateChannelFormType:
+          required:
+          - name
+          - identifier
+          properties:
+            name:
+              type: string
+            identifier:
+              type: string
+            description:
+              type: string
+          type: object
+

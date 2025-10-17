@@ -1,0 +1,32 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        Language:
+          properties:
+            localeCode:
+              $ref: '#/components/schemas/LocaleCode'
+            name:
+              type: string
+            order:
+              type: integer
+            adminDefault:
+              type: boolean
+            apiDefault:
+              type: boolean
+            translations:
+              type: array
+              items:
+                $ref: '#/components/schemas/TranslationEntry'
+            createdAt:
+              type: string
+              format: date-time
+            updatedAt:
+              type: string
+              format: date-time
+            createdBy:
+              type: string
+            updatedBy:
+              type: string
+          type: object
+

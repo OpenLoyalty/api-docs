@@ -1,0 +1,35 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        LeaderboardResponse:
+          properties:
+            metric:
+              required:
+              - type
+              - walletTypeCode
+              properties:
+                type:
+                  type: string
+                  enum:
+                  - earned_units_cumulative
+                walletTypeCode:
+                  type: string
+              type: object
+            cycles:
+              required:
+              - type
+              - walletTypeCode
+              properties:
+                type:
+                  type: string
+                  enum:
+                  - end_of_the_month
+                code:
+                  type: string
+                recalculatedAt:
+                  type: string
+                  format: datetime
+              type: object
+          type: object
+

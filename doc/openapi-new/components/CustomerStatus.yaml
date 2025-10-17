@@ -1,0 +1,119 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        CustomerStatus:
+          properties:
+            firstName:
+              type: string
+            lastName:
+              type: string
+            customerId:
+              type: string
+              format: uuid
+            activePoints:
+              type: number
+              format: float
+            transferredPoints:
+              type: number
+              format: float
+            earnedPoints:
+              type: number
+              format: float
+            spentPoints:
+              type: number
+              format: float
+            expiredPoints:
+              type: number
+              format: float
+            lockedPoints:
+              type: number
+              format: float
+            blockedPoints:
+              type: number
+              format: float
+            levelName:
+              type: string
+            levelConditionValue:
+              type: number
+              format: float
+            nextLevelName:
+              description: This property only shows correct data for tier sets with one condition.
+              type: string
+              deprecated: true
+            nextLevelConditionValue:
+              description: This property only shows correct data for tier sets with one condition.
+              type: number
+              format: float
+              deprecated: true
+            transactionsAmountToNextLevelWithoutDeliveryCosts:
+              type: number
+              format: float
+            transactionsAmountWithoutDeliveryCosts:
+              type: number
+              format: float
+            transactionsAmountToNextLevel:
+              type: number
+              format: float
+            averageTransactionsAmount:
+              type: number
+              format: float
+            averageReturnTransactionsAmount:
+              type: number
+              format: float
+            transactionsCount:
+              type: integer
+            returnTransactionsCount:
+              type: integer
+            transactionsAmount:
+              type: number
+              format: float
+            returnTransactionsAmount:
+              type: number
+              format: float
+            pointsToNextLevel:
+              description: This property only shows correct data for tier sets with one condition.
+              type: number
+              format: float
+              deprecated: true
+            currency:
+              type: string
+            levelWillExpireInDays:
+              type: integer
+            pointsSinceLastLevelRecalculation:
+              type: number
+              format: float
+            pointsRequiredToRetainLevel:
+              type: number
+              format: float
+            tierSet:
+              $ref: '#/components/schemas/TierSet'
+            pointsExpiringNextMonth:
+              type: number
+              format: float
+            pointsExpiringBreakdown:
+              type: object
+              additionalProperties:
+                type: number
+                format: float
+            storeCode:
+              type: string
+            firstTransactionDate:
+              type: string
+              format: date-time
+            lastTransactionDate:
+              type: string
+              format: date-time
+            levelAchievementDate:
+              type: string
+              format: date-time
+            createdAt:
+              type: string
+              format: date-time
+            registeredAt:
+              type: string
+              format: date-time
+            referralToken:
+              type: string
+          type: object
+

@@ -1,0 +1,20 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        EditSegmentFormType:
+          required:
+          - name
+          properties:
+            name:
+              type: string
+            active:
+              type: boolean
+            description:
+              type: string
+            parts:
+              type: array
+              items:
+                $ref: '#/components/schemas/SegmentPartFormType'
+          type: object
+

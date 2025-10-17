@@ -1,0 +1,26 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        Referral:
+          properties:
+            referralId:
+              type: string
+              format: uuid
+            referrerId:
+              type: string
+              format: uuid
+            referrerName:
+              type: string
+            referrerToken:
+              type: string
+            refereeId:
+              type: string
+              format: uuid
+            refereeName:
+              type: string
+            createdAt:
+              type: string
+              format: date-time
+          type: object
+

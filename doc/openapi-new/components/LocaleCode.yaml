@@ -1,0 +1,10 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        LocaleCode:
+          properties:
+            code:
+              type: string
+          type: object
+

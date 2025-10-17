@@ -1,0 +1,21 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        Wallet:
+          properties:
+            walletType:
+              $ref: '#/components/schemas/WalletTypeBasicData'
+            createdAt:
+              type: string
+              format: date-time
+            account:
+              $ref: '#/components/schemas/Account2'
+            unitsLimitUsed:
+              type: number
+              format: float
+            unitsLimitRemaining:
+              type: number
+              format: float
+          type: object
+

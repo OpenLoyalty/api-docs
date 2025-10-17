@@ -1,0 +1,18 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        WebhookSegment:
+          description: Segment information for webhook events
+          properties:
+            segmentId:
+              type: string
+              format: uuid
+            segmentName:
+              type: string
+            previousCount:
+              type: integer
+            newCount:
+              type: integer
+          type: object
+

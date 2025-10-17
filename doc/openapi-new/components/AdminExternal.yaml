@@ -1,0 +1,73 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        AdminExternal:
+          properties:
+            canChangePassword:
+              type: boolean
+              example: false
+            id:
+              type: string
+              format: uuid
+            username:
+              type: string
+            isActive:
+              type: boolean
+            createAt:
+              description: Use createdAt instead
+              type: string
+              format: date-time
+              deprecated: true
+            createdAt:
+              type: string
+              format: date-time
+            roles:
+              type: array
+              items:
+                properties:
+                  role:
+                    type: string
+                  stores:
+                    type: array
+                    items:
+                      type: object
+                  id:
+                    type: integer
+                  name:
+                    type: string
+                  master:
+                    type: boolean
+                  default:
+                    type: boolean
+                  permissions:
+                    type: array
+                    items:
+                      type: object
+                type: object
+            email:
+              type: string
+            phone:
+              type: string
+            settings:
+              properties:
+                notificationsEnabled:
+                  type: string
+              type: object
+            firstName:
+              type: string
+            lastName:
+              type: string
+            external:
+              type: boolean
+              example: true
+            apiKey:
+              type: string
+            dtype:
+              type: string
+            remoteAuth:
+              type: array
+              items:
+                type: object
+          type: object
+

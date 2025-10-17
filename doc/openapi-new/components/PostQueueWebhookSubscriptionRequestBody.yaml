@@ -1,0 +1,38 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        PostQueueWebhookSubscriptionRequestBody:
+          title: Queue Webhook
+          properties:
+            webhookSubscription:
+              required:
+              - eventName
+              - url
+              - queueKey
+              - queueSecretKey
+              properties:
+                eventName:
+                  description: Name of the event to subscribe to (e.g. "AchievementsWereProcessed")
+                  type: string
+                destinationType:
+                  description: Type of destination for the webhook
+                  type: string
+                  enum:
+                  - queue
+                url:
+                  description: URL to send the webhook to
+                  type: string
+                queueKey:
+                  description: Queue Access Key (for QUEUE destination type)
+                  type: string
+                queueSecretKey:
+                  description: Queue Secret Access Key (for QUEUE destination type)
+                  type: string
+                queueEncryptionKey:
+                  description: RSA public key in PEM format for encrypting webhook messages
+                  type: string
+                  format: textarea
+              type: object
+          type: object
+

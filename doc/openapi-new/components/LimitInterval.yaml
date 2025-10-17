@@ -1,0 +1,12 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        LimitInterval:
+          properties:
+            type:
+              type: string
+            value:
+              type: integer
+          type: object
+

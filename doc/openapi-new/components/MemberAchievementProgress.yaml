@@ -1,0 +1,36 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        MemberAchievementProgress:
+          properties:
+            completedCount:
+              type: integer
+            rules:
+              type: array
+              items:
+                properties:
+                  achievementRuleId:
+                    type: string
+                  periodGoal:
+                    type: number
+                    format: float
+                  currentPeriodValue:
+                    type: number
+                    format: float
+                  consecutivePeriods:
+                    type: integer
+                  completedConsecutivePeriods:
+                    type: integer
+                  periodType:
+                    type: string
+                  type:
+                    type: string
+                  trigger:
+                    type: string
+                  periodValue:
+                    type: number
+                    format: float
+                type: object
+          type: object
+

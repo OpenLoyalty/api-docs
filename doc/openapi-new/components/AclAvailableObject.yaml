@@ -1,0 +1,12 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        AclAvailableObject:
+          properties:
+            code:
+              type: string
+            name:
+              type: string
+          type: object
+

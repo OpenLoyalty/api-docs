@@ -1,0 +1,19 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        ManuallyAssignCustomerToTransactionFormType:
+          required:
+          - transactionDocumentNumber
+          properties:
+            transactionDocumentNumber:
+              type: string
+            customerId:
+              type: string
+              example: 7239e6f7-e52e-466b-8c24-699709b64076
+            customerLoyaltyCardNumber:
+              type: string
+            customerPhoneNumber:
+              type: string
+          type: object
+

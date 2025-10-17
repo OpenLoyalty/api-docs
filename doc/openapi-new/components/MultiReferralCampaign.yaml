@@ -1,0 +1,122 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        MultiReferralCampaign:
+          properties:
+            name:
+              type: string
+            description:
+              type: string
+            type:
+              type: string
+              example: referral
+            trigger:
+              type: string
+            campaignId:
+              type: string
+              format: uuid
+            activity:
+              properties:
+                startsAt:
+                  type: string
+                  format: date-time
+                endsAt:
+                  type: string
+                  format: date-time
+                  nullable: true
+              type: object
+            active:
+              type: boolean
+            createdAt:
+              type: string
+              format: date-time
+            displayOrder:
+              type: number
+              example: 1
+            multiLevel:
+              type: number
+              example: 2
+            rules:
+              type: array
+              items:
+                properties:
+                  name:
+                    type: string
+                  description:
+                    type: string
+                  conditions:
+                    type: array
+                    items:
+                      properties:
+                        operator:
+                          type: string
+                        data:
+                          type: array
+                          items:
+                            type: string
+                        attribute:
+                          type: string
+                      type: object
+                  effects:
+                    type: array
+                    items:
+                      properties:
+                        effect:
+                          type: string
+                        pointsRule:
+                          type: string
+                      type: object
+                type: object
+            labels:
+              type: array
+              items:
+                properties:
+                  key:
+                    type: string
+                  value:
+                    type: string
+                type: object
+            translations:
+              type: array
+              items:
+                properties:
+                  name:
+                    type: string
+                  description:
+                    type: string
+                  id:
+                    type: integer
+                  locale:
+                    type: string
+                type: object
+            limitUsages:
+              properties:
+                points:
+                  properties:
+                    currentValue:
+                      type: number
+                      format: float
+                    limitValue:
+                      type: number
+                      format: float
+                    remaining:
+                      type: number
+                      format: float
+                    interval:
+                      properties:
+                        type:
+                          type: string
+                          enum:
+                          - calendarHours
+                          - calendarDays
+                          - calendarWeeks
+                          - calendarMonths
+                          - calendarYears
+                        value:
+                          type: integer
+                      type: object
+                  type: object
+              type: object
+          type: object
+

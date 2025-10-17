@@ -1,0 +1,51 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        IssuedRewardWasCancelled:
+          required:
+          - type
+          - customerId
+          - createdAt
+          - flatVariables
+          properties:
+            type:
+              type: string
+              enum:
+              - IssuedRewardWasCancelled
+              example: IssuedRewardWasCancelled
+            customerId:
+              type: string
+              format: uuid
+              example: 00000000-0000-474c-b092-b0dd880c07aa
+            createdAt:
+              type: string
+              format: date-time
+              example: 2025-07-24T14:23:30+02:00
+            flatVariables:
+              required:
+              - rewardId
+              - issuedRewardId
+              - name
+              - cancelledAt
+              properties:
+                rewardId:
+                  type: string
+                  format: uuid
+                  example: 6a861f8a-6906-4002-8b9c-4db407e810ea
+                issuedRewardId:
+                  type: string
+                  format: uuid
+                  example: 81d448fd-520a-4855-ad60-db93e959f563
+                name:
+                  type: string
+                  example: Test configured reward
+                cancelledAt:
+                  type: string
+                  format: date-time
+                  example: 2025-07-24T14:23:30+02:00
+              type: object
+              additionalProperties: false
+          type: object
+          additionalProperties: false
+

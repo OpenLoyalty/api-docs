@@ -1,0 +1,26 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        SingleView:
+          properties:
+            campaignId:
+              type: string
+              format: uuid
+            intervalStartDate:
+              type: string
+              format: date-time
+            intervalEndDate:
+              type: string
+              format: date-time
+            header:
+              $ref: '#/components/schemas/SingleViewHeader'
+            data:
+              type: object
+              additionalProperties: true
+            comparativePeriodData:
+              type: object
+              deprecated: true
+              additionalProperties: true
+          type: object
+

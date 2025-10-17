@@ -1,0 +1,191 @@
+﻿nelmio_api_doc:
+  documentation:
+    paths:
+      /api/store/{store}:
+        get:
+          tags:
+          - Store
+          summary: Get tenant’s details
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+            This method returns a specific Store (tenant).
+          operationId: _storeGet
+          parameters:
+          - $ref: '#/components/parameters/store'
+          responses:
+            "'200'":
+              description: Store details.
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/StoreResponse'
+            "'401'":
+              $ref: '#/components/responses/Unauthorized'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+            "'404'":
+              $ref: '#/components/responses/NotFound'
+        put:
+          tags:
+          - Store
+          summary: Update tenant’s configuration
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+            This method allows updating a specific Store (tenant) in the system.
+          operationId: storePut
+          parameters:
+          - $ref: '#/components/parameters/store'
+          requestBody:
+            description: ""
+            content:
+              application/json:
+                schema:
+                  properties:
+                    store:
+                      $ref: '#/components/schemas/StoreFormType'
+                  type: object
+          responses:
+            "'204'":
+              $ref: '#/components/responses/NoContent'
+            "'400'":
+              $ref: '#/components/responses/BadRequest'
+            "'401'":
+              description: ""
+              content:
+                application/json:
+                  schema:
+                    oneOf:
+                    - $ref: '#/components/schemas/ExpiredToken'
+                    - $ref: '#/components/schemas/InvalidToken'
+                    - $ref: '#/components/schemas/Unauthorized'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+            "'404'":
+              $ref: '#/components/responses/NotFound'
+      /api/store:
+        get:
+          tags:
+          - Store
+          summary: Get tenants list
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+            This method returns a specific Store (tenant).
+          operationId: storeGetList
+          parameters:
+          - name: storeId
+            in: query
+            description: Store ID
+            required: false
+            style: deepObject
+            explode: true
+            schema:
+              type: string
+              format: uuid
+          - name: name
+            in: query
+            description: Store name
+            required: false
+            style: deepObject
+            explode: true
+            schema:
+              type: string
+            examples:
+              equal:
+                summary: Equal value
+                value:
+                  eq: value
+          - name: code
+            in: query
+            description: Code
+            required: false
+            style: deepObject
+            explode: true
+            schema:
+              type: string
+          - name: currency
+            in: query
+            description: Currency
+            required: false
+            style: deepObject
+            explode: true
+            schema:
+              type: string
+          - name: active
+            in: query
+            description: Active
+            required: false
+            style: deepObject
+            explode: true
+            schema:
+              type: boolean
+            examples:
+              equal:
+                summary: Equal value
+                value:
+                  eq: true
+          - $ref: '#/components/parameters/page'
+          - $ref: '#/components/parameters/itemsOnPage'
+          - $ref: '#/components/parameters/orderBy'
+          responses:
+            "'200'":
+              description: List of stores.
+              content:
+                application/json:
+                  schema:
+                    allOf:
+                    - $ref: '#/components/schemas/ListOfItems'
+                    - properties:
+                        items:
+                          type: array
+                          items:
+                            $ref: '#/components/schemas/StoreResponse'
+                      type: object
+            "'401'":
+              $ref: '#/components/responses/Unauthorized'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+            "'404'":
+              $ref: '#/components/responses/NotFound'
+        post:
+          tags:
+          - Store
+          summary: Add a new tenant
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+            This method allows adding a new Store to the system.
+          operationId: storePost
+          requestBody:
+            description: ""
+            content:
+              application/json:
+                schema:
+                  properties:
+                    store:
+                      $ref: '#/components/schemas/StoreFormType'
+                  type: object
+          responses:
+            "'200'":
+              description: Return created store ID.
+              content:
+                application/json:
+                  schema:
+                    properties:
+                      storeId:
+                        description: Created store identity
+                        type: string
+                        example: 00000000-0000-0000-0000-000000000000
+                    type: object
+            "'400'":
+              $ref: '#/components/responses/BadRequest'
+            "'401'":
+              description: ""
+              content:
+                application/json:
+                  schema:
+                    oneOf:
+                    - $ref: '#/components/schemas/ExpiredToken'
+                    - $ref: '#/components/schemas/InvalidToken'
+                    - $ref: '#/components/schemas/Unauthorized'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+

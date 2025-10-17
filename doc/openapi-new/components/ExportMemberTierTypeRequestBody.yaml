@@ -1,0 +1,24 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        ExportMemberTierTypeRequestBody:
+          title: memberTier
+          properties:
+            memberTier:
+              required:
+              - tierId
+              properties:
+                tierId:
+                  type: string
+                  format: uuid
+                _page:
+                  $ref: '#/components/schemas/ExportPage'
+                _itemsOnPage:
+                  $ref: '#/components/schemas/ExportItemsOnPage'
+                _orderBy:
+                  $ref: '#/components/schemas/ExportOrderBy'
+              type: object
+          type: object
+          additionalProperties: false
+

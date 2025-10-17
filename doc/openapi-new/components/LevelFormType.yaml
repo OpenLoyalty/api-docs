@@ -1,0 +1,22 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        LevelFormType:
+          required:
+          - translations
+          - conditionValue
+          - rewards
+          properties:
+            translations:
+              $ref: '#/components/schemas/TranslationsType'
+            active:
+              type: boolean
+            conditionValue:
+              type: number
+            rewards:
+              type: array
+              items:
+                $ref: '#/components/schemas/RewardFormType'
+          type: object
+

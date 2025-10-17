@@ -1,0 +1,51 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        MaterialIssuedReward:
+          properties:
+            rewardId:
+              type: string
+              format: uuid
+            issuedRewardId:
+              type: string
+              format: uuid
+            name:
+              type: string
+            customerId:
+              type: string
+              format: uuid
+            status:
+              type: string
+            redemptionDate:
+              type: string
+              format: date-time
+            customerData:
+              properties:
+                email:
+                  type: string
+                firstName:
+                  type: string
+                lastName:
+                  type: string
+                phone:
+                  type: string
+                loyaltyCardNumber:
+                  type: string
+                address:
+                  type: object
+              type: object
+            costInPoints:
+              type: number
+            token:
+              type: string
+            rewardType:
+              type: string
+              example: material
+            actionCause:
+              $ref: '#/components/schemas/ActionCause'
+            cancelledAt:
+              type: string
+              format: date-time
+          type: object
+

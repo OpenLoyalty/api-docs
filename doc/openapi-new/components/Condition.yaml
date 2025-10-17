@@ -1,0 +1,108 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        Condition:
+          required:
+          - operator
+          - value
+          properties:
+            operator:
+              type: string
+              enum:
+              - eq
+              - neq
+              - between
+              - not_between
+              - starts_with
+              - ends_with
+              - match
+              - not_match
+              - gt
+              - gte
+              - lt
+              - lte
+              - is_after
+              - is_before
+              - in
+              - not_in
+              - one_of
+              - not_one_of
+              - in_value_group
+              - not_in_value_group
+              - one_of_value_group
+              - not_one_of_value_group
+            value:
+              oneOf:
+              - description: For operators `eq`, `neq`, `starts_with`, `ends_with`, `match`, `not_match` the value can be a string. For `match` and `not_match`, the string must be a valid regular expression.
+                type: string
+              - description: For operators `eq`, `neq`, `gt`, `gte`, `lt`, `lte` , the value can be a number.
+                type: number
+              - description: For operators `eq`, `neq`, the value can be a bool.
+                type: boolean
+              - title: datetime
+                description: For operators `eq`, `neq` `is_after`, `is_before`, the value can be a datetime.
+                type: string
+                format: datetime
+                pattern: ^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d{1,3})?Z$
+              - title: array
+                type: array
+                items:
+                  description: For `in`, `not_in`, `one_of`, `not_one_of` operators, the values can be in array.
+                  oneOf:
+                  - type: number
+                  - type: string
+                  - title: custom attribute
+                    properties:
+                      key:
+                        type: string
+                      value:
+                        type: string
+                    type: object
+              - title: between
+                description: For `between`, `not_between` operators, the value is an object with 'from' and 'to'.
+                required:
+                - from
+                - to
+                properties:
+                  from:
+                    oneOf:
+                    - type: number
+                    - title: datetime
+                      type: string
+                      format: datetime
+                  to:
+                    oneOf:
+                    - type: number
+                    - title: datetime
+                      type: string
+                      format: datetime
+                type: object
+              - title: group of values
+                required:
+                - groupValuesIds
+                properties:
+                  groupValuesIds:
+                    description: For `in_value_group`, `not_in_value_group` operators, the value is an object with `groupValuesIds` array.
+                    type: array
+                    items:
+                      type: string
+                      format: uuid
+                type: object
+              - title: one of group of values
+                description: For `one_of_value_group`, `not_one_of_value_group` operators, the value is an object with labelKey and `groupValuesIds` array.
+                required:
+                - groupValuesIds
+                - labelKey
+                properties:
+                  labelKey:
+                    type: string
+                  groupValuesIds:
+                    type: array
+                    items:
+                      type: string
+                      format: uuid
+                type: object
+          type: object
+          additionalProperties: false
+

@@ -1,0 +1,51 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        ExportRewardFulfillmentTypeRequestBody:
+          title: rewardFulfillment
+          properties:
+            rewardFulfillment:
+              properties:
+                rewardId:
+                  type: string
+                  format: uuid
+                name:
+                  type: string
+                rewardType:
+                  type: string
+                token:
+                  type: string
+                status:
+                  type: array
+                  items:
+                    type: string
+                costInPoints:
+                  type: number
+                  format: float
+                redemptionDate:
+                  type: string
+                  format: date-time
+                customerId:
+                  type: string
+                  format: uuid
+                customerData:email:
+                  type: string
+                customerData:firstName:
+                  type: string
+                customerData:lastName:
+                  type: string
+                customerData:phone:
+                  type: string
+                customerData:loyaltyCardNumber:
+                  type: string
+                _page:
+                  $ref: '#/components/schemas/ExportPage'
+                _itemsOnPage:
+                  $ref: '#/components/schemas/ExportItemsOnPage'
+                _orderBy:
+                  $ref: '#/components/schemas/ExportOrderBy'
+              type: object
+          type: object
+          additionalProperties: false
+

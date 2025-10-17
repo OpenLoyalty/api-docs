@@ -1,0 +1,21 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        ActivityFormType:
+          required:
+          - operator
+          properties:
+            operator:
+              type: string
+              enum:
+              - is_after
+              - is_before
+              - is_between
+              - is_not_between
+              - is_day_of_week
+              - is_month_of_year
+              - is_day_of_month
+              - is_time_between
+          type: object
+

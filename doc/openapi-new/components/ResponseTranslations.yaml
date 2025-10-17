@@ -1,0 +1,22 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        ResponseTranslations:
+          properties:
+            en:
+              properties:
+                name:
+                  type: string
+                description:
+                  type: string
+              type: object
+            pl:
+              properties:
+                name:
+                  type: string
+                description:
+                  type: string
+              type: object
+          type: object
+

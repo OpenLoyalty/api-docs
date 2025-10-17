@@ -1,0 +1,32 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        ActionCause:
+          properties:
+            campaignId:
+              type: string
+              format: uuid
+              nullable: true
+            customerId:
+              type: string
+              format: uuid
+              nullable: true
+            transactionId:
+              type: string
+              format: uuid
+              nullable: true
+            customEventId:
+              type: string
+              format: uuid
+              nullable: true
+            internalEventName:
+              type: string
+              nullable: true
+            performedAt:
+              description: The date and time when the event was performed (purchase for transactions, registration for custom events). Equivalent to purchasedAt and eventDate. This value is null if actionCause does not come from a campaign.
+              type: string
+              format: date-time
+              nullable: true
+          type: object
+

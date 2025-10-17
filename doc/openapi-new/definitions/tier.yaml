@@ -1,0 +1,363 @@
+﻿nelmio_api_doc:
+  documentation:
+    paths:
+      /api/{storeCode}/tier/{tier}:
+        get:
+          tags:
+          - Tier
+          summary: Get tier’s details
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+            This method returns a specific Tier from the system.
+          operationId: _tierGet
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          - $ref: '#/components/parameters/tier'
+          responses:
+            "'200'":
+              description: Tier details.
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/TierResponse'
+            "'401'":
+              description: Unauthorized
+              content:
+                application/json:
+                  schema:
+                    oneOf:
+                    - $ref: '#/components/schemas/ExpiredToken'
+                    - $ref: '#/components/schemas/InvalidToken'
+                    - $ref: '#/components/schemas/Unauthorized'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+            "'404'":
+              $ref: '#/components/responses/NotFound'
+          deprecated: true
+        put:
+          tags:
+          - Tier
+          summary: Update tier’s details
+          description: |
+            This method allows updating a specific Tier in the system.
+          operationId: tierPut
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          - $ref: '#/components/parameters/tier'
+          requestBody:
+            description: ""
+            content:
+              application/json:
+                schema:
+                  properties:
+                    level:
+                      allOf:
+                      - $ref: '#/components/schemas/LevelFormType'
+                      - properties:
+                          translations:
+                            $ref: '#/components/schemas/Translations'
+                        type: object
+                        property: 
+                  type: object
+          responses:
+            "'200'":
+              description: Return updated tier ID.
+              content:
+                application/json:
+                  schema:
+                    properties:
+                      levelId:
+                        description: Updated tier identity
+                        type: string
+                        example: 00000000-0000-0000-0000-000000000000
+                    type: object
+            "'400'":
+              $ref: '#/components/responses/BadRequest'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+            "'404'":
+              $ref: '#/components/responses/NotFound'
+          deprecated: true
+        delete:
+          tags:
+          - Tier
+          summary: Delete a tier
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+            This method allows removing a specific Tier from the system.
+          operationId: tierDelete
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          - $ref: '#/components/parameters/tier'
+          responses:
+            "'204'":
+              $ref: '#/components/responses/NoContent'
+            "'400'":
+              $ref: '#/components/responses/BadRequest'
+            "'401'":
+              $ref: '#/components/responses/Unauthorized'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+            "'404'":
+              $ref: '#/components/responses/NotFound'
+          deprecated: true
+      /api/{storeCode}/tier/{tier}/photo:
+        get:
+          tags:
+          - Tier
+          summary: Get tier’s photo
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+            This method returns a photo adding to a specific Tier.
+          operationId: tierGetPhoto
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          - $ref: '#/components/parameters/tier'
+          responses:
+            "'200'":
+              description: Returned when successful.
+              content:
+                image/*:
+                  schema:
+                    type: string
+                    format: binary
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+            "'404'":
+              $ref: '#/components/responses/NotFound'
+        post:
+          tags:
+          - Tier
+          summary: Add a tier’s photo
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+            This method allows adding a photo to a specific Tier.
+          operationId: tierPostPhoto
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          - $ref: '#/components/parameters/tier'
+          requestBody:
+            description: ""
+            content:
+              application/json:
+                schema:
+                  properties:
+                    photo:
+                      $ref: '#/components/schemas/LevelPhotoFormType'
+                  type: object
+          responses:
+            "'200'":
+              description: Returned when successful
+            "'400'":
+              $ref: '#/components/responses/BadRequest'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+            "'404'":
+              $ref: '#/components/responses/NotFound'
+        delete:
+          tags:
+          - Tier
+          summary: Delete tier’s photo
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+            This method allows removing a photo from a specific Tier.
+          operationId: tierDeletePhoto
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          - $ref: '#/components/parameters/tier'
+          responses:
+            "'200'":
+              description: Returned when successful
+            "'400'":
+              $ref: '#/components/responses/BadRequest'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+            "'404'":
+              $ref: '#/components/responses/NotFound'
+      /api/{storeCode}/tier/{tier}/export:
+        get:
+          tags:
+          - Tier
+          summary: Export tier’s members list
+          description: |
+            This method returns a file with all Members assigned to a specific Tier.
+          operationId: tierGetCsvTier
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          - $ref: '#/components/parameters/tier'
+          responses:
+            "'200'":
+              description: ""
+              content:
+                text/csv:
+                  schema:
+                    type: string
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+            "'404'":
+              $ref: '#/components/responses/NotFound'
+          deprecated: true
+      /api/{storeCode}/tier/create:
+        post:
+          tags:
+          - Tier
+          summary: Add a tier
+          description: |
+            This method allows adding a new Tier to the system.
+          operationId: tierPost
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          requestBody:
+            description: ""
+            content:
+              application/json:
+                schema:
+                  properties:
+                    level:
+                      allOf:
+                      - $ref: '#/components/schemas/LevelFormType'
+                      - properties:
+                          translations:
+                            $ref: '#/components/schemas/Translations'
+                        type: object
+                        property: 
+                  type: object
+          responses:
+            "'200'":
+              description: Return created tier ID.
+              content:
+                application/json:
+                  schema:
+                    properties:
+                      levelId:
+                        description: Created tier identity
+                        type: string
+                        example: 00000000-0000-0000-0000-000000000000
+                    type: object
+            "'400'":
+              $ref: '#/components/responses/BadRequest'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+          deprecated: true
+      /api/{storeCode}/tier/{tier}/activate:
+        post:
+          tags:
+          - Tier
+          summary: Activate a tier
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+            This method allows activating a specific Tier.
+          operationId: tierPostActivate
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          - $ref: '#/components/parameters/tier'
+          requestBody:
+            content:
+              application/json:
+                schema:
+                  required:
+                  - active
+                  properties:
+                    active:
+                      description: If the tier should be active
+                      type: boolean
+                  type: object
+          responses:
+            "'200'":
+              description: Returned when successful
+            "'400'":
+              $ref: '#/components/responses/BadRequest'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+            "'404'":
+              $ref: '#/components/responses/NotFound'
+      /api/{storeCode}/tier:
+        get:
+          tags:
+          - Tier
+          summary: Get tiers list
+          description: |
+            This method returns a list of all created Tiers in the system.  
+            If sorting is not chosen, the rows will be returned in an unspecified order.  
+            To sort a result, use an `_orderBy` parameter in query.
+          operationId: _tierGetList
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          - name: levelId
+            in: query
+            required: false
+            schema:
+              type: string
+          - name: conditionValue
+            in: query
+            required: false
+            schema:
+              type: number
+          - name: name
+            in: query
+            required: false
+            schema:
+              type: string
+          - name: description
+            in: query
+            required: false
+            schema:
+              type: string
+          - name: active
+            in: query
+            description: Filter by active filed
+            required: false
+            schema:
+              type: boolean
+          - name: reward:name
+            in: query
+            required: false
+            schema:
+              type: string
+          - name: reward:code
+            in: query
+            required: false
+            schema:
+              type: string
+          - name: reward:value
+            in: query
+            required: false
+            schema:
+              type: number
+          - $ref: '#/components/parameters/page'
+          - $ref: '#/components/parameters/itemsOnPage'
+          - $ref: '#/components/parameters/orderBy'
+          responses:
+            "'200'":
+              description: List of tiers
+              content:
+                application/json:
+                  schema:
+                    required:
+                    - items
+                    - total
+                    properties:
+                      items:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/TierResponse'
+                      total:
+                        $ref: '#/components/schemas/SearchableTotalResponse'
+                    type: object
+            "'400'":
+              $ref: '#/components/responses/BadRequest'
+            "'401'":
+              description: Unauthorized
+              content:
+                application/json:
+                  schema:
+                    oneOf:
+                    - $ref: '#/components/schemas/ExpiredToken'
+                    - $ref: '#/components/schemas/InvalidToken'
+                    - $ref: '#/components/schemas/Unauthorized'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+            "'404'":
+              $ref: '#/components/responses/NotFound'
+          deprecated: true
+

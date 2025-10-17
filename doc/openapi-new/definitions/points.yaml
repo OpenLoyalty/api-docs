@@ -1,0 +1,540 @@
+﻿nelmio_api_doc:
+  documentation:
+    paths:
+      /api/{storeCode}/points/transfer:
+        post:
+          tags:
+          - Points
+          summary: Transfer units between members
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+            This method allows transferring Points between two specific Members.
+          operationId: adminPostTransfer
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          requestBody:
+            description: ""
+            content:
+              application/json:
+                schema:
+                  properties:
+                    transfer:
+                      $ref: '#/components/schemas/TransferPointsFormType'
+                  type: object
+          responses:
+            "'200'":
+              description: Return points transfer ID.
+              content:
+                application/json:
+                  schema:
+                    properties:
+                      transferId:
+                        type: string
+                        example: 00000000-0000-0000-0000-000000000000
+                    type: object
+            "'400'":
+              $ref: '#/components/responses/BadRequest'
+            "'401'":
+              $ref: '#/components/responses/Unauthorized'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+      /api/{storeCode}/points/{transfer}:
+        get:
+          tags:
+          - Points
+          summary: Get unit transfer’s details
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+            This method returns all details of the specific Points transfer.
+          operationId: transferGet
+          parameters:
+          - name: transfer
+            in: path
+            required: true
+            schema:
+              type: string
+              pattern: '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}'
+          - name: storeCode
+            in: path
+            required: true
+            schema:
+              type: string
+          responses:
+            "'200'":
+              description: Returned when successful.
+              content:
+                application/json:
+                  schema:
+                    type: object
+                    allOf:
+                    - $ref: '#/components/schemas/Transfer'
+                    - properties:
+                        walletType:
+                          $ref: '#/components/schemas/WalletType'
+                      type: object
+                      property: 
+            "'401'":
+              $ref: '#/components/responses/Unauthorized'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+            "'404'":
+              $ref: '#/components/responses/NotFound'
+      /api/{storeCode}/points/history:
+        get:
+          tags:
+          - Points
+          summary: Get histogram of number of units
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+            This method returns histogram of number of Points.
+          operationId: pointsGetPointsTransfer
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          - name: pointType
+            in: query
+            description: Filter by point type
+            required: true
+            allowEmptyValue: false
+            schema:
+              type: string
+              format: spent|earned|expired|pending
+              default: 
+              pattern: (spent|earned|expired|pending)
+              nullable: false
+          - name: lastDays
+            in: query
+            description: Range from last X days
+            required: false
+            allowEmptyValue: true
+            schema:
+              type: integer
+              default: "30"
+          - name: futureDays
+            in: query
+            description: Range to X days in the future
+            required: false
+            allowEmptyValue: true
+            schema:
+              type: integer
+              default: "0"
+          - name: interval
+            in: query
+            description: Group by interval
+            required: false
+            allowEmptyValue: false
+            schema:
+              type: string
+              format: day|month|year
+              default: day
+              pattern: (day|month|year)
+              nullable: false
+          responses:
+            "'200'":
+              description: Return created message ID.
+              content:
+                application/json:
+                  schema:
+                    type: object
+                    additionalProperties:
+                      type: float
+            "'400'":
+              $ref: '#/components/responses/BadRequest'
+            "'401'":
+              $ref: '#/components/responses/Unauthorized'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+      /api/{storeCode}/points:
+        get:
+          tags:
+          - Points
+          summary: Get units transfers list
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+            This method returns a list of all Point transfers that have been created in the system.  
+            If sorting is not chosen, the rows will be returned in an unspecified order.  
+            To sort a result, use an `_orderBy` parameter in query.
+          operationId: pointsGetTransferList
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          - name: transferId
+            in: query
+            description: Transfer id
+            required: false
+            schema:
+              type: string
+              format: uuid
+          - name: accountId
+            in: query
+            description: Owner account id
+            required: false
+            deprecated: true
+            schema:
+              type: string
+              format: uuid
+          - name: walletId
+            in: query
+            description: Owner wallet id
+            required: false
+            schema:
+              type: string
+              format: uuid
+          - name: type
+            in: query
+            description: Type
+            required: false
+            schema:
+              type: string
+          - name: value
+            in: query
+            description: Value
+            required: false
+            schema:
+              type: number
+          - name: comment
+            in: query
+            description: Comment
+            required: false
+            schema:
+              type: string
+          - name: createdBy
+            in: query
+            description: Creator
+            required: false
+            schema:
+              type: string
+          - name: cancelled
+            in: query
+            description: cancelled
+            required: false
+            schema:
+              type: boolean
+          - name: pending
+            in: query
+            description: pending
+            required: false
+            schema:
+              type: boolean
+          - name: createdAt
+            in: query
+            description: createdAt
+            required: false
+            schema:
+              type: string
+              format: date-time
+          - name: registeredOn
+            in: query
+            description: registeredOn
+            required: false
+            schema:
+              type: string
+              format: date-time
+          - name: lockedUntil
+            in: query
+            description: lockedUntil
+            required: false
+            schema:
+              type: string
+              format: date-time
+          - name: expiresAt
+            in: query
+            description: expiresAt
+            required: false
+            schema:
+              type: string
+              format: date-time
+          - name: actionCause:transactionId
+            in: query
+            description: Transaction id related to
+            required: false
+            schema:
+              type: string
+          - name: actionCause:campaignId
+            in: query
+            description: Campaign id related to
+            required: false
+            schema:
+              type: string
+          - name: actionCause:customEventId
+            in: query
+            description: Custom event id related to
+            required: false
+            schema:
+              type: string
+          - name: actionCause:internalEventName
+            in: query
+            description: Internal event name related to
+            required: false
+            schema:
+              type: string
+          - name: walletType:code
+            in: query
+            description: Wallet type code related to
+            required: false
+            schema:
+              type: string
+          - name: member:id
+            in: query
+            description: Member indentifier related to
+            required: false
+            schema:
+              type: string
+              format: uuid
+          - name: member:email
+            in: query
+            description: Member email related to
+            required: false
+            schema:
+              type: string
+              format: email
+          - name: member:phoneNumber
+            in: query
+            description: Member phone number related to
+            required: false
+            schema:
+              type: string
+          - name: member:loyaltyCardNumber
+            in: query
+            description: Member loyalty card number related to
+            required: false
+            schema:
+              type: string
+          - $ref: '#/components/parameters/page'
+          - $ref: '#/components/parameters/itemsOnPage'
+          - $ref: '#/components/parameters/orderBy'
+          - $ref: '#/components/parameters/scroll'
+          responses:
+            "'200'":
+              description: List of transfers
+              content:
+                application/json:
+                  schema:
+                    oneOf:
+                    - title: TransferResponse
+                      required:
+                      - items
+                      - total
+                      properties:
+                        items:
+                          type: array
+                          items:
+                            allOf:
+                            - $ref: '#/components/schemas/Transfer'
+                            - properties:
+                                walletType:
+                                  $ref: '#/components/schemas/WalletType'
+                              type: object
+                        total:
+                          $ref: '#/components/schemas/SearchableTotalResponse'
+                      type: object
+                      additionalProperties: false
+                    - title: TransferResponseWithScroll
+                      required:
+                      - items
+                      - scroll
+                      properties:
+                        items:
+                          type: array
+                          items:
+                            allOf:
+                            - $ref: '#/components/schemas/Transfer'
+                            - properties:
+                                walletType:
+                                  $ref: '#/components/schemas/WalletType'
+                              type: object
+                        scroll:
+                          $ref: '#/components/schemas/ScrollResponse'
+                      type: object
+                      additionalProperties: false
+            "'400'":
+              $ref: '#/components/responses/BadRequest'
+            "'401'":
+              $ref: '#/components/responses/Unauthorized'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+      /api/{storeCode}/points/{transfer}/activate:
+        post:
+          tags:
+          - Points
+          summary: Activate units transfer
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+            This method allows activating specific Points transfer.
+          operationId: pointsPostTransferActivate
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          - $ref: '#/components/parameters/transfer'
+          responses:
+            "'204'":
+              $ref: '#/components/responses/NoContent'
+            "'400'":
+              $ref: '#/components/responses/BadRequest'
+            "'401'":
+              $ref: '#/components/responses/Unauthorized'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+            "'404'":
+              $ref: '#/components/responses/NotFound'
+      /api/{storeCode}/points/add:
+        post:
+          tags:
+          - Points
+          summary: Add an units transfer
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+            This method allows adding Points transfer to specific Member.
+          operationId: pointsPostTransferAdd
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          requestBody:
+            description: ""
+            content:
+              application/json:
+                schema:
+                  properties:
+                    transfer:
+                      $ref: '#/components/schemas/AddPointsFormType'
+                  type: object
+          responses:
+            "'200'":
+              description: Return points transfer ID.
+              content:
+                application/json:
+                  schema:
+                    properties:
+                      transferId:
+                        type: string
+                        example: 00000000-0000-0000-0000-000000000000
+                    type: object
+            "'400'":
+              $ref: '#/components/responses/BadRequest'
+            "'401'":
+              $ref: '#/components/responses/Unauthorized'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+            "'404'":
+              $ref: '#/components/responses/AccessDenied'
+      /api/{storeCode}/points/block:
+        post:
+          tags:
+          - Points
+          summary: Block units
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+            This method allows blocking Points to specific Member.
+          operationId: pointsPostTransferBlock
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          requestBody:
+            description: ""
+            content:
+              application/json:
+                schema:
+                  properties:
+                    transfer:
+                      $ref: '#/components/schemas/BlockPointsFormType'
+                  type: object
+          responses:
+            "'200'":
+              description: Return points transfer ID.
+              content:
+                application/json:
+                  schema:
+                    properties:
+                      transferId:
+                        type: string
+                        example: 00000000-0000-0000-0000-000000000000
+                    type: object
+            "'400'":
+              $ref: '#/components/responses/BadRequest'
+            "'401'":
+              $ref: '#/components/responses/Unauthorized'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+            "'404'":
+              $ref: '#/components/responses/AccessDenied'
+      /api/{storeCode}/points/{transfer}/cancel:
+        post:
+          tags:
+          - Points
+          summary: Cancel units transfer
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+            This method allows canceling a specific Point transfer related to a Member.
+          operationId: pointsPostTransferCancel
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          - $ref: '#/components/parameters/transfer'
+          responses:
+            "'204'":
+              $ref: '#/components/responses/NoContent'
+            "'400'":
+              $ref: '#/components/responses/BadRequest'
+            "'401'":
+              $ref: '#/components/responses/Unauthorized'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+            "'404'":
+              $ref: '#/components/responses/NotFound'
+      /api/{storeCode}/points/spend:
+        post:
+          tags:
+          - Points
+          summary: Spend units
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+            This method allows spending Points of a specific Member.
+          operationId: pointsPostTransferSpend
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          requestBody:
+            description: ""
+            content:
+              application/json:
+                schema:
+                  properties:
+                    transfer:
+                      $ref: '#/components/schemas/SpendPointsFormType'
+                  type: object
+          responses:
+            "'200'":
+              description: Return points transfer ID.
+              content:
+                application/json:
+                  schema:
+                    properties:
+                      transferId:
+                        type: string
+                        example: 00000000-0000-0000-0000-000000000000
+                    type: object
+            "'400'":
+              $ref: '#/components/responses/BadRequest'
+            "'401'":
+              $ref: '#/components/responses/Unauthorized'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+            "'404'":
+              $ref: '#/components/responses/NotFound'
+      /api/{storeCode}/points/{transfer}/expire:
+        post:
+          tags:
+          - Points
+          summary: Expire units transfer
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+            This method allows expiring a specific Point transfer related to a Member.
+          operationId: pointsPostTransferExpire
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          - $ref: '#/components/parameters/transfer'
+          responses:
+            "'204'":
+              $ref: '#/components/responses/NoContent'
+            "'400'":
+              $ref: '#/components/responses/BadRequest'
+            "'401'":
+              $ref: '#/components/responses/Unauthorized'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+            "'404'":
+              $ref: '#/components/responses/NotFound'
+

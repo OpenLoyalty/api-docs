@@ -1,0 +1,27 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        NumericCriteriaField:
+          oneOf:
+          - description: Date and time value
+            type: integer
+          - description: Number value with optional comparison operators like lt (less than), gt (greater than), etc.
+            properties:
+              lt:
+                description: Less than the specified number
+                type: integer
+              lte:
+                description: Less than or equal to the specified number
+                type: integer
+              gt:
+                description: Greater than the specified number
+                type: integer
+              gte:
+                description: Greater than or equal to the specified number
+                type: integer
+              eq:
+                description: Equal to the specified number
+                type: integer
+            type: object
+

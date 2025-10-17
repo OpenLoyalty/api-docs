@@ -1,0 +1,38 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        Achievement:
+          properties:
+            achievementId:
+              type: string
+              format: uuid
+            translations:
+              properties:
+                en:
+                  required:
+                  - name
+                  properties:
+                    name:
+                      description: Achievement name
+                      type: string
+                    description:
+                      description: Achievement description
+                      type: string
+                  type: object
+              type: object
+            active:
+              type: boolean
+            limit:
+              $ref: '#/components/schemas/Limit2'
+            activity:
+              $ref: '#/components/schemas/AchievementActivity'
+            rules:
+              type: array
+              items:
+                $ref: '#/components/schemas/Rule2'
+            badgeTypeId:
+              type: string
+              format: uuid
+          type: object
+

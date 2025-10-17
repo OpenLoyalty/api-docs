@@ -1,0 +1,41 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        AssignedTransactionToCustomer:
+          required:
+          - customerId
+          - type
+          - createdAt
+          properties:
+            customerId:
+              type: string
+            type:
+              type: string
+              enum:
+              - AssignedTransactionToCustomer
+            accountId:
+              type: string
+            createdAt:
+              type: string
+              format: date-time
+            flatVariables:
+              required:
+              - transactionId
+              - documentType
+              - documentNumber
+              - grossValue
+              properties:
+                transactionId:
+                  type: string
+                documentType:
+                  type: string
+                documentNumber:
+                  type: string
+                grossValue:
+                  type: integer
+              type: object
+              additionalProperties: false
+          type: object
+          additionalProperties: false
+

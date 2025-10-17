@@ -1,0 +1,78 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        NewCondition:
+          title: New condition
+          required:
+          - value
+          - condition
+          properties:
+            value:
+              required:
+              - field
+              properties:
+                field:
+                  type: string
+                  enum:
+                  - customer.email
+                  - customer.wallets
+                  - referrer.wallets
+                  - customer.badges
+                  - referrer.badges
+                  - transaction.items
+                params:
+                  description: The `wallet` object applies only to the `customer.wallets` and `referrer.wallets` fields. The `walletTypeCode` field is used to precisely specify which wallet the condition should apply to. The `field` property defines which wallet field is used to retrieve the value for the condition.
+                  type: object
+                  oneOf:
+                  - title: wallet
+                    required:
+                    - walletTypeCode
+                    - field
+                    properties:
+                      walletTypeCode:
+                        type: string
+                        example: default
+                      field:
+                        type: string
+                        enum:
+                        - activeUnits
+                        - spentUnits
+                        - earnedUnits
+                        - lockedUnits
+                        - blockUnits
+                        - expiredUnits
+                    type: object
+                    additionalProperties: false
+                  - title: badge
+                    required:
+                    - badgeTypeId
+                    properties:
+                      badgeTypeId:
+                        type: string
+                        format: uuid
+                    type: object
+                    additionalProperties: false
+                filterCode:
+                  description: In this field you can specify which transaction items filters you want to use in condition
+                  type: string
+                aggregation:
+                  description: Available only for transaction.items
+                  required:
+                  - type
+                  properties:
+                    type:
+                      type: string
+                      enum:
+                      - sum
+                      - count
+                    field:
+                      type: string
+                  type: object
+                  additionalProperties: false
+              type: object
+              additionalProperties: false
+            condition:
+              $ref: '#/components/schemas/Condition'
+          type: object
+

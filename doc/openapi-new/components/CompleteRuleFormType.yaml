@@ -1,0 +1,17 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        CompleteRuleFormType:
+          required:
+          - period
+          - periodGoal
+          properties:
+            period:
+              $ref: '#/components/schemas/PeriodFormType'
+            periodGoal:
+              type: number
+            uniqueAttribute:
+              type: string
+          type: object
+

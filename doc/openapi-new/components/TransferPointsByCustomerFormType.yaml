@@ -1,0 +1,16 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        TransferPointsByCustomerFormType:
+          required:
+          - receiver
+          - points
+          properties:
+            receiver:
+              type: string
+              example: 7239e6f7-e52e-466b-8c24-699709b64076
+            points:
+              type: number
+          type: object
+

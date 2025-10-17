@@ -1,0 +1,36 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        GroupValue:
+          required:
+          - valueId
+          - groupOfValuesId
+          - value
+          - createdAt
+          - updatedAt
+          properties:
+            valueId:
+              type: string
+              format: uuid
+            groupOfValuesId:
+              description: ID of the parent group
+              type: string
+              format: uuid
+            value:
+              description: Actual value
+              type: string
+            description:
+              description: Description name
+              type: string
+            createdAt:
+              description: Creation date
+              type: string
+              format: date-time
+            updatedAt:
+              description: Last update date
+              type: string
+              format: date-time
+          type: object
+          additionalProperties: false
+

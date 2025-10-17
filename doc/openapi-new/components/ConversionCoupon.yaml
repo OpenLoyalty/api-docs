@@ -1,0 +1,19 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        ConversionCoupon:
+          required:
+          - customerId
+          properties:
+            customerId:
+              type: string
+              format: uuid
+            dateValid:
+              type: string
+              format: date-time
+            units:
+              type: number
+              format: float
+          type: object
+

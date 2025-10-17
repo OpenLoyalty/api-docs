@@ -1,0 +1,35 @@
+﻿nelmio_api_doc:
+  documentation:
+    paths:
+      /api/{storeCode}/wallet/{wallet}:
+        get:
+          tags:
+          - Wallet
+          summary: Check wallet details
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+          operationId: walletGet
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          - $ref: '#/components/parameters/wallet'
+          responses:
+            "'200'":
+              description: Wallet details
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/Wallet'
+            "'401'":
+              description: ""
+              content:
+                application/json:
+                  schema:
+                    oneOf:
+                    - $ref: '#/components/schemas/ExpiredToken'
+                    - $ref: '#/components/schemas/InvalidToken'
+                    - $ref: '#/components/schemas/Unauthorized'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+            "'404'":
+              $ref: '#/components/responses/NotFound'
+

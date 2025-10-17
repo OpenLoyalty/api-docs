@@ -1,0 +1,45 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        MemberBadgeCompletedCountWasChanged:
+          required:
+          - customerId
+          - type
+          - createdAt
+          properties:
+            customerId:
+              type: string
+            type:
+              type: string
+              enum:
+              - MemberBadgeCompletedCountWasChanged
+            createdAt:
+              type: string
+              format: date-time
+            flatVariables:
+              required:
+              - adminId
+              - badgeName
+              - badgeTypeId
+              - manuallyEdited
+              - previousCompletedCount
+              - currentCompletedCount
+              properties:
+                adminId:
+                  type: string
+                manuallyEdited:
+                  type: boolean
+                badgeName:
+                  type: string
+                badgeTypeId:
+                  type: string
+                previousCompletedCount:
+                  type: integer
+                currentCompletedCount:
+                  type: integer
+              type: object
+              additionalProperties: false
+          type: object
+          additionalProperties: false
+

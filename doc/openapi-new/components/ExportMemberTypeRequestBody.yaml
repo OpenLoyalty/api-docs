@@ -1,0 +1,132 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        ExportMemberTypeRequestBody:
+          title: member
+          properties:
+            member:
+              properties:
+                customerId:
+                  type: string
+                  format: uuid
+                active:
+                  type: boolean
+                firstName:
+                  type: string
+                lastName:
+                  type: string
+                gender:
+                  type: string
+                  enum:
+                  - female
+                  - male
+                  - not_disclosed
+                phone:
+                  type: string
+                email:
+                  type: string
+                  format: email
+                loyaltyCardNumber:
+                  type: string
+                createdAt:
+                  type: string
+                  format: date-time
+                birthDate:
+                  type: string
+                  format: date-time
+                agreement1:
+                  type: boolean
+                agreement2:
+                  type: boolean
+                agreement3:
+                  type: boolean
+                updatedAt:
+                  type: string
+                  format: date-time
+                transactionsCount:
+                  type: integer
+                transactionsAmount:
+                  type: number
+                  format: float
+                transactionsAmountWithoutDeliveryCosts:
+                  type: number
+                  format: float
+                amountExcludedForLevel:
+                  type: number
+                  format: float
+                averageTransactionAmount:
+                  type: number
+                  format: float
+                levelAchievementDate:
+                  type: string
+                  format: date-time
+                labels:
+                  type: array
+                  items:
+                    type: string
+                lastTransactionDate:
+                  type: string
+                  format: date-time
+                registeredAt:
+                  allOf:
+                  - $ref: '#/components/schemas/DateTimeCriteriaField'
+                  - description: Date and time when the member was registered
+                firstTransactionDate:
+                  type: string
+                  format: date-time
+                levelId:
+                  type: string
+                  format: uuid
+                manuallyAssignedLevelId:
+                  type: string
+                  format: uuid
+                referralToken:
+                  type: string
+                address:street:
+                  type: string
+                address:address1:
+                  type: string
+                address:address2:
+                  type: string
+                address:province:
+                  type: string
+                address:city:
+                  type: string
+                address:postal:
+                  type: string
+                address:country:
+                  type: string
+                defaultAccount:activePoints:
+                  type: number
+                  format: float
+                defaultAccount:transferredPoints:
+                  type: number
+                  format: float
+                defaultAccount:lockedPoints:
+                  type: number
+                  format: float
+                defaultAccount:expiredPoints:
+                  type: number
+                  format: float
+                defaultAccount:spentPoints:
+                  type: number
+                  format: float
+                defaultAccount:earnedPoints:
+                  type: number
+                  format: float
+                defaultAccount:blockedPoints:
+                  type: number
+                  format: float
+                emailOrPhone:
+                  type: string
+                _page:
+                  $ref: '#/components/schemas/ExportPage'
+                _itemsOnPage:
+                  $ref: '#/components/schemas/ExportItemsOnPage'
+                _orderBy:
+                  $ref: '#/components/schemas/ExportOrderBy'
+              type: object
+          type: object
+          additionalProperties: false
+

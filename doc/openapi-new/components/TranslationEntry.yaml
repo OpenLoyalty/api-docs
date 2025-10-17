@@ -1,0 +1,17 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        TranslationEntry:
+          properties:
+            languageCode:
+              type: string
+            key:
+              type: string
+            value:
+              type: string
+            updatedAt:
+              type: string
+              format: date-time
+          type: object
+

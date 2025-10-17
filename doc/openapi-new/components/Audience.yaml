@@ -1,0 +1,23 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        Audience:
+          description: Audience settings for the campaign. Optional field.
+          properties:
+            target:
+              type: string
+              enum:
+              - segment
+              - tier
+            tiers:
+              type: array
+              items:
+                type: string
+            segments:
+              type: array
+              items:
+                type: string
+          type: object
+          nullable: true
+

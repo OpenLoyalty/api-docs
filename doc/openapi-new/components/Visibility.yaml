@@ -1,0 +1,26 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        Visibility:
+          description: Visibility settings for the campaign. Optional field.
+          properties:
+            target:
+              type: string
+              enum:
+              - segment
+              - tier
+              - none
+            tiers:
+              description: Visibility settings for the campaign. Optional field.
+              type: array
+              items:
+                type: string
+            segments:
+              description: Visibility settings for the campaign. Optional field.
+              type: array
+              items:
+                type: string
+          type: object
+          additionalProperties: false
+

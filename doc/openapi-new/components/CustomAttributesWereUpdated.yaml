@@ -1,0 +1,35 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        CustomAttributesWereUpdated:
+          required:
+          - customerId
+          - type
+          - createdAt
+          properties:
+            customerId:
+              type: string
+            type:
+              type: string
+              enum:
+              - CustomAttributesWereUpdated
+            accountId:
+              type: string
+            createdAt:
+              type: string
+              format: date-time
+            flatVariables:
+              required:
+              - customAttributeKey
+              - customAttributeValue
+              properties:
+                customAttributeKey:
+                  type: string
+                customAttributeValue:
+                  type: string
+              type: object
+              additionalProperties: false
+          type: object
+          additionalProperties: false
+

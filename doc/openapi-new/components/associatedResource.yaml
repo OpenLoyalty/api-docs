@@ -1,0 +1,21 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        associatedResource:
+          title: associatedResource
+          properties:
+            id:
+              type: string
+              format: uuid
+            name:
+              type: string
+            active:
+              type: boolean
+            additionalData:
+              type: object
+              additionalProperties:
+                type: string
+          type: object
+          additionalProperties: false
+

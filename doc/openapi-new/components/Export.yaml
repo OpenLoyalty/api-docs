@@ -1,0 +1,38 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        Export:
+          properties:
+            exportId:
+              type: string
+              format: uuid
+            type:
+              type: string
+              enum:
+              - campaignCode
+              - member
+              - memberTier
+              - memberSegment
+              - rewardFulfillment
+            status:
+              type: string
+              enum:
+              - pending
+              - done
+              - failed
+              - error
+            createdAt:
+              type: string
+              format: date-time
+            finishedAt:
+              type: string
+              format: date-time
+            criteria:
+              type: string
+            exportedRows:
+              type: integer
+            message:
+              type: string
+          type: object
+

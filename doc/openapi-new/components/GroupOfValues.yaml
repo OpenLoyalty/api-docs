@@ -1,0 +1,43 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        GroupOfValues:
+          required:
+          - groupOfValuesId
+          - name
+          - description
+          - translations
+          - active
+          - recordsInGroup
+          - createdAt
+          - updatedAt
+          properties:
+            groupOfValuesId:
+              type: string
+              format: uuid
+            name:
+              description: Collection name
+              type: string
+            description:
+              description: Collection description
+              type: string
+            translations:
+              $ref: '#/components/schemas/Translations'
+            active:
+              description: Collection status
+              type: boolean
+            recordsInGroup:
+              description: Number of values in collection
+              type: integer
+            createdAt:
+              description: Creation date
+              type: string
+              format: date-time
+            updatedAt:
+              description: Last update date
+              type: string
+              format: date-time
+          type: object
+          additionalProperties: false
+

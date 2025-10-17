@@ -1,0 +1,689 @@
+﻿nelmio_api_doc:
+  documentation:
+    paths:
+      /api/{storeCode}/reward/{reward}/buy:
+        post:
+          tags:
+          - Reward
+          summary: Buy a reward
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+            This method allows buying a specific Reward by Member.<br>
+            With error 'No coupons left' returned when reward cannot be bought because of lack of coupons.
+            With error 'Not enough points' returned when reward cannot be bought because of not enough points on customer account. With empty error returned when reward limits exceeded.
+          operationId: rewardPostBuy
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          - $ref: '#/components/parameters/reward'
+          requestBody:
+            description: ""
+            content:
+              application/json:
+                schema:
+                  oneOf:
+                  - $ref: '#/components/schemas/StaticCoupon'
+                  - $ref: '#/components/schemas/DynamicCoupon'
+                  - $ref: '#/components/schemas/ConversionCoupon'
+                  - $ref: '#/components/schemas/MaterialReward'
+          responses:
+            "'200'":
+              description: Return created reward ID.
+              content:
+                application/json:
+                  schema:
+                    type: array
+                    items:
+                      properties:
+                        issuedRewardId:
+                          description: Created reward identity
+                          type: string
+                          example: 00000000-0000-0000-0000-000000000000
+                      type: object
+            "'400'":
+              $ref: '#/components/responses/BadRequest'
+      /api/{storeCode}/reward/{reward}/coupon/{couponCode}:
+        delete:
+          tags:
+          - Reward
+          summary: Remove coupon code
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+            This method allows removing a specific coupon from the specific Reward.
+          operationId: couonDelete
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          - $ref: '#/components/parameters/reward'
+          - name: couponCode
+            in: path
+            required: true
+            schema:
+              type: string
+          responses:
+            "'204'":
+              $ref: '#/components/responses/NoContent'
+            "'400'":
+              $ref: '#/components/responses/BadRequest'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+            "'404'":
+              $ref: '#/components/responses/NotFound'
+      /api/{storeCode}/reward/{reward}/coupon:
+        get:
+          tags:
+          - Reward
+          summary: Get reward’s coupons list
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+            This method returns coupons related to a specific Reward.  
+            If sorting is not chosen, the rows will be returned in an unspecified order.  
+            To sort a result, use an `_orderBy` parameter in query.
+          operationId: couponGetList
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          - $ref: '#/components/parameters/reward'
+          - $ref: '#/components/parameters/page'
+          - $ref: '#/components/parameters/itemsOnPage'
+          - $ref: '#/components/parameters/orderBy'
+          - name: code
+            in: query
+            required: false
+            schema:
+              type: string
+          - name: issued
+            in: query
+            required: false
+            schema:
+              type: boolean
+          responses:
+            "'200'":
+              description: Returned when successful
+              content:
+                application/json:
+                  schema:
+                    properties:
+                      items:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/Coupon'
+                      total:
+                        $ref: '#/components/schemas/SearchableTotalResponse2'
+                    type: object
+            "'400'":
+              $ref: '#/components/responses/BadRequest'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+            "'404'":
+              $ref: '#/components/responses/NotFound'
+        post:
+          tags:
+          - Reward
+          summary: Add coupon list to the reward
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+            This method allows adding coupons to the specific Reward.
+          operationId: couponPost
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          - $ref: '#/components/parameters/reward'
+          requestBody:
+            description: ""
+            content:
+              application/json:
+                schema:
+                  properties:
+                    coupons:
+                      type: array
+                      items:
+                        type: string
+                  type: object
+          responses:
+            "'204'":
+              $ref: '#/components/responses/NoContent'
+            "'400'":
+              $ref: '#/components/responses/BadRequest'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+            "'404'":
+              $ref: '#/components/responses/NotFound'
+          deprecated: true
+      /api/{storeCode}/reward/{reward}:
+        get:
+          tags:
+          - Reward
+          summary: Get redeemed reward’s details
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+            This method returns detailed information about a specific Reward.
+          operationId: rewardGet
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          - $ref: '#/components/parameters/reward'
+          responses:
+            "'200'":
+              description: Returned when successful
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/RewardResponse'
+            "'401'":
+              $ref: '#/components/responses/Unauthorized'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+            "'404'":
+              $ref: '#/components/responses/NotFound'
+        put:
+          tags:
+          - Reward
+          summary: Update reward configuration
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+            This method allows updating data on a specific Reward.
+          operationId: _rewardPut
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          - $ref: '#/components/parameters/reward'
+          requestBody:
+            required: true
+            content:
+              application/json:
+                schema:
+                  required:
+                  - reward
+                  properties:
+                    reward:
+                      anyOf:
+                      - $ref: '#/components/schemas/UpdateMaterialRewardRequestBody'
+                      - $ref: '#/components/schemas/UpdateStaticCouponRewardRequestBody'
+                      - $ref: '#/components/schemas/UpdateDynamicCouponRewardRequestBody'
+                      - $ref: '#/components/schemas/UpdateConversionCouponRewardRequestBody'
+                  type: object
+                  additionalProperties: false
+          responses:
+            "'204'":
+              $ref: '#/components/responses/NoContent'
+            "'400'":
+              $ref: '#/components/responses/BadRequest'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+            "'404'":
+              $ref: '#/components/responses/NotFound'
+      /api/{storeCode}/reward:
+        get:
+          tags:
+          - Reward
+          summary: Get rewards list
+          description: |
+            <label style="background-color: #BFE1F6;padding:5px;">Integration</label><br><br>
+            This method returns a list of all Rewards existing in the system.  
+            If sorting is not chosen, the rows will be returned in an unspecified order.
+            To sort a result, use an `_orderBy` parameter in query.
+          operationId: rewardGetList
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          - $ref: '#/components/parameters/page'
+          - $ref: '#/components/parameters/itemsOnPage'
+          - $ref: '#/components/parameters/orderBy'
+          - name: rewardId
+            in: query
+            required: false
+            style: deepObject
+            explode: true
+            schema:
+              type: string
+              format: uuid
+          - name: reward
+            in: query
+            required: false
+            style: deepObject
+            explode: true
+            schema:
+              type: string
+              enum:
+              - static_coupon
+              - material
+              - dynamic_coupon
+              - conversion_coupon
+          - name: active
+            in: query
+            required: false
+            style: deepObject
+            explode: true
+            schema:
+              type: boolean
+            example: true
+          - name: createdAt
+            in: query
+            required: false
+            style: deepObject
+            explode: true
+            schema:
+              type: string
+              format: date-time
+          - name: public
+            in: query
+            required: false
+            style: deepObject
+            explode: true
+            schema:
+              type: boolean
+            example: true
+          - name: fulfillmentTracking
+            in: query
+            required: false
+            deprecated: true
+            style: deepObject
+            explode: true
+            schema:
+              type: boolean
+            example: true
+          - name: featured
+            in: query
+            required: false
+            style: deepObject
+            explode: true
+            schema:
+              type: boolean
+            example: true
+          - name: name
+            in: query
+            required: false
+            style: deepObject
+            explode: true
+            schema:
+              type: string
+          - name: shortDescription
+            in: query
+            required: false
+            style: deepObject
+            explode: true
+            schema:
+              type: string
+            example: true
+          - name: brandName
+            in: query
+            required: false
+            style: deepObject
+            explode: true
+            schema:
+              type: string
+            example: true
+          - name: brandDescription
+            in: query
+            required: false
+            style: deepObject
+            explode: true
+            schema:
+              type: string
+            example: true
+          - name: levels
+            in: query
+            required: false
+            style: deepObject
+            explode: true
+            schema:
+              type: string
+            example: true
+          - name: segments
+            in: query
+            required: false
+            style: deepObject
+            explode: true
+            schema:
+              type: string
+            example: true
+          - name: categories
+            in: query
+            required: false
+            style: deepObject
+            explode: true
+            schema:
+              type: string
+            example: true
+          - name: labels
+            in: query
+            description: Labels using pattern e.g. (key1;value1),(key2;value2),...
+            required: false
+            style: deepObject
+            explode: true
+            schema:
+              type: string
+            example: true
+          - name: costInPoints
+            in: query
+            required: false
+            style: deepObject
+            explode: true
+            schema:
+              type: integer
+            example: true
+          - name: limit
+            in: query
+            required: false
+            style: deepObject
+            explode: true
+            schema:
+              type: integer
+            example: true
+          - name: available
+            in: query
+            required: false
+            style: deepObject
+            explode: true
+            schema:
+              type: boolean
+            example: true
+          - name: visible
+            in: query
+            required: false
+            style: deepObject
+            explode: true
+            schema:
+              type: boolean
+            example: true
+          - name: visibleFrom
+            in: query
+            required: false
+            style: deepObject
+            explode: true
+            schema:
+              type: string
+              format: date-time
+            example: true
+          - name: visibleTo
+            in: query
+            required: false
+            style: deepObject
+            explode: true
+            schema:
+              type: string
+              format: date-time
+            example: true
+          - name: activeFrom
+            in: query
+            required: false
+            style: deepObject
+            explode: true
+            schema:
+              type: string
+              format: date-time
+            example: true
+          - name: activeTo
+            in: query
+            required: false
+            style: deepObject
+            explode: true
+            schema:
+              type: string
+              format: date-time
+            example: true
+          - name: format
+            in: query
+            description: If set to html, the descriptions will be in HTML format. Omit for raw output.
+            required: false
+            style: deepObject
+            schema:
+              type: string
+              format: html|raw
+          responses:
+            "'200'":
+              description: Get all rewards.
+              content:
+                application/json:
+                  schema:
+                    properties:
+                      items:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/RewardResponse'
+                      total:
+                        $ref: '#/components/schemas/SearchableTotalResponse'
+                    type: object
+                    additionalProperties: false
+            "'400'":
+              $ref: '#/components/responses/BadRequest'
+            "'401'":
+              $ref: '#/components/responses/Unauthorized'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+            "'404'":
+              $ref: '#/components/responses/NotFound'
+        post:
+          tags:
+          - Reward
+          summary: Add a reward
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+            This method allows creating a new Reward in the system.
+          operationId: _rewardPost
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          requestBody:
+            required: true
+            content:
+              application/json:
+                schema:
+                  required:
+                  - reward
+                  properties:
+                    reward:
+                      discriminator:
+                        propertyName: reward
+                        mapping:
+                          material: '#/components/schemas/CreateMaterialRewardRequestBody'
+                          static_coupon: '#/components/schemas/CreateStaticCouponRewardRequestBody'
+                          dynamic_coupon: '#/components/schemas/CreateDynamicCouponRewardRequestBody'
+                          conversion_coupon: '#/components/schemas/CreateConversionCouponRewardRequestBody'
+                      anyOf:
+                      - $ref: '#/components/schemas/CreateMaterialRewardRequestBody'
+                      - $ref: '#/components/schemas/CreateStaticCouponRewardRequestBody'
+                      - $ref: '#/components/schemas/CreateDynamicCouponRewardRequestBody'
+                      - $ref: '#/components/schemas/CreateConversionCouponRewardRequestBody'
+                  type: object
+                  additionalProperties: false
+          responses:
+            "'200'":
+              description: Return created reward ID.
+              content:
+                application/json:
+                  schema:
+                    required:
+                    - rewardId
+                    properties:
+                      rewardId:
+                        type: string
+                        format: uuid
+                    type: object
+                    additionalProperties: false
+            "'400'":
+              $ref: '#/components/responses/BadRequest'
+            "'401'":
+              $ref: '#/components/responses/Unauthorized'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+            "'404'":
+              $ref: '#/components/responses/NotFound'
+      /api/{storeCode}/reward/{reward}/members:
+        get:
+          tags:
+          - Reward
+          summary: Get eligible members list
+          description: |
+            <label style="background-color: #BFE1F6;padding:5px;">Integration</label><br><br>
+            This method returns for which Member this Reward is visible.  
+            If sorting is not chosen, the rows will be returned in an unspecified order.  
+            To sort a result, use an `_orderBy` parameter in query.
+          operationId: rewardGetVisibleForMembers
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          - $ref: '#/components/parameters/reward'
+          - name: page
+            in: query
+            description: Page number
+            required: false
+            schema:
+              type: integer
+          - name: perPage
+            in: query
+            description: Number of elements per page
+            required: false
+            schema:
+              type: integer
+          - name: sort
+            in: query
+            description: Field to sort by
+            required: false
+            schema:
+              type: string
+          - name: direction
+            in: query
+            description: Sorting direction
+            required: false
+            schema:
+              type: string
+              format: asc|desc
+          - name: visible
+            in: query
+            required: false
+            schema:
+              type: boolean
+          responses:
+            "'200'":
+              description: Get all rewards.
+              content:
+                application/json:
+                  schema:
+                    properties:
+                      items:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/Customer'
+                      total:
+                        $ref: '#/components/schemas/SearchableTotalResponse2'
+                    type: object
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+      /api/{storeCode}/reward/{reward}/activate:
+        post:
+          tags:
+          - Reward
+          summary: Activate a reward
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+            This method allows activating a specific Reward.
+          operationId: rewardPostActivate
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          - $ref: '#/components/parameters/reward'
+          responses:
+            "'204'":
+              $ref: '#/components/responses/NoContent'
+            "'400'":
+              $ref: '#/components/responses/BadRequest'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+            "'404'":
+              $ref: '#/components/responses/NotFound'
+      /api/{storeCode}/reward/{reward}/deactivate:
+        post:
+          tags:
+          - Reward
+          summary: Deactivate a reward
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+            This method allows deactivating a specific Reward.
+          operationId: rewardPostDeactivate
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          - $ref: '#/components/parameters/reward'
+          responses:
+            "'204'":
+              $ref: '#/components/responses/NoContent'
+            "'400'":
+              $ref: '#/components/responses/BadRequest'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+            "'404'":
+              $ref: '#/components/responses/NotFound'
+      /api/{storeCode}/reward/{reward}/photo/{photoId}:
+        get:
+          tags:
+          - Reward
+          summary: Get reward’s image
+          description: |
+            <label style="background-color: #BFE1F6;padding:5px;">Integration</label><br><br>
+            This method returns a photo added to a specific Reward.
+          operationId: photoGet
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          - $ref: '#/components/parameters/reward'
+          - name: photoId
+            in: path
+            required: true
+            schema:
+              type: string
+          responses:
+            "'200'":
+              description: Returned when successful
+              content:
+                application/json:
+                  schema:
+                    type: string
+                    format: byte
+            "'404'":
+              $ref: '#/components/responses/NotFound'
+        delete:
+          tags:
+          - Reward
+          summary: Delete reward’s image
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+            This method allows removing a photo added to a specific Reward.
+          operationId: photoDelete
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          - $ref: '#/components/parameters/reward'
+          - name: photoId
+            in: path
+            required: true
+            schema:
+              type: string
+          responses:
+            "'204'":
+              $ref: '#/components/responses/NoContent'
+            "'400'":
+              $ref: '#/components/responses/BadRequest'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+            "'404'":
+              $ref: '#/components/responses/NotFound'
+      /api/{storeCode}/reward/{reward}/photo:
+        post:
+          tags:
+          - Reward
+          summary: Add an image to the reward
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+            This method allows adding a photo to a specific Reward.
+          operationId: photoPost
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          - $ref: '#/components/parameters/reward'
+          requestBody:
+            description: ""
+            content:
+              application/json:
+                schema:
+                  properties:
+                    photo:
+                      $ref: '#/components/schemas/RewardPhotoFormType'
+                  type: object
+          responses:
+            "'204'":
+              $ref: '#/components/responses/NoContent'
+            "'400'":
+              $ref: '#/components/responses/BadRequest'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+            "'404'":
+              $ref: '#/components/responses/NotFound'
+

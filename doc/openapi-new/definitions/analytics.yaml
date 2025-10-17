@@ -1,0 +1,541 @@
+﻿nelmio_api_doc:
+  documentation:
+    paths:
+      /api/{storeCode}/analytics/levels:
+        get:
+          tags:
+          - Analytics
+          summary: Tiers analytics
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+            This method returns detailed information about all Tiers.  
+
+            If sorting is not chosen, the rows will be returned in an unspecified order.  
+            To sort a result, use an `_orderBy` parameter in query.
+          operationId: tierStatsGet
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          responses:
+            "'200'":
+              description: Returned when successful
+              content:
+                application/json:
+                  schema:
+                    properties:
+                      items:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/TierStats'
+                      total:
+                        type: integer
+                    type: object
+            "'401'":
+              description: ""
+              content:
+                application/json:
+                  schema:
+                    oneOf:
+                    - $ref: '#/components/schemas/ExpiredToken'
+                    - $ref: '#/components/schemas/InvalidToken'
+                    - $ref: '#/components/schemas/Unauthorized'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+      /api/{storeCode}/analytics/members:
+        get:
+          tags:
+          - Analytics
+          summary: Members analytics
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+            This method returns information about total count of Members registered in the system.
+          operationId: membersStatsGet
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          - name: withTransaction
+            in: query
+            description: Show only members who had at least one transaction (true) or had no transactions (false). Omit for all members.
+            required: false
+            allowEmptyValue: true
+            schema:
+              type: boolean
+              default: 
+          responses:
+            "'200'":
+              description: Returned when successful
+              content:
+                application/json:
+                  schema:
+                    properties:
+                      intervals:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/MembersStats'
+                      total:
+                        type: integer
+                        example: 594
+                    type: object
+            "'401'":
+              description: ""
+              content:
+                application/json:
+                  schema:
+                    oneOf:
+                    - $ref: '#/components/schemas/ExpiredToken'
+                    - $ref: '#/components/schemas/InvalidToken'
+                    - $ref: '#/components/schemas/Unauthorized'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+      /api/{storeCode}/analytics/points:
+        get:
+          tags:
+          - Analytics
+          summary: Units analytics
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+            This method returns information about the total number of Points spent, expired, blocked, pending, and all active Points.
+          operationId: pointsStatsGet
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          responses:
+            "'200'":
+              description: Returned when successful
+              content:
+                application/json:
+                  schema:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/PointsStats'
+            "'401'":
+              description: ""
+              content:
+                application/json:
+                  schema:
+                    oneOf:
+                    - $ref: '#/components/schemas/ExpiredToken'
+                    - $ref: '#/components/schemas/InvalidToken'
+                    - $ref: '#/components/schemas/Unauthorized'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+      /api/{storeCode}/analytics/referrals:
+        get:
+          tags:
+          - Analytics
+          summary: Referrals analytics
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+            This method returns information about the total number of Members referred by another.
+          operationId: referralsStatsGet
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          responses:
+            "'200'":
+              description: Returned when successful
+              content:
+                application/json:
+                  schema:
+                    properties:
+                      total:
+                        type: integer
+                        example: 432
+                    type: object
+            "'401'":
+              description: ""
+              content:
+                application/json:
+                  schema:
+                    oneOf:
+                    - $ref: '#/components/schemas/ExpiredToken'
+                    - $ref: '#/components/schemas/InvalidToken'
+                    - $ref: '#/components/schemas/Unauthorized'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+      /api/{storeCode}/analytics/transactions:
+        get:
+          tags:
+          - Analytics
+          summary: Transactions analytics
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+            This method returns information about total Transactions count, total amount with and without delivery costs, and currency.
+          operationId: transactionsStatsGet
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          responses:
+            "'200'":
+              description: Returned when successful
+              content:
+                application/json:
+                  schema:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/TransactionsStats'
+            "'401'":
+              description: ""
+              content:
+                application/json:
+                  schema:
+                    oneOf:
+                    - $ref: '#/components/schemas/ExpiredToken'
+                    - $ref: '#/components/schemas/InvalidToken'
+                    - $ref: '#/components/schemas/Unauthorized'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+      /api/{storeCode}/analytics/campaigns:
+        get:
+          tags:
+          - Analytics
+          summary: Campaigns analytics
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+            If sorting is not chosen, the rows will be returned in an unspecified order.  
+            To sort a result, use an `_orderBy` parameter in query.
+          operationId: campaignsExecutionsGet
+          parameters:
+          - name: executedAt
+            in: query
+            required: false
+            schema:
+              type: string
+              format: date-time
+          - $ref: '#/components/parameters/page'
+          - $ref: '#/components/parameters/itemsOnPage'
+          - name: _orderBy
+            in: query
+            description: Can be ordered by `executions` field.
+            required: false
+            schema:
+              type: string
+          - name: storeCode
+            in: path
+            required: true
+            schema:
+              type: string
+          responses:
+            "'200'":
+              description: List of campaigns executions
+              content:
+                application/json:
+                  schema:
+                    properties:
+                      items:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/CampaignsExecutions'
+                      total:
+                        $ref: '#/components/schemas/SearchableTotalResponse2'
+                    type: object
+            "'400'":
+              $ref: '#/components/responses/BadRequest'
+            "'401'":
+              description: ""
+              content:
+                application/json:
+                  schema:
+                    oneOf:
+                    - $ref: '#/components/schemas/ExpiredToken'
+                    - $ref: '#/components/schemas/InvalidToken'
+                    - $ref: '#/components/schemas/Unauthorized'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+      /api/{storeCode}/analytics/dashboard/general-overview:
+        get:
+          tags:
+          - Data Analytics
+          summary: Retrieve general overview
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+            The endpoint is used to retrieve a general overview of the analytics dashboard.
+            To use the endpoint, you must provide a "dataType" parameter that specifies the type of data you want to retrieve.
+            Additionally, you can provide optional query parameters to filter the data.
+
+            You can specify an "aggregationType" parameter to group the data by day, week, month, or year. You can also specify an "intervalStartDate" and "intervalEndDate" parameter to retrieve data for a specific time range.
+
+            If you don't specify the "aggregationType" parameter, aggregation will be based on interval:
+
+            - 1-30 - days daily aggregation
+            - 31-90 - days weekly aggregation
+            - 91-360 - days monthly aggregation
+            - over 360 - days annual aggregation
+
+            If you don't provide any optional query parameters and don't specify an interval, it will return all data from the beginning to today.
+          operationId: dataAnalyticsGetGeneralOverview
+          parameters:
+          - name: dataType
+            in: query
+            required: true
+            schema:
+              type: string
+              enum:
+              - registeredMembers
+              - revenue
+              - avgSpending
+              - transactions
+              - avgTransactionValue
+              - avgNumberOfTransactions
+              - returnTransactions
+              - totalReturns
+              - avgReturnValue
+              - avgNumberOfReturnTransactions
+          - name: aggregationType
+            in: query
+            required: false
+            schema:
+              type: string
+              enum:
+              - day
+              - week
+              - month
+              - year
+          - name: intervalStartDate
+            in: query
+            required: false
+            schema:
+              type: string
+              format: date
+          - name: intervalEndDate
+            in: query
+            required: false
+            schema:
+              type: string
+              format: date
+          - $ref: '#/components/parameters/storeCode'
+          responses:
+            "'200'":
+              description: Data for general overview dashboard
+              content:
+                application/json:
+                  schema:
+                    type: object
+                    allOf:
+                    - $ref: '#/components/schemas/GeneralOverview'
+                    - properties:
+                        aggregationType:
+                          type: string
+                          enum:
+                          - day
+                          - week
+                          - month
+                          - year
+                        dataType:
+                          type: string
+                          enum:
+                          - registeredMembers
+                          - revenue
+                          - avgSpending
+                          - transactions
+                          - avgTransactionValue
+                          - avgNumberOfTransactions
+                          - activeMembers
+                          - returnTransactions
+                          - totalReturns
+                          - avgReturnValue
+                          - avgNumberOfReturnTransactions
+                      type: object
+                      property: 
+            "'400'":
+              $ref: '#/components/responses/BadRequest'
+            "'401'":
+              description: Unauthorized.
+              content:
+                application/json:
+                  schema:
+                    oneOf:
+                    - $ref: '#/components/schemas/ExpiredToken'
+                    - $ref: '#/components/schemas/InvalidToken'
+                    - $ref: '#/components/schemas/Unauthorized'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+            "'404'":
+              $ref: '#/components/responses/NotFound'
+      /api/{storeCode}/analytics/units-overview/{walletTypeCode}:
+        get:
+          tags:
+          - Data Analytics
+          summary: Retrieve units overview
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+            The endpoint is used to retrieve a units overview of the analytics dashboard.
+
+            You can specify an "aggregationType" parameter to group the data by day, week, month, or year. You can also specify an "intervalStartDate" and "intervalEndDate" parameter to retrieve data for a specific time range.
+
+            If you don't specify the "aggregationType" parameter, aggregation will be based on interval:
+
+            - 1-30 - days daily aggregation
+            - 31-90 - days weekly aggregation
+            - 91-360 - days monthly aggregation
+            - over 360 - days annual aggregation
+
+            If you don't provide any optional query parameters and don't specify an interval, it will return all data from the beginning to today.
+          operationId: dataAnalyticsGetUnitsOverview
+          parameters:
+          - name: aggregationType
+            in: query
+            required: false
+            schema:
+              type: string
+              enum:
+              - day
+              - week
+              - month
+              - year
+          - name: dataType
+            in: query
+            required: false
+            schema:
+              type: string
+              enum:
+              - unitsIssued
+              - unitsSpent
+              - unitsExpired
+              - unitsPending
+              - unitsActive
+              - redemptionRate
+              - breakageRate
+          - name: intervalStartDate
+            in: query
+            required: false
+            schema:
+              type: string
+              format: date
+          - name: intervalEndDate
+            in: query
+            required: false
+            schema:
+              type: string
+              format: date
+          - $ref: '#/components/parameters/storeCode'
+          - name: walletTypeCode
+            in: path
+            required: true
+            schema:
+              type: string
+          responses:
+            "'200'":
+              description: Data for units overview dashboard
+              content:
+                application/json:
+                  schema:
+                    type: object
+                    allOf:
+                    - $ref: '#/components/schemas/UnitsOverview'
+                    - properties:
+                        aggregationType:
+                          type: string
+                          enum:
+                          - day
+                          - week
+                          - month
+                          - year
+                        dataType:
+                          type: string
+                          enum:
+                          - unitsIssued
+                          - unitsSpent
+                          - unitsExpired
+                          - unitsPending
+                          - unitsActive
+                          - redemptionRate
+                          - breakageRate
+                      type: object
+                      property: 
+            "'400'":
+              $ref: '#/components/responses/BadRequest'
+            "'401'":
+              description: Unauthorized.
+              content:
+                application/json:
+                  schema:
+                    oneOf:
+                    - $ref: '#/components/schemas/ExpiredToken'
+                    - $ref: '#/components/schemas/InvalidToken'
+                    - $ref: '#/components/schemas/Unauthorized'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+            "'404'":
+              $ref: '#/components/responses/NotFound'
+      /api/{storeCode}/analytics/campaign/single-view/{campaignId}:
+        get:
+          tags:
+          - Data Analytics
+          summary: Retrieve campaign overview
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+          operationId: dataAnalyticsGetCampaignSingleView
+          parameters:
+          - name: dataType
+            in: query
+            required: true
+            schema:
+              type: string
+              enum:
+              - totalEngagement
+              - engagedMembers
+          - name: aggregationType
+            in: query
+            required: false
+            schema:
+              type: string
+              enum:
+              - day
+              - week
+              - month
+              - year
+          - name: intervalStartDate
+            in: query
+            required: false
+            schema:
+              type: string
+              format: date
+          - name: intervalEndDate
+            in: query
+            required: false
+            schema:
+              type: string
+              format: date
+          - $ref: '#/components/parameters/storeCode'
+          - name: campaignId
+            in: path
+            required: true
+            schema:
+              type: string
+              pattern: '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}'
+          responses:
+            "'200'":
+              description: Data for general overview dashboard
+              content:
+                application/json:
+                  schema:
+                    type: object
+                    allOf:
+                    - $ref: '#/components/schemas/SingleView'
+                    - properties:
+                        aggregationType:
+                          type: string
+                          enum:
+                          - day
+                          - week
+                          - month
+                          - year
+                        dataType:
+                          type: string
+                          enum:
+                          - totalEngagement
+                          - engagedMembers
+                      type: object
+                      property: 
+            "'400'":
+              $ref: '#/components/responses/BadRequest'
+            "'401'":
+              description: Unauthorized.
+              content:
+                application/json:
+                  schema:
+                    oneOf:
+                    - $ref: '#/components/schemas/ExpiredToken'
+                    - $ref: '#/components/schemas/InvalidToken'
+                    - $ref: '#/components/schemas/Unauthorized'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+            "'404'":
+              $ref: '#/components/responses/NotFound'
+

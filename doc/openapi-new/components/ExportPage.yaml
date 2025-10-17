@@ -1,0 +1,11 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        ExportPage:
+          description: Number of page with results, starts from 1
+          type: integer
+          default: 1
+          minimum: 1
+          example: 1
+

@@ -1,0 +1,30 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        SegmentCustomer:
+          properties:
+            customerId:
+              type: string
+              format: uuid
+            createdAt:
+              type: string
+              format: date-time
+            firstName:
+              type: string
+            lastName:
+              type: string
+            phone:
+              type: string
+            email:
+              type: string
+            birthDate:
+              type: string
+              format: date-time
+            gender:
+              type: string
+            calculatedAt:
+              type: string
+              format: date-time
+          type: object
+

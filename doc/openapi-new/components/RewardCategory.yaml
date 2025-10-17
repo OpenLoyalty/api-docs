@@ -1,0 +1,21 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        RewardCategory:
+          properties:
+            name:
+              type: string
+            rewardCategoryId:
+              type: string
+              format: uuid
+            active:
+              type: boolean
+            sortOrder:
+              type: integer
+            translations:
+              type: array
+              items:
+                $ref: '#/components/schemas/RewardCategoryTranslation'
+          type: object
+

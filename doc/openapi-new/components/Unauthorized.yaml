@@ -1,0 +1,13 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        Unauthorized:
+          required:
+          - message
+          properties:
+            message:
+              type: string
+              example: Authentication Required
+          type: object
+

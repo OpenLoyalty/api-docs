@@ -1,0 +1,12 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        ExportItemsOnPage:
+          description: Items on one page
+          type: integer
+          default: 10
+          maximum: 50
+          minimum: 1
+          example: 25
+

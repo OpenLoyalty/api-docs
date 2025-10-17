@@ -1,0 +1,151 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        TierSetTiersResponse:
+          required:
+          - levelId
+          - tierSet
+          - name
+          - storeCode
+          - active
+          - rewards
+          - createdAt
+          - updatedAt
+          - translations
+          - isDefault
+          - hasPhoto
+          - conditions
+          properties:
+            levelId:
+              description: This field show tier id
+              type: string
+              format: uuid
+            tierSet:
+              description: This field shows related tier set
+              required:
+              - tierSetId
+              - name
+              properties:
+                tierSetId:
+                  properties:
+                    tierSetId:
+                      type: string
+                      format: uuid
+                  type: object
+                name:
+                  type: string
+              type: object
+              additionalProperties: false
+            name:
+              description: This field show tier name
+              type: string
+            description:
+              description: This field show tier description
+              type: string
+            storeCode:
+              description: The field shows what store tier it is in
+              type: string
+            active:
+              description: The field shows whether the tier is active
+              type: boolean
+            rewards:
+              type: array
+              items:
+                required:
+                - rewardId
+                - name
+                - code
+                - active
+                - createdAt
+                - updatedAt
+                properties:
+                  rewardId:
+                    description: Reward ID.
+                    type: string
+                    format: uuid
+                  name:
+                    description: Benefit name.
+                    type: string
+                  value:
+                    description: Benefit value.
+                    type: number
+                    format: float
+                  code:
+                    description: Benefit code.
+                    type: string
+                  labels:
+                    $ref: '#/components/schemas/Labels'
+                  active:
+                    type: boolean
+                  startAt:
+                    type: string
+                    format: date-time
+                  endAt:
+                    type: string
+                    format: date-time
+                  createdAt:
+                    type: string
+                    format: date-time
+                  updatedAt:
+                    type: string
+                    format: date-time
+                  createdBy:
+                    type: string
+                    format: uuid
+                  updatedBy:
+                    type: string
+                    format: uuid
+                type: object
+                additionalProperties: false
+            conditions:
+              description: This field shows conditions that member must meet to be at this tier
+              type: array
+              items:
+                required:
+                - conditionId
+                - attribute
+                - value
+                properties:
+                  conditionId:
+                    type: string
+                    format: uuid
+                  attribute:
+                    description: |
+                      Specifies the type of attribute. The possible values are:
+                      - `activeUnits`: The number of units currently active. - `totalEarnedUnits`: The total number of units earned. - `monthsSinceJoiningProgram`: The number of months since the program was joined. - `totalSpending`: The total amount of spending. - `cumulatedEarnedUnits`: The total number of units earned that will be reset when recalculation occur
+                    enum:
+                    - activeUnits
+                    - totalEarnedUnits
+                    - monthsSinceJoiningProgram
+                    - totalSpending
+                    - cumulatedEarnedUnits
+                  value:
+                    description: This field shows the value that was specified for the attribute
+                    type: number
+                    format: float
+                type: object
+                additionalProperties: false
+            translations:
+              $ref: '#/components/schemas/Translations'
+            createdAt:
+              description: This field shows date then tier was created at
+              type: string
+              format: date-time
+            updatedAt:
+              description: This field shows date then tier was updated at
+              type: string
+              format: date-time
+            hasPhoto:
+              description: This field show if tier have photo
+              type: boolean
+            conditionValue:
+              type: number
+              format: float
+              deprecated: true
+            isDefault:
+              description: This field shows whether the tier is the default tier that was created automatically along with the tier set. Tier serves as the starting tier in tie set
+              type: boolean
+          type: object
+          additionalProperties: false
+

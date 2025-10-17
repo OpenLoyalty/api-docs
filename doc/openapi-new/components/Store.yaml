@@ -1,0 +1,29 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        Store:
+          properties:
+            storeId:
+              type: string
+              format: uuid
+            code:
+              type: string
+            currency:
+              type: string
+            name:
+              type: string
+            active:
+              type: boolean
+            createdAt:
+              type: string
+              format: date-time
+            updatedAt:
+              type: string
+              format: date-time
+            createdBy:
+              type: string
+            updatedBy:
+              type: string
+          type: object
+

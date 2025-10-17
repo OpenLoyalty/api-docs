@@ -1,0 +1,29 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        AddPointsFormType:
+          required:
+          - customer
+          - points
+          properties:
+            customer:
+              type: string
+              example: 7239e6f7-e52e-466b-8c24-699709b64076
+            points:
+              type: number
+            expiresInDays:
+              type: number
+            lockedUntilDays:
+              type: number
+            comment:
+              type: string
+            externalTransferId:
+              type: string
+            walletCode:
+              type: string
+            requestedAt:
+              type: string
+              format: date-time
+          type: object
+

@@ -1,0 +1,47 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        Downgrade:
+          description: Downgrade settings
+          properties:
+            mode:
+              description: |
+                Specifies the mode of downgrade. The possible values are:
+                - `none`: Downgrade will not occur.
+                - `automatic`: Downgrade will occur automatically when the conditions for being at a given tier are not met.
+                - `periodic`: Downgrade will occur periodically. If this mode is selected, you must also choose a `period`.
+              type: string
+              enum:
+              - none
+              - automatic
+              - periodic
+            period:
+              description: |
+                Specifies the period for periodic downgrades. This is only available when the mode is set to `periodic`.
+                - `registration_anniversary`: Downgrade occurs annually on the anniversary of your registration date. For example,  if you registered on 2020-10-10, the next downgrade will take place on 2025-10-10, followed by 2026-10-10, and so on.
+                - `annual_recalculation_on_chosen_dates`: Allows you to specify a list of dates on which the downgrade will occur every year. For instance, if you add 03-10 and 07-15, downgrades will happen annually on March 10 and July 15.
+                - `recalculation_every_month_after_tier_promotion`: Enables you to set a specific interval (in months) after the last tier promotion for the downgrade to occur. For example,  if your promotion date is 2025-10-10 and the interval is set to 2 months, your downgrade date will be 2025-12-10.
+              type: string
+              enum:
+              - registration_anniversary
+              - annual_recalculation_on_chosen_dates
+              - recalculation_every_month_after_tier_promotion
+              - yearly
+              - monthly
+              - weekly
+            recalculationDates:
+              description: |
+                Specifies dates when recalculation will be annually started. This is only available when the period is set to `annual_recalculation_on_chosen_dates`.
+              type: array
+              items:
+                type: string
+                example: 03-10
+            interval:
+              description: |
+                Specifies the number of months that must pass after the last tier promotion to start downgrade. This is only available when the period is set to `recalculation_every_month_after_tier_promotion`.
+              type: integer
+              example: 2
+          type: object
+          additionalProperties: false
+

@@ -1,0 +1,44 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        MemberAchievementCompletionCountWasDecreased:
+          required:
+          - customerId
+          - type
+          - createdAt
+          properties:
+            customerId:
+              type: string
+            type:
+              type: string
+              enum:
+              - MemberAchievementCompletionCountWasDecreased
+            accountId:
+              type: string
+            createdAt:
+              type: string
+              format: date-time
+            flatVariables:
+              required:
+              - adminId
+              - previousCompletionCount
+              - currentCompletionCount
+              - achievementName
+              - achievementId
+              properties:
+                adminId:
+                  type: string
+                previousCompletionCount:
+                  type: integer
+                currentCompletionCount:
+                  type: integer
+                achievementName:
+                  type: string
+                achievementId:
+                  type: string
+              type: object
+              additionalProperties: false
+          type: object
+          additionalProperties: false
+

@@ -1,0 +1,37 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        GeneralOverviewHeader:
+          properties:
+            registeredMembers:
+              type: integer
+            activeMembers:
+              type: integer
+            revenue:
+              type: number
+              format: float
+            avgSpending:
+              type: number
+              format: float
+            transactions:
+              type: integer
+            avgTransactionValue:
+              type: number
+              format: float
+            avgNumberOfTransactions:
+              type: number
+              format: float
+            returnTransactions:
+              type: integer
+            totalReturns:
+              type: number
+              format: float
+            avgReturnValue:
+              type: number
+              format: float
+            avgNumberOfReturnTransactions:
+              type: number
+              format: float
+          type: object
+

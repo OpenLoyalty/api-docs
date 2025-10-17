@@ -1,0 +1,45 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        ExportCampaignCodeTypeRequestBody:
+          title: campaignCode
+          properties:
+            campaignCode:
+              required:
+              - campaignId
+              properties:
+                campaignId:
+                  type: string
+                  format: uuid
+                code:
+                  type: string
+                status:
+                  type: string
+                  enum:
+                  - unused
+                  - used
+                codeId:
+                  type: string
+                  format: uuid
+                usedByMemberId:
+                  type: string
+                  format: uuid
+                createdAt:
+                  allOf:
+                  - $ref: '#/components/schemas/DateTimeCriteriaField'
+                  - description: Date and time when the member was registered
+                usedAt:
+                  allOf:
+                  - $ref: '#/components/schemas/DateTimeCriteriaField'
+                  - description: Date and time when the member was registered
+                _page:
+                  $ref: '#/components/schemas/ExportPage'
+                _itemsOnPage:
+                  $ref: '#/components/schemas/ExportItemsOnPage'
+                _orderBy:
+                  $ref: '#/components/schemas/ExportOrderBy'
+              type: object
+          type: object
+          additionalProperties: false
+

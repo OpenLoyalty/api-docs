@@ -1,0 +1,21 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        UnitsOverview:
+          properties:
+            intervalStartDate:
+              type: string
+              format: date-time
+            intervalEndDate:
+              type: string
+              format: date-time
+            walletTypeCode:
+              type: string
+            header:
+              $ref: '#/components/schemas/UnitsOverviewHeader'
+            data:
+              type: object
+              additionalProperties: true
+          type: object
+

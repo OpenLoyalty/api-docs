@@ -1,0 +1,104 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        SimulateResult:
+          required:
+          - effects
+          - evaluationWarnings
+          properties:
+            effects:
+              type: array
+              items:
+                required:
+                - type
+                - target
+                - campaign
+                properties:
+                  type:
+                    type: string
+                    enum:
+                    - give_points
+                    - give_reward
+                    - deduct_unit
+                    - assign_member_custom_attribute
+                    - remove_member_custom_attribute
+                  campaign:
+                    $ref: '#/components/schemas/Campaign'
+                  points:
+                    type: number
+                    format: float
+                  wallet:
+                    type: string
+                  rewardId:
+                    type: string
+                  expression:
+                    type: string
+                  target:
+                    type: string
+                    enum:
+                    - self
+                    - referrer
+                type: object
+                additionalProperties: false
+            evaluationWarnings:
+              type: array
+              items:
+                required:
+                - campaignId
+                - message
+                properties:
+                  campaignId:
+                    type: string
+                    format: uuid
+                  message:
+                    type: string
+                type: object
+                additionalProperties: false
+            simulatedMember:
+              required:
+              - memberId
+              properties:
+                memberId:
+                  type: string
+                  format: uuid
+                wallets:
+                  type: array
+                  items:
+                    properties:
+                      walletId:
+                        type: string
+                        format: uuid
+                        nullable: true
+                      walletType:
+                        properties:
+                          code:
+                            type: string
+                          name:
+                            type: string
+                          isDefault:
+                            type: boolean
+                          active:
+                            type: boolean
+                          unitSingularName:
+                            type: string
+                          unitPluralName:
+                            type: string
+                          rewardSpending:
+                            type: boolean
+                        type: object
+                        additionalProperties: false
+                      account:
+                        properties:
+                          activeUnits:
+                            type: number
+                            format: float
+                        type: object
+                    type: object
+                    additionalProperties: false
+              type: object
+              nullable: true
+              additionalProperties: false
+          type: object
+          additionalProperties: false
+

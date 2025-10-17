@@ -1,0 +1,25 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        FieldSchemaFormType:
+          required:
+          - type
+          - description
+          - name
+          properties:
+            type:
+              type: string
+              enum:
+              - text
+              - number
+              - datetime
+              - boolean
+              - object
+              - collection
+            description:
+              type: string
+            name:
+              type: string
+          type: object
+

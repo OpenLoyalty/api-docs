@@ -1,0 +1,90 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        Customer:
+          properties:
+            customerId:
+              type: string
+              format: uuid
+            registeredAt:
+              type: string
+              format: date-time
+            active:
+              type: boolean
+            channelId:
+              type: string
+              format: uuid
+            firstName:
+              type: string
+            lastName:
+              type: string
+            gender:
+              type: string
+            email:
+              type: string
+            phone:
+              type: string
+            birthDate:
+              type: string
+              format: date-time
+            lastLevelRecalculation:
+              type: string
+              format: date-time
+            address:
+              $ref: '#/components/schemas/Address'
+            loyaltyCardNumber:
+              type: string
+            createdAt:
+              type: string
+              format: date-time
+            updatedAt:
+              type: string
+              format: date-time
+            agreement1:
+              type: boolean
+            agreement2:
+              type: boolean
+            agreement3:
+              type: boolean
+            company:
+              $ref: '#/components/schemas/Company'
+            transactionsCount:
+              type: integer
+            returnTransactionsCount:
+              type: integer
+            transactionsAmount:
+              type: number
+              format: float
+            returnTransactionsAmount:
+              type: number
+              format: float
+            transactionsAmountWithoutDeliveryCosts:
+              type: number
+              format: float
+            amountExcludedForLevel:
+              type: number
+              format: float
+            averageTransactionAmount:
+              type: number
+              format: float
+            averageReturnTransactionAmount:
+              type: number
+              format: float
+            lastTransactionDate:
+              type: string
+              format: date-time
+            firstTransactionDate:
+              type: string
+              format: date-time
+            levelAchievementDate:
+              type: string
+              format: date-time
+            anonymized:
+              type: boolean
+            referralToken:
+              type: string
+            defaultAccount:
+              $ref: '#/components/schemas/Account'
+          type: object
+

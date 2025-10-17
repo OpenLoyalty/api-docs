@@ -1,0 +1,174 @@
+﻿nelmio_api_doc:
+  documentation:
+    paths:
+      /api/admin:
+        get:
+          tags:
+          - Admin
+          summary: Get admins list
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+            This method returns a list of all Admins that have been created in the system.  
+
+            If sorting is not chosen, the rows will be returned in an unspecified order.  
+            To sort a result, use an `_orderBy` parameter in query.
+          operationId: adminGetList
+          parameters:
+          - name: id
+            in: query
+            required: false
+            schema:
+              type: string
+          - name: username
+            in: query
+            required: false
+            schema:
+              type: string
+          - name: isActive
+            in: query
+            required: false
+            schema:
+              type: boolean
+          - name: createAt
+            in: query
+            description: use `createdAt` instead
+            required: false
+            deprecated: true
+            schema:
+              type: string
+              format: date-time
+          - name: createdAt
+            in: query
+            required: false
+            schema:
+              type: string
+              format: date-time
+          - name: email
+            in: query
+            required: false
+            schema:
+              type: string
+          - name: phone
+            in: query
+            required: false
+            schema:
+              type: string
+          - name: firstName
+            in: query
+            required: false
+            schema:
+              type: string
+          - name: lastName
+            in: query
+            required: false
+            schema:
+              type: string
+          - name: external
+            in: query
+            required: false
+            schema:
+              type: boolean
+          - name: role
+            in: query
+            required: false
+            schema:
+              type: string
+          - $ref: '#/components/parameters/page'
+          - $ref: '#/components/parameters/itemsOnPage'
+          - $ref: '#/components/parameters/orderBy'
+          responses:
+            "'200'":
+              description: ""
+              content:
+                application/json:
+                  schema:
+                    oneOf:
+                    - $ref: '#/components/schemas/AdminExternalList'
+                    - $ref: '#/components/schemas/AdminInternalList'
+            "'400'":
+              $ref: '#/components/responses/BadRequest'
+            "'401'":
+              description: ""
+              content:
+                application/json:
+                  schema:
+                    oneOf:
+                    - $ref: '#/components/schemas/ExpiredToken'
+                    - $ref: '#/components/schemas/InvalidToken'
+                    - $ref: '#/components/schemas/Unauthorized'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+      /api/{storeCode}/admin/{admin}/settings:
+        get:
+          tags:
+          - Admin
+          summary: Get admin settings
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+            This method returns the settings of the specified Admin.
+          operationId: settingsGet
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          - $ref: '#/components/parameters/admin'
+          responses:
+            "'200'":
+              description: ""
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/UserSettingsEntry'
+            "'401'":
+              description: ""
+              content:
+                application/json:
+                  schema:
+                    oneOf:
+                    - $ref: '#/components/schemas/ExpiredToken'
+                    - $ref: '#/components/schemas/InvalidToken'
+                    - $ref: '#/components/schemas/Unauthorized'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+            "'404'":
+              $ref: '#/components/responses/NotFound'
+      /api/{storeCode}/admin/{admin}/settings/{key}:
+        put:
+          tags:
+          - Admin
+          summary: Update admin’s API key
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+            This method allows you to add or modify specific Administrator settings.
+          operationId: settingsPut
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          - $ref: '#/components/parameters/admin'
+          - name: key
+            in: path
+            required: true
+            schema:
+              type: string
+          requestBody:
+            description: ""
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/UserSettingsEntryFormType'
+          responses:
+            "'204'":
+              $ref: '#/components/responses/NoContent'
+            "'400'":
+              $ref: '#/components/responses/BadRequest'
+            "'401'":
+              description: ""
+              content:
+                application/json:
+                  schema:
+                    oneOf:
+                    - $ref: '#/components/schemas/ExpiredToken'
+                    - $ref: '#/components/schemas/InvalidToken'
+                    - $ref: '#/components/schemas/Unauthorized'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+            "'404'":
+              $ref: '#/components/responses/NotFound'
+

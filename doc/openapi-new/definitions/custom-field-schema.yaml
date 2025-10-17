@@ -1,0 +1,199 @@
+﻿nelmio_api_doc:
+  documentation:
+    paths:
+      /api/{storeCode}/custom-field-schema:
+        get:
+          tags:
+          - Custom Field Schema
+          summary: Get list of custom field schemas
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+            Returns a paginated list of custom field schemas with optional search and filters
+          operationId: _customFieldSchemaList
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          - name: name
+            in: query
+            description: Filter by name
+            required: false
+            schema:
+              type: string
+          - name: description
+            in: query
+            description: Filter by description
+            required: false
+            schema:
+              type: string
+          - name: required
+            in: query
+            description: Filter by required status
+            required: false
+            schema:
+              type: boolean
+          - name: active
+            in: query
+            description: Filter by active status
+            required: false
+            schema:
+              type: boolean
+          - name: type
+            in: query
+            description: Filter by field type
+            required: false
+            schema:
+              type: string
+              enum:
+              - text
+          responses:
+            "'200'":
+              description: Successful response with list of custom field schemas
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/CustomFieldSchemaListResponse'
+            "'400'":
+              $ref: '#/components/responses/BadRequest'
+            "'401'":
+              description: Unauthorized
+              content:
+                application/json:
+                  schema:
+                    oneOf:
+                    - $ref: '#/components/schemas/ExpiredToken'
+                    - $ref: '#/components/schemas/InvalidToken'
+                    - $ref: '#/components/schemas/Unauthorized'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+            "'404'":
+              $ref: '#/components/responses/NotFound'
+        post:
+          tags:
+          - Custom Field Schema
+          summary: Create a new custom field schema
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+            Creates a new custom field schema for members
+          operationId: _customFieldSchemaCreate
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          requestBody:
+            required: true
+            content:
+              application/json:
+                schema:
+                  required:
+                  - memberCustomFieldSchema
+                  properties:
+                    memberCustomFieldSchema:
+                      $ref: '#/components/schemas/CreateCustomFieldSchemaRequest'
+                  type: object
+                  additionalProperties: false
+          responses:
+            "'200'":
+              description: Custom field schema created successfully
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/CreateCustomFieldSchemaResponse'
+            "'400'":
+              $ref: '#/components/responses/BadRequest'
+            "'401'":
+              description: Unauthorized
+              content:
+                application/json:
+                  schema:
+                    oneOf:
+                    - $ref: '#/components/schemas/ExpiredToken'
+                    - $ref: '#/components/schemas/InvalidToken'
+                    - $ref: '#/components/schemas/Unauthorized'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+            "'404'":
+              $ref: '#/components/responses/NotFound'
+      /api/{storeCode}/custom-field-schema/{customFieldSchemaId}:
+        get:
+          tags:
+          - Custom Field Schema
+          summary: Get a custom field schema
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+            Returns a single custom field schema by its ID
+          operationId: _customFieldSchemaGet
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          - name: customFieldSchemaId
+            in: path
+            description: Custom field schema ID
+            required: true
+            schema:
+              type: string
+              format: uuid
+          responses:
+            "'200'":
+              description: Custom field schema details
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/CustomFieldSchemaResponse'
+            "'401'":
+              description: Unauthorized
+              content:
+                application/json:
+                  schema:
+                    oneOf:
+                    - $ref: '#/components/schemas/ExpiredToken'
+                    - $ref: '#/components/schemas/InvalidToken'
+                    - $ref: '#/components/schemas/Unauthorized'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+            "'404'":
+              $ref: '#/components/responses/NotFound'
+      /api/{storeCode}/custom-field-schema/{customFieldSchema}:
+        put:
+          tags:
+          - Custom Field Schema
+          summary: Update a custom field schema
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+            Updates an existing custom field schema
+          operationId: _customFieldSchemaUpdate
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          - name: customFieldSchema
+            in: path
+            description: Custom field schema ID
+            required: true
+            schema:
+              type: string
+              format: uuid
+          requestBody:
+            required: true
+            content:
+              application/json:
+                schema:
+                  required:
+                  - memberCustomFieldSchema
+                  properties:
+                    memberCustomFieldSchema:
+                      $ref: '#/components/schemas/UpdateCustomFieldSchemaRequest'
+                  type: object
+                  additionalProperties: false
+          responses:
+            "'204'":
+              $ref: '#/components/responses/NoContent'
+            "'400'":
+              $ref: '#/components/responses/BadRequest'
+            "'401'":
+              description: Unauthorized
+              content:
+                application/json:
+                  schema:
+                    oneOf:
+                    - $ref: '#/components/schemas/ExpiredToken'
+                    - $ref: '#/components/schemas/InvalidToken'
+                    - $ref: '#/components/schemas/Unauthorized'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+            "'404'":
+              $ref: '#/components/responses/NotFound'
+

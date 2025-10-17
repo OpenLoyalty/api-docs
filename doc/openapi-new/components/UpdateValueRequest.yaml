@@ -1,0 +1,22 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        UpdateValueRequest:
+          required:
+          - value
+          properties:
+            value:
+              required:
+              - value
+              properties:
+                value:
+                  description: Actual value
+                  type: string
+                description:
+                  description: Description value
+                  type: string
+              type: object
+              additionalProperties: false
+          type: object
+

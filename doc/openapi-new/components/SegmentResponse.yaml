@@ -1,0 +1,37 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        SegmentResponse:
+          properties:
+            segmentId:
+              type: string
+              format: uuid
+            name:
+              type: string
+            description:
+              type: string
+            active:
+              type: boolean
+            createdAt:
+              type: string
+              format: date-time
+            customersCount:
+              type: integer
+            averageTransactionAmount:
+              type: number
+              format: float
+            averageTransactions:
+              type: number
+              format: float
+            averageClv:
+              type: number
+              format: float
+            currency:
+              type: string
+            calculatedAt:
+              description: The field is added to the segment when the segment is recalculated.
+              type: string
+              format: date-time
+          type: object
+

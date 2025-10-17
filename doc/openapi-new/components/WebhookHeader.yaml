@@ -1,0 +1,14 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        WebhookHeader:
+          properties:
+            headerName:
+              description: Name of the header
+              type: string
+            headerValue:
+              description: Value of the header
+              type: string
+          type: object
+

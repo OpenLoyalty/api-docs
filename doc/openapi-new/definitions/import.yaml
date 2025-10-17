@@ -1,0 +1,310 @@
+﻿nelmio_api_doc:
+  documentation:
+    paths:
+      /api/{storeCode}/import:
+        get:
+          tags:
+          - Import
+          summary: Get imports list
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+            This method returns all imports.  
+
+            If sorting is not chosen, the rows will be returned in an unspecified order.  
+            To sort a result, use an `_orderBy` parameter in query.
+          operationId: _importGetList
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          - name: importId
+            in: query
+            required: false
+            schema:
+              type: string
+              format: uuid
+          - name: type
+            in: query
+            required: false
+            schema:
+              type: string
+              enum:
+              - member
+              - groupValue
+              - segmentMembers
+              - unitTransferAdding
+              - unitTransferSpending
+              - transaction
+              - rewardCoupon
+          - name: uploadedDate
+            in: query
+            required: false
+            schema:
+              type: string
+              format: date-time
+          - $ref: '#/components/parameters/page'
+          - $ref: '#/components/parameters/itemsOnPage'
+          - $ref: '#/components/parameters/orderBy'
+          responses:
+            "'200'":
+              description: List of imports
+              content:
+                application/json:
+                  schema:
+                    properties:
+                      items:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/Import'
+                      total:
+                        $ref: '#/components/schemas/SearchableTotalResponse'
+                    type: object
+            "'401'":
+              description: Unauthorized
+              content:
+                application/json:
+                  schema:
+                    oneOf:
+                    - $ref: '#/components/schemas/ExpiredToken'
+                    - $ref: '#/components/schemas/InvalidToken'
+                    - $ref: '#/components/schemas/Unauthorized'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+      /api/{storeCode}/import/{import}:
+        get:
+          tags:
+          - Import
+          summary: Get import details
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+          operationId: _importItemGetList
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          - name: type
+            in: query
+            required: false
+            schema:
+              type: string
+              enum:
+              - member
+              - groupValue
+              - segmentMembers
+              - unitTransferAdding
+              - unitTransferSpending
+              - transaction
+              - rewardCoupon
+          - name: createdAt
+            in: query
+            required: false
+            schema:
+              type: string
+              format: date-time
+          - name: updatedAt
+            in: query
+            required: false
+            schema:
+              type: string
+              format: date-time
+          - name: entityId
+            in: query
+            required: false
+            schema:
+              type: string
+              format: uuid
+          - $ref: '#/components/parameters/page'
+          - $ref: '#/components/parameters/itemsOnPage'
+          - $ref: '#/components/parameters/orderBy'
+          - name: import
+            in: path
+            required: true
+            schema:
+              type: string
+              format: uuid
+          responses:
+            "'200'":
+              description: List of imports
+              content:
+                application/json:
+                  schema:
+                    properties:
+                      items:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/ImportItem'
+                      total:
+                        $ref: '#/components/schemas/SearchableTotalResponse'
+                    type: object
+            "'401'":
+              description: Unauthorized
+              content:
+                application/json:
+                  schema:
+                    oneOf:
+                    - $ref: '#/components/schemas/ExpiredToken'
+                    - $ref: '#/components/schemas/InvalidToken'
+                    - $ref: '#/components/schemas/Unauthorized'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+      /api/{storeCode}/import/{type}:
+        post:
+          tags:
+          - Import
+          summary: Import file
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+          operationId: postImport
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          - name: type
+            in: path
+            required: true
+            schema:
+              type: string
+              enum:
+              - member
+              - groupValue
+              - segmentMembers
+              - unitTransferAdding
+              - unitTransferSpending
+              - transaction
+          requestBody:
+            description: ""
+            content:
+              multipart/form-data:
+                schema:
+                  oneOf:
+                  - title: Import Members
+                    properties:
+                      import:
+                        required:
+                        - file
+                        properties:
+                          file:
+                            description: |
+                              See <a href="https://help.openloyalty.io/main-features/imports-exports/imports/sample-import-files" target="_blank">sample import files available in the import guide</a>
+                            type: object
+                        type: object
+                    type: object
+                  - title: Import Group values
+                    properties:
+                      import:
+                        required:
+                        - additionalData
+                        - file
+                        properties:
+                          additionalData:
+                            required:
+                            - groupOfValuesId
+                            properties:
+                              groupOfValuesId:
+                                type: string
+                            type: object
+                          file:
+                            description: |
+                              See <a href="https://help.openloyalty.io/main-features/imports-exports/imports/sample-import-files" target="_blank">sample import files available in the import guide</a>
+                            type: object
+                        type: object
+                    type: object
+                  - title: Import Segment Members
+                    properties:
+                      import:
+                        required:
+                        - additionalData
+                        - file
+                        properties:
+                          additionalData:
+                            required:
+                            - segmentId
+                            - identificationMethod
+                            properties:
+                              segmentId:
+                                type: string
+                                format: uuid
+                              identificationMethod:
+                                description: |
+                                  The identification method allows you to map an identifier to the appropriate member.
+                                  Therefore, you should choose an identification method that corresponds to the type of member identifiers included in the file.
+                                  See <a href="https://help.openloyalty.io/main-features/imports-exports/imports/sample-import-files" target="_blank">sample import files available in the import guide</a>
+                                type: string
+                                enum:
+                                - uuid
+                                - email
+                                - phone
+                                - loyaltyCardNumber
+                            type: object
+                          file:
+                            description: |
+                              A file with a list of member identifiers.
+                              All identifiers in the imported file must be of the same type.
+                              Available identifier types are: uuid, email, phone, loyaltyCardNumber.
+                              See <a href="https://help.openloyalty.io/main-features/imports-exports/imports/sample-import-files" target="_blank">sample import files available in the import guide</a>
+                            type: string
+                            format: binary
+                        type: object
+                    type: object
+                  - title: Import adding units transfers
+                    properties:
+                      import:
+                        required:
+                        - file
+                        properties:
+                          file:
+                            description: |
+                              See <a href="https://help.openloyalty.io/main-features/imports-exports/imports/sample-import-files" target="_blank">sample import files available in the import guide</a>
+                            type: string
+                            format: binary
+                        type: object
+                    type: object
+                  - title: Import spending units transfers
+                    properties:
+                      import:
+                        required:
+                        - file
+                        properties:
+                          file:
+                            description: |
+                              See <a href="https://help.openloyalty.io/main-features/imports-exports/imports/sample-import-files" target="_blank">sample import files available in the import guide</a>
+                            type: string
+                            format: binary
+                        type: object
+                    type: object
+                  - title: Import transactions
+                    properties:
+                      import:
+                        required:
+                        - file
+                        properties:
+                          file:
+                            description: |
+                              See <a href="https://help.openloyalty.io/main-features/imports-exports/imports/sample-import-files" target="_blank">sample import files available in the import guide</a>
+                            type: string
+                            format: binary
+                        type: object
+                    type: object
+          responses:
+            "'200'":
+              description: ""
+              content:
+                application/json:
+                  schema:
+                    required:
+                    - importId
+                    properties:
+                      importId:
+                        type: string
+                        format: uuid
+                    type: object
+            "'400'":
+              $ref: '#/components/responses/BadRequest'
+            "'401'":
+              description: Unauthorized
+              content:
+                application/json:
+                  schema:
+                    oneOf:
+                    - $ref: '#/components/schemas/ExpiredToken'
+                    - $ref: '#/components/schemas/InvalidToken'
+                    - $ref: '#/components/schemas/Unauthorized'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+            "'404'":
+              $ref: '#/components/responses/NotFound'
+

@@ -1,0 +1,27 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        StaticCoupon:
+          required:
+          - customerId
+          - quantity
+          - withoutPoints
+          properties:
+            customerId:
+              type: string
+              format: uuid
+            quantity:
+              type: integer
+            couponValue:
+              type: number
+              format: float
+            dateValid:
+              type: string
+              format: date-time
+            withoutPoints:
+              type: boolean
+            rewardWalletCode:
+              type: string
+          type: object
+

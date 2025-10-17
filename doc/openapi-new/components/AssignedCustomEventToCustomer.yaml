@@ -1,0 +1,35 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        AssignedCustomEventToCustomer:
+          required:
+          - customerId
+          - type
+          - createdAt
+          properties:
+            customerId:
+              type: string
+            type:
+              type: string
+              enum:
+              - AssignedCustomEventToCustomer
+            accountId:
+              type: string
+            createdAt:
+              type: string
+              format: date-time
+            flatVariables:
+              required:
+              - customEventId
+              - type
+              properties:
+                customEventId:
+                  type: string
+                type:
+                  type: string
+              type: object
+              additionalProperties: false
+          type: object
+          additionalProperties: false
+

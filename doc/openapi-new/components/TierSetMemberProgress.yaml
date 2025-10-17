@@ -1,0 +1,91 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        TierSetMemberProgress:
+          required:
+          - tierSetId
+          - tierSetName
+          - downgrade
+          - manually
+          - nextTierCurrentProgress
+          properties:
+            currentTierId:
+              description: The field displays the member's current tier id
+              type: string
+              format: uuid
+            currentTierName:
+              description: The field displays the member's current tier name
+              type: string
+            nextTierId:
+              description: The field displays the member's next tier id
+              type: string
+              format: uuid
+            nextTierName:
+              description: The field displays the member's next tier name
+              type: string
+            tierSetId:
+              description: The field will show the tierSet id in which the tier is located
+              type: string
+              format: uuid
+            tierSetName:
+              description: The field will show the tierSet id in which the tier is located
+              type: string
+            currentProgress:
+              description: Shows you your current progress percentage and what progress you are missing to reach the next tier
+              type: number
+              format: double
+            lastPromotionAt:
+              description: Shows when the last promotion to a higher tier occurred
+              type: string
+              format: date-time
+            lastDowngradeAt:
+              description: Shows when the last downgrade to a lower tier occurred
+              type: string
+              format: date-time
+            nextRecalculationAt:
+              description: Shows the date of the next recalculation
+              type: string
+              format: date-time
+            manually:
+              description: Shows whether the current tier has been assigned manually
+              type: boolean
+            downgrade:
+              description: Shows downgrade mode
+              type: string
+            nextTierCurrentProgress:
+              type: array
+              items:
+                required:
+                - conditionId
+                - attribute
+                properties:
+                  conditionId:
+                    description: Shows conditions id
+                    type: string
+                    format: uuid
+                  attribute:
+                    description: The field shows condition attribute
+                    type: string
+                    enum:
+                    - activeUnits
+                    - totalEarnedUnits
+                    - monthsSinceJoiningProgram
+                    - totalSpending
+                    - cumulatedEarnedUnits
+                  currentValue:
+                    description: The field shows your current value for condition attribute
+                    type: number
+                    format: float
+                  valueGoal:
+                    description: The field shows what value to aim for to reach the next level
+                    type: number
+                    format: float
+                  walletType:
+                    description: This field shows chosen wallet only for attributes related to units
+                    type: string
+                type: object
+                additionalProperties: false
+          type: object
+          additionalProperties: false
+

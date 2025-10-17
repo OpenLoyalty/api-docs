@@ -1,0 +1,29 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        WebhookSubscription:
+          properties:
+            webhookSubscriptionId:
+              type: string
+              format: uuid
+            eventName:
+              type: string
+            url:
+              type: string
+            headerName:
+              type: string
+              deprecated: true
+            headerValue:
+              type: string
+              deprecated: true
+            legacy:
+              type: boolean
+              deprecated: true
+            createdAt:
+              type: string
+              format: date-time
+            destinationType:
+              type: string
+          type: object
+

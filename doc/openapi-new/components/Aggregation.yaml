@@ -1,0 +1,10 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        Aggregation:
+          properties:
+            rule:
+              type: string
+          type: object
+

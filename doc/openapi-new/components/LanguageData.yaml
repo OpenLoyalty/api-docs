@@ -1,0 +1,21 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        LanguageData:
+          properties:
+            code:
+              type: string
+            name:
+              type: string
+            adminDefault:
+              type: boolean
+            apiDefault:
+              type: boolean
+            order:
+              type: integer
+            updatedAt:
+              type: string
+              format: date-time
+          type: object
+

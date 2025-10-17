@@ -1,0 +1,30 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        Rule2:
+          properties:
+            translations:
+              properties:
+                en:
+                  properties:
+                    name:
+                      type: string
+                    description:
+                      type: string
+                  type: object
+              type: object
+            achievementRuleId:
+              type: string
+            completeRule:
+              $ref: '#/components/schemas/CompleteRule'
+            aggregation:
+              $ref: '#/components/schemas/Aggregation'
+            uniqueReferee:
+              type: boolean
+            event:
+              type: string
+            limit:
+              $ref: '#/components/schemas/Limit2'
+          type: object
+

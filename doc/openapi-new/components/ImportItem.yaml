@@ -1,0 +1,213 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        ImportItem:
+          required:
+          - importId
+          - status
+          - createdAt
+          - updatedAt
+          properties:
+            importId:
+              type: string
+              format: uuid
+            status:
+              type: string
+              enum:
+              - queued
+              - inprogress
+              - succeed
+              - error
+              - failed
+            createdAt:
+              type: string
+              format: date-time
+            updatedAt:
+              type: string
+              format: date-time
+            message:
+              type: string
+            entity:
+              anyOf:
+              - $ref: '#/components/schemas/EntityMember'
+              - $ref: '#/components/schemas/EntityMember'
+              - title: Collection
+                properties:
+                  id:
+                    type: string
+                    format: uuid
+                  data:
+                    required:
+                    - value
+                    - groupOfValuesId
+                    properties:
+                      value:
+                        type: string
+                      description:
+                        type: string
+                      groupOfValuesId:
+                        type: string
+                        format: uuid
+                    type: object
+                    additionalProperties: false
+                type: object
+              - title: Unit transfer adding
+                properties:
+                  id:
+                    type: string
+                    format: uuid
+                  data:
+                    required:
+                    - walletCode
+                    - unitSingularName
+                    - unitPluralName
+                    - value
+                    - registeredOn
+                    - createdOn
+                    - isPending
+                    - memberId
+                    - memberFullName
+                    properties:
+                      walletName:
+                        type: string
+                      walletCode:
+                        type: string
+                      unitSingularName:
+                        type: string
+                      unitPluralName:
+                        type: string
+                      value:
+                        type: number
+                        format: float
+                      comment:
+                        type: string
+                      registeredOn:
+                        type: string
+                        format: date-time
+                      createdOn:
+                        type: string
+                        format: date-time
+                      isPending:
+                        type: boolean
+                      expireAt:
+                        type: string
+                        format: date-time
+                      memberId:
+                        type: string
+                        format: uuid
+                      memberFullName:
+                        type: string
+                      memberEmail:
+                        type: string
+                        format: email
+                      memberLoyaltyCardNumber:
+                        type: string
+                      memberPhone:
+                        type: string
+                      externalTransferId:
+                        type: string
+                    type: object
+                    additionalProperties: false
+                type: object
+              - title: Unit transfer spending
+                properties:
+                  id:
+                    type: string
+                    format: uuid
+                  data:
+                    required:
+                    - walletCode
+                    - unitSingularName
+                    - unitPluralName
+                    - value
+                    - registeredOn
+                    - createdOn
+                    - memberId
+                    - memberFullName
+                    properties:
+                      walletName:
+                        type: string
+                      walletCode:
+                        type: string
+                      unitSingularName:
+                        type: string
+                      unitPluralName:
+                        type: string
+                      value:
+                        type: number
+                        format: float
+                      comment:
+                        type: string
+                      registeredOn:
+                        type: string
+                        format: date-time
+                      createdOn:
+                        type: string
+                        format: date-time
+                      memberId:
+                        type: string
+                        format: uuid
+                      memberFullName:
+                        type: string
+                      memberEmail:
+                        type: string
+                        format: email
+                      memberLoyaltyCardNumber:
+                        type: string
+                      memberPhone:
+                        type: string
+                      externalTransferId:
+                        type: string
+                    type: object
+                    additionalProperties: false
+                type: object
+              - title: Transaction
+                properties:
+                  id:
+                    type: string
+                    format: uuid
+                  data:
+                    required:
+                    - documentType
+                    - purchasedAt
+                    - grossValue
+                    properties:
+                      documentType:
+                        type: string
+                      purchasedAt:
+                        type: string
+                        format: date-time
+                      grossValue:
+                        type: number
+                        format: float
+                      memberFullName:
+                        type: string
+                      memberEmail:
+                        type: string
+                      memberLoyaltyCardNumber:
+                        type: string
+                      memberPhone:
+                        type: string
+                    type: object
+                    additionalProperties: false
+                type: object
+              - title: Reward coupon
+                properties:
+                  id:
+                    type: string
+                  data:
+                    required:
+                    - code
+                    properties:
+                      code:
+                        type: string
+                      rewardId:
+                        type: string
+                        format: uuid
+                    type: object
+                    additionalProperties: false
+                type: object
+          type: object
+          additionalProperties: false
+

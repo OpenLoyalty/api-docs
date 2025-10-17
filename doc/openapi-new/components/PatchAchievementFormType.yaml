@@ -1,0 +1,20 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        PatchAchievementFormType:
+          properties:
+            translations:
+              $ref: '#/components/schemas/TranslationsType'
+            activity:
+              $ref: '#/components/schemas/ActivityFormType'
+            active:
+              type: boolean
+            rules:
+              type: array
+              items:
+                $ref: '#/components/schemas/PatchRuleFormType'
+            limit:
+              $ref: '#/components/schemas/LimitFormType'
+          type: object
+

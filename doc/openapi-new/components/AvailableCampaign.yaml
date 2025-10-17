@@ -1,0 +1,170 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        AvailableCampaign:
+          required:
+          - campaignId
+          - name
+          - active
+          - activity
+          - rules
+          - translations
+          - createdAt
+          - displayOrder
+          - labels
+          - type
+          - trigger
+          - limitReached
+          - limits
+          - memberFilter
+          - limitUsages
+          properties:
+            campaignId:
+              type: string
+              format: uuid
+            active:
+              type: boolean
+            activity:
+              required:
+              - startsAt
+              properties:
+                startsAt:
+                  type: string
+                  example: 2024-09-17 '00':00+02:00
+                endsAt:
+                  type: string
+                  example: 2024-09-17 '00':00+02:00
+                  nullable: true
+              type: object
+              additionalProperties: false
+            rules:
+              type: array
+              items:
+                required:
+                - conditions
+                - effects
+                properties:
+                  conditions:
+                    type: array
+                    items:
+                      properties:
+                        operator:
+                          type: string
+                        data:
+                          type: array
+                          items:
+                            type: string
+                        attribute:
+                          type: string
+                      type: object
+                  effects:
+                    type: array
+                    items:
+                      required:
+                      - effect
+                      properties:
+                        effect:
+                          type: string
+                        pointsRule:
+                          type: string
+                      type: object
+                type: object
+            limits:
+              $ref: '#/components/schemas/Limit'
+            translations:
+              type: array
+              items:
+                required:
+                - id
+                - name
+                - locale
+                properties:
+                  name:
+                    type: string
+                  description:
+                    type: string
+                  id:
+                    type: integer
+                  locale:
+                    type: string
+                type: object
+                additionalProperties: false
+            createdAt:
+              type: string
+              format: date-time
+            memberFilter:
+              type: object
+            displayOrder:
+              type: number
+              example: 1
+            labels:
+              type: array
+              items:
+                required:
+                - key
+                - value
+                properties:
+                  key:
+                    type: string
+                  value:
+                    type: string
+                type: object
+                additionalProperties: false
+            multiLevel:
+              type: number
+              example: 1
+            codeGenerator:
+              type: object
+            eventCodeAttribute:
+              type: string
+            name:
+              type: string
+            description:
+              type: string
+            type:
+              type: string
+            trigger:
+              type: string
+            event:
+              type: string
+            achievementId:
+              type: string
+              format: uuid
+            relatedAchievement:
+              $ref: '#/components/schemas/RelatedAchievement'
+            limitReached:
+              description: This property indicates whether the limit for campaign is reached by member
+              type: boolean
+            limitUsages:
+              properties:
+                points:
+                  description: These fields are not updated immediately after the status changes.
+                  properties:
+                    currentValue:
+                      type: number
+                      format: float
+                    limitValue:
+                      type: number
+                      format: float
+                    remaining:
+                      type: number
+                      format: float
+                    interval:
+                      properties:
+                        type:
+                          type: string
+                          enum:
+                          - calendarHours
+                          - calendarDays
+                          - calendarWeeks
+                          - calendarMonths
+                          - calendarYears
+                        value:
+                          type: integer
+                      type: object
+                  type: object
+              type: object
+          type: object
+          additionalProperties: false
+

@@ -1,0 +1,28 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        PointsStats:
+          properties:
+            totalPointsActive:
+              type: number
+              format: float
+              example: 72544.8
+            totalPointsSpent:
+              type: number
+              format: float
+              example: 3425.25
+            totalPointsAdded:
+              type: number
+              format: float
+              example: 47563
+            totalPointsExpired:
+              type: number
+              format: float
+              example: 432.9
+            totalPointsPending:
+              type: number
+              format: float
+              example: 65764.76
+          type: object
+

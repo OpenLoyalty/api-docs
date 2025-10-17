@@ -1,0 +1,39 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        TransactionsStats:
+          properties:
+            countIntervals:
+              properties:
+                in_1_days:
+                  type: integer
+                  example: 2
+                in_7_days:
+                  type: integer
+                  example: 23
+                in_30_days:
+                  type: integer
+                  example: 153
+                in_365_days:
+                  type: integer
+                  example: 345
+              type: object
+            total:
+              type: integer
+              example: 531
+            amount:
+              description: transactions total amount
+              type: number
+              format: float
+              example: 453.7
+            amountWithoutDeliveryCosts:
+              description: transactions total amount without delivery costs
+              type: number
+              format: float
+              example: 389.5
+            currency:
+              type: string
+              example: USD
+          type: object
+

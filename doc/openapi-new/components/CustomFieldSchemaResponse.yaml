@@ -1,0 +1,46 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        CustomFieldSchemaResponse:
+          required:
+          - customFieldSchemaId
+          - name
+          - type
+          - required
+          - active
+          - createdAt
+          properties:
+            customFieldSchemaId:
+              description: Unique identifier of the custom field schema
+              type: string
+              format: uuid
+            name:
+              description: Name of the custom field
+              type: string
+            type:
+              description: Type of the custom field
+              type: string
+              enum:
+              - text
+            required:
+              description: Whether this field is required
+              type: boolean
+            active:
+              description: Whether this field is active
+              type: boolean
+            createdAt:
+              description: Creation timestamp
+              type: string
+              format: date-time
+            description:
+              description: Description of the custom field
+              type: string
+              nullable: true
+            groupOfValuesId:
+              description: Group of values ID (only for text type fields)
+              type: string
+              format: uuid
+              nullable: true
+          type: object
+

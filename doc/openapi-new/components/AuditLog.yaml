@@ -1,0 +1,29 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        AuditLog:
+          properties:
+            auditLogId:
+              type: string
+            store:
+              $ref: '#/components/schemas/Store'
+            eventType:
+              type: string
+            entityType:
+              type: string
+            entityId:
+              type: string
+            username:
+              type: string
+            userId:
+              type: string
+            userType:
+              type: string
+            ip:
+              type: string
+            createdAt:
+              type: string
+              format: date-time
+          type: object
+

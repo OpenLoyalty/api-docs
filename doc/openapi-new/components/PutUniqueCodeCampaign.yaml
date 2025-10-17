@@ -1,0 +1,64 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        PutUniqueCodeCampaign:
+          required:
+          - type
+          - trigger
+          - translations
+          - activity
+          - eventCodeAttribute
+          - codeGenerator
+          properties:
+            type:
+              type: string
+              example: referral
+            trigger:
+              type: string
+              example: custom_event_unique_code
+            activity:
+              required:
+              - startsAt
+              properties:
+                startsAt:
+                  type: string
+                  format: date-time
+                endsAt:
+                  type: string
+                  format: date-time
+                  nullable: true
+              type: object
+            displayOrder:
+              type: number
+              example: 1
+            active:
+              type: boolean
+            labels:
+              type: array
+              items:
+                properties:
+                  key:
+                    type: string
+                  value:
+                    type: string
+                type: object
+            translations:
+              $ref: '#/components/schemas/CampaignTranslations'
+            eventCodeAttribute:
+              type: string
+              example: qrCode
+            codeGenerator:
+              properties:
+                characterSet:
+                  type: string
+                  example: alphanum
+                length:
+                  type: integer
+                  example: 12
+                prefix:
+                  type: string
+                  example: Code
+              type: object
+          type: object
+

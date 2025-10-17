@@ -1,0 +1,52 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        CriterionFormType:
+          required:
+          - type
+          properties:
+            type:
+              type: string
+              enum:
+              - bought_through_channel
+              - transaction_count
+              - average_transaction_amount
+              - transaction_percent_in_channel
+              - purchase_period
+              - bought_labels
+              - bought_makers
+              - anniversary
+              - last_purchase_n_days_before
+              - last_transaction_between_days
+              - last_custom_event_n_days_before
+              - last_custom_event_between_days
+              - bought_skus
+              - transaction_amount
+              - transaction_amount_each_day_in_period
+              - transaction_amount_in_period
+              - transaction_count_in_period
+              - transaction_amount_each_day_in_last_n_days
+              - transaction_amount_in_last_n_days
+              - customer_in_level
+              - customer_has_labels
+              - customer_with_labels_values
+              - customer_list
+              - gender
+              - city
+              - province
+              - country
+              - postal
+              - age
+              - campaign_completion
+              - customer_csv_list
+              - achievement_completion_count
+              - achievement_rule_progress
+              - customer_in_tiers
+              - member_registration_date
+              - member_custom_field_value
+              - member_loyalty_card_number
+            criterionId:
+              type: string
+          type: object
+

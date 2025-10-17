@@ -1,0 +1,29 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        RuleFormType:
+          required:
+          - trigger
+          - type
+          - completeRule
+          - translations
+          properties:
+            trigger:
+              type: string
+              enum:
+              - transaction
+              - custom_event
+            type:
+              type: string
+              enum:
+              - direct
+              - referral
+            completeRule:
+              $ref: '#/components/schemas/CompleteRuleFormType'
+            limit:
+              $ref: '#/components/schemas/LimitFormType'
+            translations:
+              $ref: '#/components/schemas/RuleTranslationFormType'
+          type: object
+

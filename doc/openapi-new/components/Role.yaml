@@ -1,0 +1,38 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        Role:
+          properties:
+            role:
+              type: string
+            stores:
+              type: array
+              items:
+                type: string
+            id:
+              type: integer
+              example: 0
+            name:
+              type: string
+            master:
+              type: boolean
+            default:
+              type: boolean
+            permissions:
+              type: array
+              items:
+                properties:
+                  id:
+                    type: integer
+                  resource:
+                    type: string
+                  access:
+                    type: string
+                  filterQuery:
+                    type: string
+                  role:
+                    type: object
+                type: object
+          type: object
+

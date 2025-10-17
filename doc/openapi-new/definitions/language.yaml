@@ -1,0 +1,238 @@
+﻿nelmio_api_doc:
+  documentation:
+    paths:
+      /api/language/{code}:
+        get:
+          tags:
+          - Language
+          summary: Get language data
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+            This method returns all Language data by its locale code.
+          operationId: languageGet
+          parameters:
+          - name: code
+            in: path
+            required: true
+            schema:
+              type: string
+          responses:
+            "'200'":
+              description: Returned when successful.
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/Language'
+            "'401'":
+              $ref: '#/components/responses/Unauthorized'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+            "'404'":
+              $ref: '#/components/responses/NotFound'
+        put:
+          tags:
+          - Language
+          summary: Update language configuration
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+            This method allows updating a specific Language.
+          operationId: languagePut
+          parameters:
+          - name: code
+            in: path
+            required: true
+            schema:
+              type: string
+          requestBody:
+            description: ""
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/LanguageDataFormType'
+          responses:
+            "'200'":
+              description: Returned when successful
+              content:
+                application/json:
+                  schema:
+                    properties:
+                      name:
+                        type: string
+                      code:
+                        type: string
+                      apiDefault:
+                        type: boolean
+                      adminDefault:
+                        type: boolean
+                      order:
+                        type: integer
+                    type: object
+            "'400'":
+              $ref: '#/components/responses/BadRequest'
+            "'401'":
+              $ref: '#/components/responses/Unauthorized'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+            "'404'":
+              $ref: '#/components/responses/NotFound'
+        delete:
+          tags:
+          - Language
+          summary: Delete a language
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+            This method allows deleting a specific Language.
+          operationId: languageDelete
+          parameters:
+          - name: code
+            in: path
+            required: true
+            schema:
+              type: string
+          responses:
+            "'204'":
+              $ref: '#/components/responses/NoContent'
+            "'400'":
+              $ref: '#/components/responses/BadRequest'
+            "'401'":
+              $ref: '#/components/responses/Unauthorized'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+            "'404'":
+              $ref: '#/components/responses/NotFound'
+      /api/language:
+        get:
+          tags:
+          - Language
+          summary: Get languages list
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+            This method returns a list of all available Languages in the system.  
+
+            If sorting is not chosen, the rows will be returned in an unspecified order.  
+            To sort a result, use an `_orderBy` parameter in query.
+          operationId: languageGetList
+          parameters:
+          - name: localeCode
+            in: query
+            required: false
+            schema:
+              type: string
+          - name: apiDefault
+            in: query
+            required: false
+            schema:
+              type: boolean
+          - $ref: '#/components/parameters/page'
+          - $ref: '#/components/parameters/itemsOnPage'
+          - $ref: '#/components/parameters/orderBy'
+          responses:
+            "'200'":
+              description: Returned when successful.
+              content:
+                application/json:
+                  schema:
+                    properties:
+                      items:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/LanguageData'
+                      total:
+                        $ref: '#/components/schemas/SearchableTotalResponse2'
+                    type: object
+            "'401'":
+              $ref: '#/components/responses/Unauthorized'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+            "'404'":
+              $ref: '#/components/responses/NotFound'
+        post:
+          tags:
+          - Language
+          summary: Add a language
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+            This method allows creating a new Language.
+          operationId: languagePost
+          requestBody:
+            description: ""
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/CreateLanguageFormType'
+          responses:
+            "'200'":
+              description: Returned when successful
+              content:
+                application/json:
+                  schema:
+                    properties:
+                      name:
+                        type: string
+                      code:
+                        type: string
+                      apiDefault:
+                        type: boolean
+                      adminDefault:
+                        type: boolean
+                      order:
+                        type: integer
+                    type: object
+            "'400'":
+              $ref: '#/components/responses/BadRequest'
+            "'401'":
+              $ref: '#/components/responses/Unauthorized'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+      /api/language/{code}/translation/{key}:
+        put:
+          tags:
+          - Language
+          summary: Update translation key
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+            This method allows creating or updating a whole specific Translation key.
+          operationId: languageTranslationPut
+          parameters:
+          - name: code
+            in: path
+            required: true
+            schema:
+              type: string
+          - name: key
+            in: path
+            required: true
+            schema:
+              type: string
+          requestBody:
+            description: ""
+            content:
+              application/json:
+                schema:
+                  properties:
+                    translation:
+                      $ref: '#/components/schemas/TranslationEntryDataFormType'
+                  type: object
+          responses:
+            "'200'":
+              description: Returned when successful
+              content:
+                application/json:
+                  schema:
+                    properties:
+                      languageCode:
+                        type: string
+                      key:
+                        type: string
+                      value:
+                        type: string
+                    type: object
+            "'400'":
+              $ref: '#/components/responses/BadRequest'
+            "'401'":
+              $ref: '#/components/responses/Unauthorized'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+            "'404'":
+              $ref: '#/components/responses/NotFound'
+

@@ -1,0 +1,31 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        Account:
+          properties:
+            accountId:
+              type: string
+            activePoints:
+              type: number
+              format: float
+            transferredPoints:
+              type: number
+              format: float
+            lockedPoints:
+              type: number
+              format: float
+            expiredPoints:
+              type: number
+              format: float
+            spentPoints:
+              type: number
+              format: float
+            earnedPoints:
+              type: number
+              format: float
+            blockedPoints:
+              type: number
+              format: float
+          type: object
+

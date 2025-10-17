@@ -1,0 +1,10 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        UserSettingsEntryFormType:
+          properties:
+            value:
+              type: string
+          type: object
+

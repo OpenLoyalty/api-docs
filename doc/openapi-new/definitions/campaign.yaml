@@ -1,0 +1,875 @@
+﻿nelmio_api_doc:
+  documentation:
+    paths:
+      /api/{storeCode}/campaign/{campaign}:
+        get:
+          tags:
+          - Campaign
+          summary: Get the campaign’s details
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+            This method returns detailed information about a specific Campaign.
+          operationId: campaignGet
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          - $ref: '#/components/parameters/campaign'
+          responses:
+            "'200'":
+              description: Campaign details.
+              content:
+                application/json:
+                  schema:
+                    oneOf:
+                    - $ref: '#/components/schemas/CampaignResponse'
+                    - $ref: '#/components/schemas/MultiReferralCampaignResponse'
+                    - $ref: '#/components/schemas/UniqueCodeCampaignResponse'
+                    - $ref: '#/components/schemas/TimeTriggerCampaignResponse'
+                    - $ref: '#/components/schemas/LeaderboardCampaignResponse'
+            "'401'":
+              description: Unauthorized
+              content:
+                application/json:
+                  schema:
+                    oneOf:
+                    - $ref: '#/components/schemas/ExpiredToken'
+                    - $ref: '#/components/schemas/InvalidToken'
+                    - $ref: '#/components/schemas/Unauthorized'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+            "'404'":
+              $ref: '#/components/responses/NotFound'
+        put:
+          tags:
+          - Campaign
+          summary: Update campaign’s configuration
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+            This method allows changing the information about a specific Campaign.
+          operationId: _campaignPut
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          - $ref: '#/components/parameters/campaign'
+          requestBody:
+            content:
+              application/json:
+                schema:
+                  oneOf:
+                  - $ref: '#/components/schemas/AchievementCampaignRequestBody'
+                  - $ref: '#/components/schemas/PutUniqueCodeCampaignRequestBody'
+                  - $ref: '#/components/schemas/CampaignRequestBody'
+                  - $ref: '#/components/schemas/MultiReferralCampaignRequestBody'
+                  - $ref: '#/components/schemas/LeaderboardCampaignRequestBody'
+          responses:
+            "'204'":
+              $ref: '#/components/responses/NoContent'
+            "'400'":
+              $ref: '#/components/responses/BadRequest'
+            "'401'":
+              $ref: '#/components/responses/Unauthorized'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+            "'404'":
+              $ref: '#/components/responses/NotFound'
+        delete:
+          tags:
+          - Campaign
+          summary: Delete campaign.
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+            This method allows you to delete campaign.
+          operationId: _campaignDelete
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          - $ref: '#/components/parameters/campaign'
+          responses:
+            "'204'":
+              $ref: '#/components/responses/NoContent'
+            "'400'":
+              $ref: '#/components/responses/BadRequest'
+            "'401'":
+              description: Unauthorized
+              content:
+                application/json:
+                  schema:
+                    oneOf:
+                    - $ref: '#/components/schemas/ExpiredToken'
+                    - $ref: '#/components/schemas/InvalidToken'
+                    - $ref: '#/components/schemas/Unauthorized'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+            "'404'":
+              $ref: '#/components/responses/NotFound'
+        patch:
+          tags:
+          - Campaign
+          summary: Update campaign’s configuration
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+            This method allows you to change the order in which your campaigns are displayed and campaign activity.
+          operationId: campaignPatch
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          - $ref: '#/components/parameters/campaign'
+          requestBody:
+            required: true
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/PartialUpdateCampaign'
+          responses:
+            "'204'":
+              $ref: '#/components/responses/NoContent'
+            "'400'":
+              $ref: '#/components/responses/BadRequest'
+            "'401'":
+              $ref: '#/components/responses/Unauthorized'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+            "'404'":
+              $ref: '#/components/responses/NotFound'
+      /api/{storeCode}/campaign:
+        get:
+          tags:
+          - Campaign
+          summary: Get campaigns list
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+            This method returns detailed information about all Campaigns created in the system.\n\n
+            If sorting is not chosen, the rows will be returned in an unspecified order.  \n
+            To sort a result, use an `_orderBy` parameter in query.
+          operationId: campaignGetList
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          - name: type
+            in: query
+            required: false
+            style: deepObject
+            explode: true
+            schema:
+              type: string
+              enum:
+              - direct
+              - referral
+          - name: trigger
+            in: query
+            required: false
+            style: deepObject
+            explode: true
+            schema:
+              type: string
+              enum:
+              - transaction
+              - return_transaction
+              - custom_event
+              - internal_event
+              - time
+              - achievement
+              - custom_event_unique_code
+          - name: event
+            in: query
+            required: false
+            style: deepObject
+            explode: true
+            schema:
+              type: string
+          - name: campaignId
+            in: query
+            description: Campaign ID
+            required: false
+            style: deepObject
+            explode: true
+            schema:
+              type: string
+              format: uuid
+          - name: name
+            in: query
+            description: Campaign name
+            required: false
+            style: deepObject
+            explode: true
+            schema:
+              type: string
+            examples:
+              equal:
+                summary: Equal value
+                value:
+                  eq: value
+          - name: active
+            in: query
+            description: Active
+            required: false
+            style: deepObject
+            explode: true
+            schema:
+              type: boolean
+            example: true
+          - name: available
+            in: query
+            description: Available
+            required: false
+            style: deepObject
+            explode: true
+            schema:
+              type: boolean
+            example: true
+          - name: startsAt
+            in: query
+            required: false
+            style: deepObject
+            explode: true
+            schema:
+              type: string
+              format: date-time
+          - name: endsAt
+            in: query
+            required: false
+            style: deepObject
+            explode: true
+            schema:
+              type: string
+              format: date-time
+          - name: labels
+            in: query
+            description: |
+              Filter with Campaign custom attributes.
+
+              Example: `labels=(key;value)`
+            required: false
+            style: deepObject
+            explode: true
+          - name: format
+            in: query
+            description: If set to html, the descriptions will be in HTML format. Omit for raw output.
+            required: false
+            style: deepObject
+            schema:
+              type: string
+              format: html|raw
+          - $ref: '#/components/parameters/page'
+          - $ref: '#/components/parameters/itemsOnPage'
+          - $ref: '#/components/parameters/orderBy'
+          responses:
+            "'200'":
+              description: List of campaigns.
+              content:
+                application/json:
+                  schema:
+                    oneOf:
+                    - title: Campaign
+                      properties:
+                        items:
+                          type: array
+                          items:
+                            $ref: '#/components/schemas/CampaignResponse'
+                        total:
+                          $ref: '#/components/schemas/SearchableTotalResponse'
+                      type: object
+                    - title: MultiReferralCampaign
+                      properties:
+                        items:
+                          type: array
+                          items:
+                            $ref: '#/components/schemas/MultiReferralCampaignResponse'
+                        total:
+                          $ref: '#/components/schemas/SearchableTotalResponse'
+                      type: object
+                    - title: UniqueCodeCampaign
+                      properties:
+                        items:
+                          type: array
+                          items:
+                            $ref: '#/components/schemas/UniqueCodeCampaignResponse'
+                        total:
+                          $ref: '#/components/schemas/SearchableTotalResponse'
+                      type: object
+                    - title: TimeTriggerCampaign
+                      properties:
+                        items:
+                          type: array
+                          items:
+                            $ref: '#/components/schemas/TimeTriggerCampaignResponse'
+                        total:
+                          $ref: '#/components/schemas/SearchableTotalResponse'
+                      type: object
+                    - title: LeaderboardCampaign
+                      properties:
+                        items:
+                          type: array
+                          items:
+                            $ref: '#/components/schemas/LeaderboardCampaignResponse'
+                        total:
+                          $ref: '#/components/schemas/SearchableTotalResponse'
+                      type: object
+            "'400'":
+              $ref: '#/components/responses/BadRequest'
+            "'401'":
+              description: Unauthorized
+              content:
+                application/json:
+                  schema:
+                    oneOf:
+                    - $ref: '#/components/schemas/ExpiredToken'
+                    - $ref: '#/components/schemas/InvalidToken'
+                    - $ref: '#/components/schemas/Unauthorized'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+        post:
+          tags:
+          - Campaign
+          summary: Add a new campaign
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+            This method allows creating a new Campaign.
+          operationId: _campaignPost
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          requestBody:
+            content:
+              application/json:
+                schema:
+                  oneOf:
+                  - $ref: '#/components/schemas/CampaignRequestBody'
+                  - $ref: '#/components/schemas/AchievementCampaignRequestBody'
+                  - $ref: '#/components/schemas/UniqueCodeCampaignRequestBody'
+                  - $ref: '#/components/schemas/MultiReferralCampaignRequestBody'
+                  - $ref: '#/components/schemas/LeaderboardCampaignRequestBody'
+          responses:
+            "'200'":
+              description: Return created campaign ID.
+              content:
+                application/json:
+                  schema:
+                    required:
+                    - campaignId
+                    properties:
+                      campaignId:
+                        type: string
+                        format: uuid
+                    type: object
+                    additionalProperties: false
+            "'400'":
+              $ref: '#/components/responses/BadRequest'
+            "'401'":
+              description: Unauthorized
+              content:
+                application/json:
+                  schema:
+                    oneOf:
+                    - $ref: '#/components/schemas/ExpiredToken'
+                    - $ref: '#/components/schemas/InvalidToken'
+                    - $ref: '#/components/schemas/Unauthorized'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+            "'404'":
+              $ref: '#/components/responses/NotFound'
+      /api/{storeCode}/campaign/{campaign}/codes:
+        get:
+          tags:
+          - Campaign
+          summary: Get redemption codes list
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+          operationId: campaignCodesGetList
+          parameters:
+          - name: status
+            in: query
+            required: false
+            schema:
+              type: string
+          - name: code
+            in: query
+            required: false
+            schema:
+              type: string
+          - name: codeId
+            in: query
+            required: false
+            schema:
+              type: string
+          - name: usedAt
+            in: query
+            required: false
+            schema:
+              type: string
+              format: date-time
+          - name: createdAt
+            in: query
+            required: false
+            schema:
+              type: string
+              format: date-time
+          - $ref: '#/components/parameters/page'
+          - $ref: '#/components/parameters/itemsOnPage'
+          - $ref: '#/components/parameters/orderBy'
+          - name: storeCode
+            in: path
+            required: true
+            schema:
+              type: string
+          - name: campaign
+            in: path
+            required: true
+            schema:
+              type: string
+          responses:
+            "'200'":
+              description: Codes
+              content:
+                application/json:
+                  schema:
+                    properties:
+                      items:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/CampaignCode'
+                      total:
+                        $ref: '#/components/schemas/SearchableTotalResponse2'
+                    type: object
+            "'400'":
+              $ref: '#/components/responses/BadRequest'
+            "'401'":
+              description: ""
+              content:
+                application/json:
+                  schema:
+                    oneOf:
+                    - $ref: '#/components/schemas/ExpiredToken'
+                    - $ref: '#/components/schemas/InvalidToken'
+                    - $ref: '#/components/schemas/Unauthorized'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+      /api/{storeCode}/campaign/{campaign}/codes/generate:
+        post:
+          tags:
+          - Campaign
+          summary: Generate redemption codes
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+          operationId: campaignCodesPost
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          - $ref: '#/components/parameters/campaign'
+          requestBody:
+            required: true
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/PostGenerateCodes'
+          responses:
+            "'204'":
+              $ref: '#/components/responses/NoContent'
+            "'400'":
+              $ref: '#/components/responses/BadRequest'
+            "'401'":
+              description: Unauthorized
+              content:
+                application/json:
+                  schema:
+                    oneOf:
+                    - $ref: '#/components/schemas/ExpiredToken'
+                    - $ref: '#/components/schemas/InvalidToken'
+                    - $ref: '#/components/schemas/Unauthorized'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+            "'404'":
+              $ref: '#/components/responses/NotFound'
+      /api/{storeCode}/campaign/simulate:
+        post:
+          tags:
+          - Campaign
+          summary: Simulate campaigns result
+          description: |
+            <label style="background-color: #BFE1F6;padding:5px;">Integration</label><br><br>
+            This method returns detailed information about all Campaigns created in the system.
+          operationId: _campaignPostSimulate
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          requestBody:
+            description: ""
+            content:
+              application/json:
+                schema:
+                  oneOf:
+                  - title: CampaignTransaction
+                    properties:
+                      simulate:
+                        required:
+                        - transaction
+                        allOf:
+                        - $ref: '#/components/schemas/SimulateFormType'
+                        - properties:
+                            transaction:
+                              $ref: '#/components/schemas/SimulatedTransaction'
+                          type: object
+                        additionalProperties: false
+                    type: object
+                  - title: CampaignCustomEvent
+                    required:
+                    - simulate
+                    properties:
+                      simulate:
+                        required:
+                        - custom_event
+                        allOf:
+                        - $ref: '#/components/schemas/SimulateFormType'
+                        - properties:
+                            custom_event:
+                              $ref: '#/components/schemas/SimulatedCustomEvent'
+                          type: object
+                        additionalProperties: false
+                    type: object
+                    additionalProperties: false
+                  - title: CampaignInternalEvent
+                    properties:
+                      simulate:
+                        required:
+                        - internal_event
+                        allOf:
+                        - $ref: '#/components/schemas/SimulateFormType'
+                        - properties:
+                            internal_event:
+                              $ref: '#/components/schemas/SimulatedInternalEvent'
+                          type: object
+                        additionalProperties: false
+                    type: object
+          responses:
+            "'200'":
+              description: ""
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/SimulateResult'
+            "'400'":
+              $ref: '#/components/responses/BadRequest'
+            "'401'":
+              description: Unauthorized
+              content:
+                application/json:
+                  schema:
+                    oneOf:
+                    - $ref: '#/components/schemas/ExpiredToken'
+                    - $ref: '#/components/schemas/InvalidToken'
+                    - $ref: '#/components/schemas/Unauthorized'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+            "'404'":
+              $ref: '#/components/responses/NotFound'
+      /api/{storeCode}/campaign/{campaign}/leaderboard:
+        get:
+          tags:
+          - Campaign
+          summary: Get campaign leaderboard
+          description: |
+            <label style="background-color: #BFE1F6;padding:5px;">Integration</label><br><br>
+            This method returns the leaderboard for a specific campaign, showing members ranked by their scores.<br><br>
+          operationId: campaignLeaderboardGet
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          - $ref: '#/components/parameters/campaign'
+          - name: type
+            in: query
+            description: The type of cycle for which the ranking is to be returned.
+            required: false
+            style: deepObject
+            explode: true
+            schema:
+              type: string
+          responses:
+            "'200'":
+              description: Campaign leaderboard with member rankings.
+              content:
+                application/json:
+                  schema:
+                    properties:
+                      items:
+                        type: array
+                        items:
+                          properties:
+                            member:
+                              properties:
+                                customerId:
+                                  type: string
+                                  format: uuid
+                                  example: 90fb7967-34cb-4440-8786-651dd861d874
+                                firstName:
+                                  type: string
+                                lastName:
+                                  type: string
+                                email:
+                                  type: string
+                                  format: email
+                                  example: zella.wisoky1@yahoo.com
+                                phone:
+                                  type: string
+                                  example: "501911936"
+                                loyaltyCardNumber:
+                                  type: string
+                                  example: "3581"
+                              type: object
+                            ranking:
+                              properties:
+                                score:
+                                  description: Member's score in the leaderboard
+                                  type: number
+                                  format: float
+                                  example: 123.1
+                                recalculatedAt:
+                                  description: When the position was last recalculated
+                                  type: string
+                                  format: date-time
+                                  example: 2010-01-01T01:01:01
+                                position:
+                                  description: Current position in the leaderboard
+                                  type: integer
+                                  example: 1
+                                changedPositionAt:
+                                  description: When the position changed or initial date
+                                  type: string
+                                  format: date-time
+                                  example: 2010-01-01T01:01:01
+                                progress:
+                                  properties:
+                                    general:
+                                      description: Position change since the beginning of the leaderboard
+                                      type: integer
+                                      example: 4
+                                    recalculated:
+                                      description: Position change since the last recalculation
+                                      type: integer
+                                      example: 0
+                                    period:
+                                      description: Position change since the last reset
+                                      type: integer
+                                      example: 2
+                                  type: object
+                              type: object
+                          type: object
+                      total:
+                        properties:
+                          all:
+                            description: Total number of members in the leaderboard
+                            type: integer
+                            example: 1
+                          filtered:
+                            description: Number of members after applying filters
+                            type: integer
+                            example: 1
+                          estimated:
+                            description: Whether the total count is estimated
+                            type: boolean
+                            example: true
+                        type: object
+                    type: object
+            "'401'":
+              $ref: '#/components/responses/Unauthorized'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+            "'404'":
+              $ref: '#/components/responses/NotFound'
+      /api/{storeCode}/campaign/{campaign}/leaderboard/member/{member}:
+        get:
+          tags:
+          - Campaign
+          summary: Get member's ranking in a specific campaign
+          description: |
+            <label style="background-color: #BFE1F6;padding:5px;">Integration</label><br><br>
+            This method returns detailed information about a member's ranking in a specific campaign, including surrounding members.<br><br>
+          operationId: campaignMemberLeaderboardGet
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          - $ref: '#/components/parameters/campaign'
+          - name: member
+            in: path
+            description: Member identifier (UUID)
+            required: true
+            schema:
+              type: string
+              format: uuid
+          - name: type
+            in: query
+            description: The type of cycle for which the ranking is to be returned.
+            required: false
+            style: deepObject
+            explode: true
+            schema:
+              type: string
+          responses:
+            "'200'":
+              description: Member's ranking details with surrounding members.
+              content:
+                application/json:
+                  schema:
+                    properties:
+                      score:
+                        description: Member's score in the campaign
+                        type: number
+                        format: float
+                        example: 123.1
+                      recalculatedAt:
+                        description: When the position was last recalculated
+                        type: string
+                        format: date-time
+                        example: 2010-01-01T01:01:01
+                      position:
+                        description: Current position in the leaderboard
+                        type: integer
+                        example: 1
+                      changedPositionAt:
+                        description: When the position changed or initial date
+                        type: string
+                        format: date-time
+                        example: 2010-01-01T01:01:01
+                      progress:
+                        properties:
+                          general:
+                            description: Position change since the beginning of the leaderboard
+                            type: integer
+                            example: 4
+                          recalculated:
+                            description: Position change since the last recalculation
+                            type: integer
+                            example: 0
+                          period:
+                            description: Position change since the last reset
+                            type: integer
+                            example: 2
+                        type: object
+                      surrounding:
+                        properties:
+                          higher:
+                            description: Members ranked higher than the current member
+                            type: array
+                            items:
+                              properties:
+                                member:
+                                  properties:
+                                    customerId:
+                                      type: string
+                                      format: uuid
+                                      example: 90fb7967-34cb-4440-8786-651dd861d874
+                                    firstName:
+                                      type: string
+                                    lastName:
+                                      type: string
+                                    email:
+                                      type: string
+                                      format: email
+                                      example: zella.wisoky1@yahoo.com
+                                    phone:
+                                      type: string
+                                      example: "501911936"
+                                    loyaltyCardNumber:
+                                      type: string
+                                      example: "3581"
+                                  type: object
+                                ranking:
+                                  properties:
+                                    score:
+                                      description: Member's score in the campaign
+                                      type: number
+                                      format: float
+                                      example: 123.1
+                                    recalculatedAt:
+                                      description: When the position was last recalculated
+                                      type: string
+                                      format: date-time
+                                      example: 2010-01-01T01:01:01
+                                    position:
+                                      description: Current position in the leaderboard
+                                      type: integer
+                                      example: 1
+                                    changedPositionAt:
+                                      description: When the position changed or initial date
+                                      type: string
+                                      format: date-time
+                                      example: 2010-01-01T01:01:01
+                                    progress:
+                                      properties:
+                                        general:
+                                          description: Position change since the beginning of the leaderboard
+                                          type: integer
+                                          example: 4
+                                        recalculated:
+                                          description: Position change since the last recalculation
+                                          type: integer
+                                          example: 0
+                                        period:
+                                          description: Position change since the last reset
+                                          type: integer
+                                          example: 2
+                                      type: object
+                                  type: object
+                              type: object
+                          lower:
+                            description: Members ranked lower than the current member
+                            type: array
+                            items:
+                              properties:
+                                member:
+                                  properties:
+                                    customerId:
+                                      type: string
+                                      format: uuid
+                                      example: 90fb7967-34cb-4440-8786-651dd861d874
+                                    firstName:
+                                      type: string
+                                    lastName:
+                                      type: string
+                                    email:
+                                      type: string
+                                      format: email
+                                      example: zella.wisoky1@yahoo.com
+                                    phone:
+                                      type: string
+                                      example: "501911936"
+                                    loyaltyCardNumber:
+                                      type: string
+                                      example: "3581"
+                                  type: object
+                                ranking:
+                                  properties:
+                                    score:
+                                      description: Member's score in the campaign
+                                      type: number
+                                      format: float
+                                      example: 123.1
+                                    recalculatedAt:
+                                      description: When the position was last recalculated
+                                      type: string
+                                      format: date-time
+                                      example: 2010-01-01T01:01:01
+                                    position:
+                                      description: Current position in the leaderboard
+                                      type: integer
+                                      example: 1
+                                    changedPositionAt:
+                                      description: When the position changed or initial date
+                                      type: string
+                                      format: date-time
+                                      example: 2010-01-01T01:01:01
+                                    progress:
+                                      properties:
+                                        general:
+                                          description: Position change since the beginning of the leaderboard
+                                          type: integer
+                                          example: 4
+                                        recalculated:
+                                          description: Position change since the last recalculation
+                                          type: integer
+                                          example: 0
+                                        period:
+                                          description: Position change since the last reset
+                                          type: integer
+                                          example: 2
+                                      type: object
+                                  type: object
+                              type: object
+                        type: object
+                    type: object
+            "'401'":
+              $ref: '#/components/responses/Unauthorized'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+            "'404'":
+              $ref: '#/components/responses/NotFound'
+

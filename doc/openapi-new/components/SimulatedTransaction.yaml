@@ -1,0 +1,80 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        SimulatedTransaction:
+          required:
+          - documentNumber
+          - purchasedAt
+          properties:
+            id:
+              type: string
+              format: uuid
+            grossValue:
+              deprecated: true
+              oneOf:
+              - type: string
+              - type: number
+            documentNumber:
+              type: string
+            linkedDocumentNumber:
+              description: Required only for `documentType = return`. The field indicates the transaction you want to return
+              type: string
+            documentType:
+              type: string
+              enum:
+              - sell
+              - return
+            purchasedAt:
+              type: string
+              example: 2023-03-23 '10':00+01:00
+            purchasePlace:
+              type: string
+            shippingCity:
+              type: string
+              deprecated: true
+            channelId:
+              type: string
+              format: uuid
+            labels:
+              type: array
+              items:
+                properties:
+                  key:
+                    type: string
+                  value:
+                    type: string
+                type: object
+            items:
+              type: array
+              items:
+                properties:
+                  sku:
+                    type: string
+                  name:
+                    type: string
+                  qty:
+                    oneOf:
+                    - type: string
+                    - type: number
+                  grossValue:
+                    oneOf:
+                    - type: string
+                    - type: number
+                  category:
+                    type: string
+                  maker:
+                    type: string
+                  labels:
+                    type: array
+                    items:
+                      properties:
+                        key:
+                          type: string
+                        value:
+                          type: string
+                      type: object
+                type: object
+          type: object
+          additionalProperties: false
+

@@ -1,0 +1,35 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        Segment:
+          properties:
+            segmentId:
+              type: string
+              format: uuid
+            name:
+              type: string
+            description:
+              type: string
+            active:
+              type: boolean
+            customersCount:
+              type: integer
+            calculatedAt:
+              type: string
+              format: date-time
+            averageTransactionAmount:
+              type: string
+            averageTransactions:
+              type: string
+            averageClv:
+              type: string
+            parts:
+              type: array
+              items:
+                $ref: '#/components/schemas/SegmentPart'
+            createdAt:
+              type: string
+              format: date-time
+          type: object
+

@@ -1,0 +1,14 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        PatchRuleFormType:
+          required:
+          - achievementRuleId
+          properties:
+            achievementRuleId:
+              type: string
+            translations:
+              $ref: '#/components/schemas/RuleTranslationFormType'
+          type: object
+

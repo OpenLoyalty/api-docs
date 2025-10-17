@@ -1,0 +1,24 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        TierStats:
+          properties:
+            levelId:
+              type: string
+              format: uuid
+            name:
+              type: string
+              example: Tier1
+            conditionValue:
+              type: number
+              format: float
+              example: 3.8
+            store:
+              type: string
+              example: DEFAULT
+            customers:
+              type: boolean
+              example: true
+          type: object
+

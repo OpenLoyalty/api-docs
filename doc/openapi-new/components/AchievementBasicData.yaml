@@ -1,0 +1,21 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        AchievementBasicData:
+          properties:
+            achievementId:
+              description: Achievement Identity
+              type: string
+              example: 00000000-0000-0000-0000-000000000000
+            name:
+              type: string
+            active:
+              type: boolean
+            createdAt:
+              type: string
+              format: date-time
+            badgeTypeId:
+              type: string
+          type: object
+

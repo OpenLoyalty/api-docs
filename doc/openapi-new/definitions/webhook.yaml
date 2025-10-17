@@ -1,0 +1,249 @@
+﻿nelmio_api_doc:
+  documentation:
+    paths:
+      /api/{storeCode}/webhook/subscription:
+        get:
+          tags:
+          - Webhook subscription
+          summary: Get webhook subscriptions list
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+            If sorting is not chosen, the rows will be returned in an unspecified order.  
+            To sort a result, use an `_orderBy` parameter in query.
+          operationId: webhookSubscriptionGetList
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          - name: url
+            in: query
+            required: false
+            schema:
+              type: string
+          - name: legacy
+            in: query
+            required: false
+            deprecated: true
+            schema:
+              type: boolean
+          - name: eventName
+            in: query
+            required: false
+            schema:
+              type: string
+          - name: createdAt
+            in: query
+            required: false
+            schema:
+              type: string
+              format: date-time
+          - $ref: '#/components/parameters/page'
+          - $ref: '#/components/parameters/itemsOnPage'
+          - $ref: '#/components/parameters/orderBy'
+          responses:
+            "'200'":
+              description: List of webhook subscriptions
+              content:
+                application/json:
+                  schema:
+                    properties:
+                      items:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/WebhookSubscription'
+                      total:
+                        $ref: '#/components/schemas/SearchableTotalResponse2'
+                    type: object
+            "'401'":
+              description: ""
+              content:
+                application/json:
+                  schema:
+                    oneOf:
+                    - $ref: '#/components/schemas/ExpiredToken'
+                    - $ref: '#/components/schemas/InvalidToken'
+                    - $ref: '#/components/schemas/Unauthorized'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+        post:
+          tags:
+          - Webhook subscription
+          summary: Subscribe to a webhook
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+            This method allows adding a new webhook subscription to the system.
+          operationId: _webhookSubscriptionPost
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          requestBody:
+            description: ""
+            content:
+              application/json:
+                schema:
+                  oneOf:
+                  - $ref: '#/components/schemas/PostRestWebhookSubscriptionRequestBody'
+                  - $ref: '#/components/schemas/PostQueueWebhookSubscriptionRequestBody'
+          responses:
+            "'200'":
+              description: Return created webhook subscription ID.
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/WebhookSubscriptionIdResponse'
+            "'400'":
+              $ref: '#/components/responses/BadRequest'
+            "'401'":
+              description: ""
+              content:
+                application/json:
+                  schema:
+                    oneOf:
+                    - $ref: '#/components/schemas/ExpiredToken'
+                    - $ref: '#/components/schemas/InvalidToken'
+                    - $ref: '#/components/schemas/Unauthorized'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+      /api/{storeCode}/webhook/subscription/{webhookSubscription}:
+        get:
+          tags:
+          - Webhook subscription
+          summary: Get a webhook subscription details
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+          operationId: webhookSubscriptionGet
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          - $ref: '#/components/parameters/webhookSubscription'
+          - name: webhookSubscription
+            in: path
+            required: true
+            schema:
+              type: string
+              pattern: '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}'
+          responses:
+            "'200'":
+              description: Webhook subscription details
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/WebhookSubscriptionDetails'
+            "'401'":
+              description: ""
+              content:
+                application/json:
+                  schema:
+                    oneOf:
+                    - $ref: '#/components/schemas/ExpiredToken'
+                    - $ref: '#/components/schemas/InvalidToken'
+                    - $ref: '#/components/schemas/Unauthorized'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+            "'404'":
+              $ref: '#/components/responses/NotFound'
+        put:
+          tags:
+          - Webhook subscription
+          summary: Update subscription to a webhook
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+            This method allows updating an existing webhook subscription.
+          operationId: _webhookSubscriptionPut
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          - name: webhookSubscription
+            in: path
+            description: Webhook Subscription ID
+            required: true
+            schema:
+              type: string
+              format: uuid
+          requestBody:
+            description: ""
+            content:
+              application/json:
+                schema:
+                  oneOf:
+                  - $ref: '#/components/schemas/PutRestWebhookSubscriptionRequestBody'
+                  - $ref: '#/components/schemas/PutQueueWebhookSubscriptionRequestBody'
+          responses:
+            "'204'":
+              $ref: '#/components/responses/NoContent'
+            "'400'":
+              $ref: '#/components/responses/BadRequest'
+            "'401'":
+              description: ""
+              content:
+                application/json:
+                  schema:
+                    oneOf:
+                    - $ref: '#/components/schemas/ExpiredToken'
+                    - $ref: '#/components/schemas/InvalidToken'
+                    - $ref: '#/components/schemas/Unauthorized'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+            "'404'":
+              $ref: '#/components/responses/NotFound'
+        delete:
+          tags:
+          - Webhook subscription
+          summary: Delete subscription to a webhook
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+          operationId: webhookSubscriptionDelete
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          - $ref: '#/components/parameters/webhookSubscription'
+          - name: webhookSubscription
+            in: path
+            required: true
+            schema:
+              type: string
+              pattern: '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}'
+          responses:
+            "'204'":
+              $ref: '#/components/responses/NoContent'
+            "'401'":
+              description: ""
+              content:
+                application/json:
+                  schema:
+                    oneOf:
+                    - $ref: '#/components/schemas/ExpiredToken'
+                    - $ref: '#/components/schemas/InvalidToken'
+                    - $ref: '#/components/schemas/Unauthorized'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+            "'404'":
+              $ref: '#/components/responses/NotFound'
+      /api/{storeCode}/webhook/event:
+        get:
+          tags:
+          - Webhook subscription
+          summary: Get webhook event types
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+          operationId: webhookEventGetList
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          responses:
+            "'200'":
+              description: List of webhook events
+              content:
+                application/json:
+                  schema:
+                    properties:
+                      items:
+                        type: array
+                        items:
+                          type: string
+                    type: object
+            "'401'":
+              description: ""
+              content:
+                application/json:
+                  schema:
+                    oneOf:
+                    - $ref: '#/components/schemas/ExpiredToken'
+                    - $ref: '#/components/schemas/InvalidToken'
+                    - $ref: '#/components/schemas/Unauthorized'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+

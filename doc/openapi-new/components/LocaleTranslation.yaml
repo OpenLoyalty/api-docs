@@ -1,0 +1,7 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        LocaleTranslation:
+          type: object
+

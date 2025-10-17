@@ -1,0 +1,47 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        RewardLimit:
+          description: New limits structure with intervals. Cannot be used together with usageLimit.
+          properties:
+            general:
+              required:
+              - value
+              properties:
+                interval:
+                  properties:
+                    type:
+                      type: string
+                      enum:
+                      - calendarHours
+                      - calendarDays
+                      - calendarWeeks
+                      - calendarMonths
+                      - calendarYears
+                  type: object
+                value:
+                  type: number
+                  format: float
+              type: object
+            perMember:
+              required:
+              - value
+              properties:
+                interval:
+                  properties:
+                    type:
+                      type: string
+                      enum:
+                      - calendarHours
+                      - calendarDays
+                      - calendarWeeks
+                      - calendarMonths
+                      - calendarYears
+                  type: object
+                value:
+                  type: number
+                  format: float
+              type: object
+          type: object
+

@@ -1,0 +1,40 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        CreateCustomFieldSchemaRequest:
+          required:
+          - name
+          - type
+          - required
+          - active
+          properties:
+            name:
+              description: Name of the custom field
+              type: string
+              maxLength: 255
+              minLength: 1
+            description:
+              description: Description of the custom field
+              type: string
+              maxLength: 255
+              nullable: true
+            type:
+              description: Type of the custom field
+              type: string
+              enum:
+              - text
+            required:
+              description: Whether this field is required
+              type: boolean
+            active:
+              description: Whether this field is active
+              type: boolean
+            groupOfValuesId:
+              description: Group of values ID (only for text type fields)
+              type: string
+              format: uuid
+              nullable: true
+          type: object
+          additionalProperties: false
+

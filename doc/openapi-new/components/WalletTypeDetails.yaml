@@ -1,0 +1,80 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        WalletTypeDetails:
+          required:
+          - translations
+          - walletTypeId
+          - code
+          - unitSingularName
+          - unitPluralName
+          - active
+          - isDefault
+          - createdAt
+          - limits
+          properties:
+            translations:
+              properties:
+                en:
+                  required:
+                  - name
+                  properties:
+                    name:
+                      description: Wallet name
+                      type: string
+                    description:
+                      description: Wallet description
+                      type: string
+                  type: object
+              type: object
+            walletTypeId:
+              type: string
+              format: uuid
+              example: 3eaea517-4336-45c0-b477-f5cc1081fcdb
+            code:
+              type: string
+              example: string
+            unitSingularName:
+              type: string
+              example: string
+            unitPluralName:
+              type: string
+              example: string
+            active:
+              type: boolean
+              example: true
+            isDefault:
+              type: boolean
+              example: true
+            unitDaysExpiryAfter:
+              type: string
+              example: string
+            unitDaysActiveCount:
+              type: integer
+              example: 0
+            unitYearsActiveCount:
+              type: integer
+              example: 0
+            unitDaysLocked:
+              type: integer
+              example: 0
+            allTimeNotLocked:
+              type: boolean
+              example: true
+            createdAt:
+              type: string
+              format: date-time
+              example: 2019-08-24T14:15:22Z
+            unitExpiryDate:
+              description: Expiration date for unit in format `m-d`.
+              type: string
+              example: 08-24
+            limits:
+              $ref: '#/components/schemas/WalletTypeLimit'
+            allowNegativeBalance:
+              type: boolean
+              example: true
+          type: object
+          additionalProperties: false
+

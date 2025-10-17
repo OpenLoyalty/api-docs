@@ -1,0 +1,87 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        SimulatedCustomer:
+          properties:
+            id:
+              description: Unique Member identifier. Specifying an existing ID will cause the simulation to fetch the specific Member data for simulation purposes.
+              type: string
+              format: uuid
+            firstName:
+              type: string
+            lastName:
+              type: string
+            email:
+              type: string
+            phone:
+              type: string
+            birthDate:
+              type: string
+              example: 1325462400
+            address:
+              $ref: '#/components/schemas/CustomerAddressFormType'
+            loyaltyCardNumber:
+              type: string
+            legalConsent:
+              type: boolean
+            marketingConsent:
+              type: boolean
+            dataProcessingConsent:
+              type: boolean
+            gender:
+              type: string
+            registeredDate:
+              type: string
+              example: 1325462400
+            firstTransactionDate:
+              type: string
+              example: 1325462400
+            lastTransactionDate:
+              type: string
+              example: 1325462400
+            levelAchievementDate:
+              type: string
+              example: 1325462400
+            levelId:
+              type: string
+              format: uuid
+            tiers:
+              type: array
+              items:
+                type: string
+                format: uuid
+            numberOfPurchases:
+              type: string
+            purchaseAmount:
+              type: string
+            averagePurchaseAmount:
+              type: string
+            activePoints:
+              type: string
+            spentPoints:
+              type: string
+            earnedPoints:
+              type: string
+            lockedPoints:
+              type: string
+            blockedPoints:
+              type: string
+            expiredPoints:
+              type: string
+            labels:
+              type: array
+              items:
+                properties:
+                  key:
+                    type: string
+                  value:
+                    type: string
+                type: object
+            segments:
+              type: array
+              items:
+                type: string
+                format: uuid
+          type: object
+

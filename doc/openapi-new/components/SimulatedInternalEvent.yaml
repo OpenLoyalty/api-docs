@@ -1,0 +1,19 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        SimulatedInternalEvent:
+          required:
+          - type
+          - eventDate
+          properties:
+            type:
+              type: string
+            eventDate:
+              type: string
+              example: 2023-03-23 '10':00+01:00
+            body:
+              type: object
+          type: object
+          additionalProperties: false
+

@@ -1,0 +1,132 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        Rule:
+          type: array
+          items:
+            required:
+            - effects
+            properties:
+              name:
+                type: string
+              description:
+                type: string
+              target:
+                description: 'Allowed only when the campaign type is `referral`. Specifies which member the rule applies to: `self` (the referrer) or `referral` (the referred person).'
+                type: string
+                enum:
+                - self
+                - referrer
+              effects:
+                type: array
+                items:
+                  required:
+                  - effect
+                  properties:
+                    effect:
+                      type: string
+                      enum:
+                      - give_points
+                      - give_reward
+                      - deduct_unit
+                      - assign_member_custom_attribute
+                      - remove_member_custom_attribute
+                    pointsRule:
+                      description: Only allowed for `give_points` and `deduct_unit` effect
+                    walletCode:
+                      description: Only allowed for `give_points` and `deduct_unit` effect
+                      type: string
+                    unitsLockRule:
+                      description: The field allows you to set a custom pending for units given by campaign effects. Only allowed for `give_points` effect
+                      required:
+                      - lockStrategy
+                      properties:
+                        lockStrategy:
+                          type: string
+                          enum:
+                          - expression
+                          - from_wallet
+                          - no_pending
+                        expression:
+                          description: This field is required for `lockStrategy = expression`
+                          type: string
+                      type: object
+                      additionalProperties: false
+                    unitsExpirationRule:
+                      description: The field allows you to set a custom expiration for units given by campaign effects. Only allowed for `give_points` effect
+                      required:
+                      - expirationStrategy
+                      properties:
+                        expirationStrategy:
+                          type: string
+                          enum:
+                          - expression
+                          - from_wallet
+                          - never_expires
+                        expression:
+                          description: This field is required for `lockStrategy = expression`
+                          type: string
+                      type: object
+                      additionalProperties: false
+                    rewardId:
+                      description: Only allowed for `give_reward` effect
+                      type: string
+                      format: uuid
+                    couponValueRule:
+                      description: Only allowed for `give_reward` effect
+                      type: string
+                    customAttributeKey:
+                      description: Only allowed for `assign_member_custom_attribute` effect
+                      type: string
+                    customAttributeValueRule:
+                      description: Only allowed for `assign_member_custom_attribute` effect
+                      type: string
+                  type: object
+                  additionalProperties: false
+              conditions:
+                type: array
+                items:
+                  oneOf:
+                  - title: Condition
+                    required:
+                    - operator
+                    - data
+                    properties:
+                      attribute:
+                        type: string
+                      operator:
+                        type: string
+                        enum:
+                        - expression
+                        - is_equal
+                        - has_at_least_one_label
+                        - contains
+                        - not_contains
+                        - is_not_equal
+                        - is_not_one_of
+                        - is_one_of
+                        - matches_regex
+                        - is_greater
+                        - is_greater_or_equal
+                        - is_less
+                        - is_less_or_equal
+                        - ends_with
+                        - starts_with
+                        - is_after
+                        - is_before
+                        - is_between
+                        - is_day_of_week
+                        - is_month_of_year
+                        - is_not_between
+                        - is_day_of_month
+                        - is_time_between
+                        - is_one_of_group_values
+                        - is_not_one_of_group_values
+                        - not_contains_one_of
+                        - contains_one_of
+                      data: {}
+                    type: object
+                  - $ref: '#/components/schemas/NewCondition'
+            type: object
+

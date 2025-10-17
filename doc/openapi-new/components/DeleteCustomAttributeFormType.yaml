@@ -1,0 +1,14 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        DeleteCustomAttributeFormType:
+          required:
+          - customAttributes
+          properties:
+            customAttributes:
+              type: array
+              items:
+                $ref: '#/components/schemas/UserLabelFormType'
+          type: object
+

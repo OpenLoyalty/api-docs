@@ -1,0 +1,107 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        WebhookAchievement:
+          required:
+          - achievementId
+          - active
+          - translations
+          - rules
+          properties:
+            achievementId:
+              type: string
+              format: uuid
+            active:
+              type: boolean
+            activity:
+              $ref: '#/components/schemas/AchievementActivity'
+            limit:
+              properties:
+                value:
+                  type: integer
+                interval:
+                  properties:
+                    type:
+                      type: string
+                      enum:
+                      - calendarHours
+                      - calendarDays
+                      - calendarWeeks
+                      - calendarMonths
+                      - calendarYears
+                    value:
+                      type: integer
+                  type: object
+              type: object
+            translations:
+              $ref: '#/components/schemas/Translations'
+            rules:
+              type: array
+              items:
+                required:
+                - trigger
+                - type
+                - completeRule
+                - conditions
+                - aggregation
+                - limit
+                - translations
+                properties:
+                  trigger:
+                    type: string
+                  type:
+                    type: string
+                  completeRule:
+                    properties:
+                      periodGoal:
+                        type: integer
+                      period:
+                        properties:
+                          type:
+                            type: string
+                          consecutive:
+                            type: integer
+                        type: object
+                    type: object
+                  conditions:
+                    type: array
+                    items:
+                      properties:
+                        operator:
+                          type: string
+                        data:
+                          type: array
+                          items:
+                            type: string
+                        attribute:
+                          type: string
+                      type: object
+                  aggregation:
+                    properties:
+                      type:
+                        type: string
+                    type: object
+                  limit:
+                    properties:
+                      value:
+                        type: integer
+                      interval:
+                        properties:
+                          type:
+                            type: string
+                            enum:
+                            - calendarHours
+                            - calendarDays
+                            - calendarWeeks
+                            - calendarMonths
+                            - calendarYears
+                          value:
+                            type: integer
+                        type: object
+                    type: object
+                  translations:
+                    $ref: '#/components/schemas/Translations'
+                type: object
+          type: object
+

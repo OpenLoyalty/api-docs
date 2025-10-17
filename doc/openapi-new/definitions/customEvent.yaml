@@ -1,0 +1,395 @@
+﻿nelmio_api_doc:
+  documentation:
+    paths:
+      /api/{storeCode}/customEvent/schema/{customEventSchema}:
+        get:
+          tags:
+          - Custom Event
+          summary: Get custom event schema
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+            This method returns detailed information about specific Custom Event Schema in the system.
+          operationId: customEventSchemaGet
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          - $ref: '#/components/parameters/customEventSchema'
+          responses:
+            "'200'":
+              description: Returned when successful
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/CustomEventSchema'
+            "'401'":
+              $ref: '#/components/responses/Unauthorized'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+            "'404'":
+              $ref: '#/components/responses/NotFound'
+        put:
+          tags:
+          - Custom Event
+          summary: Update custom event schema configuration
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+            This method allows updating a specific Custom Event Schema.
+          operationId: customEventSchemaPut
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          - $ref: '#/components/parameters/customEventSchema'
+          requestBody:
+            description: ""
+            content:
+              application/json:
+                schema:
+                  properties:
+                    customEventSchema:
+                      required:
+                      - schema
+                      - name
+                      properties:
+                        schema:
+                          $ref: '#/components/schemas/SchemaFormType'
+                        name:
+                          description: Name of the event
+                          type: string
+                        active:
+                          required:
+                          - isActive
+                          properties:
+                            isActive:
+                              description: Indicates if the event is active
+                              type: boolean
+                          type: object
+                          nullable: true
+                      type: object
+                  type: object
+          responses:
+            "'204'":
+              $ref: '#/components/responses/NoContent'
+            "'400'":
+              $ref: '#/components/responses/BadRequest'
+            "'401'":
+              $ref: '#/components/responses/Unauthorized'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+      /api/{storeCode}/customEvent/schema:
+        get:
+          tags:
+          - Custom Event
+          summary: Get custom event schema list
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+            This method returns a complete list of the Custom Event Schemas that exist in the system.  
+            If sorting is not chosen, the rows will be returned in an unspecified order.  
+            To sort a result, use an `_orderBy` parameter in query.
+          operationId: customEventSchemaGetList
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          - name: eventType
+            in: query
+            required: false
+            schema:
+              type: string
+          - name: name
+            in: query
+            required: false
+            schema:
+              type: string
+          - name: active
+            in: query
+            required: false
+            schema:
+              type: boolean
+          - $ref: '#/components/parameters/page'
+          - $ref: '#/components/parameters/itemsOnPage'
+          - $ref: '#/components/parameters/orderBy'
+          responses:
+            "'200'":
+              description: Returned when successful
+              content:
+                application/json:
+                  schema:
+                    properties:
+                      items:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/CustomEventSchema'
+                      total:
+                        $ref: '#/components/schemas/SearchableTotalResponse2'
+                    type: object
+            "'400'":
+              $ref: '#/components/responses/BadRequest'
+            "'401'":
+              $ref: '#/components/responses/Unauthorized'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+        post:
+          tags:
+          - Custom Event
+          summary: Add a custom event schema
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+            This method allows creating a new Custom Event Schemas in the system.
+          operationId: customEventSchemaPost
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          requestBody:
+            description: ""
+            content:
+              application/json:
+                schema:
+                  properties:
+                    customEventSchema:
+                      required:
+                      - eventType
+                      - schema
+                      - name
+                      properties:
+                        eventType:
+                          type: string
+                        schema:
+                          $ref: '#/components/schemas/SchemaFormType'
+                        name:
+                          description: Name of the event
+                          type: string
+                        active:
+                          required:
+                          - isActive
+                          properties:
+                            isActive:
+                              description: Indicates if the event is active
+                              type: boolean
+                          type: object
+                          nullable: true
+                      type: object
+                  type: object
+          responses:
+            "'204'":
+              $ref: '#/components/responses/NoContent'
+            "'400'":
+              $ref: '#/components/responses/BadRequest'
+            "'401'":
+              $ref: '#/components/responses/Unauthorized'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+      /api/{storeCode}/customEvent/schema/{eventType}/active:
+        post:
+          tags:
+          - Custom Event
+          summary: Set custom event schema as active
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+            This method allows changing activity for a specific Custom Event Schema.
+          operationId: customEventSchemaActivePut
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          - $ref: '#/components/parameters/eventType'
+          - name: eventType
+            in: path
+            required: true
+            schema:
+              type: string
+          requestBody:
+            content:
+              application/json:
+                schema:
+                  required:
+                  - active
+                  properties:
+                    active:
+                      description: If the schema should be active
+                      type: boolean
+                  type: object
+          responses:
+            "'204'":
+              $ref: '#/components/responses/NoContent'
+            "'400'":
+              $ref: '#/components/responses/BadRequest'
+            "'401'":
+              $ref: '#/components/responses/Unauthorized'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+      /api/{storeCode}/customEvent:
+        get:
+          tags:
+          - Custom Event
+          summary: Get custom events list
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+            This method returns a complete list of the Custom Events that exist in the system.  
+            If sorting is not chosen, the rows will be returned in an unspecified order.  
+            To sort a result, use an `_orderBy` parameter in query.
+          operationId: customEventGetList
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          - name: customerId
+            in: query
+            required: false
+            schema:
+              type: string
+          - name: type
+            in: query
+            required: false
+            schema:
+              type: string
+          - name: eventName
+            in: query
+            required: false
+            schema:
+              type: string
+          - name: eventId
+            in: query
+            required: false
+            schema:
+              type: string
+          - name: customEventId
+            in: query
+            required: false
+            schema:
+              type: string
+          - name: customerData:email
+            in: query
+            required: false
+            schema:
+              type: string
+          - name: customerData:phone
+            in: query
+            required: false
+            schema:
+              type: string
+          - name: customerData:loyaltyCardNumber
+            in: query
+            required: false
+            schema:
+              type: string
+          - name: createdAt
+            in: query
+            required: false
+            schema:
+              type: string
+              format: date-time
+          - name: eventDate
+            in: query
+            required: false
+            schema:
+              type: string
+              format: date-time
+          - $ref: '#/components/parameters/page'
+          - $ref: '#/components/parameters/itemsOnPage'
+          - $ref: '#/components/parameters/orderBy'
+          - $ref: '#/components/parameters/scroll'
+          responses:
+            "'200'":
+              description: Returned when successful
+              content:
+                application/json:
+                  schema:
+                    oneOf:
+                    - title: CustomEventsResponse
+                      required:
+                      - items
+                      - total
+                      properties:
+                        items:
+                          type: array
+                          items:
+                            $ref: '#/components/schemas/CustomEvent'
+                        total:
+                          $ref: '#/components/schemas/SearchableTotalResponse'
+                      type: object
+                      additionalProperties: false
+                    - title: CustomEventsResponseWithScroll
+                      required:
+                      - items
+                      - scroll
+                      properties:
+                        items:
+                          type: array
+                          items:
+                            $ref: '#/components/schemas/CustomEvent'
+                        scroll:
+                          $ref: '#/components/schemas/ScrollResponse'
+                      type: object
+                      additionalProperties: false
+            "'400'":
+              $ref: '#/components/responses/BadRequest'
+            "'401'":
+              description: Unauthorized
+              content:
+                application/json:
+                  schema:
+                    oneOf:
+                    - $ref: '#/components/schemas/ExpiredToken'
+                    - $ref: '#/components/schemas/InvalidToken'
+                    - $ref: '#/components/schemas/Unauthorized'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+        post:
+          tags:
+          - Custom Event
+          summary: Add a custom event
+          description: |
+            <label style="background-color: #BFE1F6;padding:5px;">Integration</label><br><br>
+            This method allows creating a new Custom Event in the system.
+          operationId: customEventPost
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          requestBody:
+            required: true
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/CustomEventRequestBody'
+          responses:
+            "'200'":
+              description: Custom event created successfully
+              content:
+                application/json:
+                  schema:
+                    properties:
+                      customEventId:
+                        description: Custom Event Id
+                        type: string
+                        format: uuid
+                        example: 00000000-0000-0000-0000-000000000000
+                    type: object
+            "'400'":
+              $ref: '#/components/responses/BadRequest'
+            "'401'":
+              description: Unauthorized
+              content:
+                application/json:
+                  schema:
+                    oneOf:
+                    - $ref: '#/components/schemas/ExpiredToken'
+                    - $ref: '#/components/schemas/InvalidToken'
+                    - $ref: '#/components/schemas/Unauthorized'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+      /api/{storeCode}/customEvent/{customEvent}:
+        get:
+          tags:
+          - Custom Event
+          summary: Get custom event’s details
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+            This method returns detailed information about specific Custom Event in the system.
+          operationId: customEventGet
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          - $ref: '#/components/parameters/customEvent'
+          responses:
+            "'200'":
+              description: Returned when successful
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/CustomEvent'
+            "'401'":
+              $ref: '#/components/responses/Unauthorized'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+            "'404'":
+              $ref: '#/components/responses/NotFound'
+

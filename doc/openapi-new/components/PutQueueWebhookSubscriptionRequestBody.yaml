@@ -1,0 +1,34 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        PutQueueWebhookSubscriptionRequestBody:
+          title: Update Queue Webhook
+          properties:
+            webhookSubscription:
+              required:
+              - url
+              - queueKey
+              - queueSecretKey
+              properties:
+                destinationType:
+                  description: Type of destination for the webhook
+                  type: string
+                  enum:
+                  - queue
+                url:
+                  description: URL to send the webhook to
+                  type: string
+                queueKey:
+                  description: Queue Access Key (for QUEUE destination type)
+                  type: string
+                queueSecretKey:
+                  description: Queue Secret Access Key (for QUEUE destination type)
+                  type: string
+                queueEncryptionKey:
+                  description: RSA public key in PEM format for encrypting webhook messages
+                  type: string
+                  format: textarea
+              type: object
+          type: object
+

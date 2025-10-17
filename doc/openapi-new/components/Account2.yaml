@@ -1,0 +1,29 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        Account2:
+          properties:
+            earnedUnits:
+              type: number
+              format: float
+            transferredUnits:
+              type: number
+              format: float
+            spentUnits:
+              type: number
+              format: float
+            activeUnits:
+              type: number
+              format: float
+            lockedUnits:
+              type: number
+              format: float
+            blockedUnits:
+              type: number
+              format: float
+            expiredUnits:
+              type: number
+              format: float
+          type: object
+

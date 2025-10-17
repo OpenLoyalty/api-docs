@@ -1,0 +1,37 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        RewardWasBought:
+          required:
+          - customerId
+          - type
+          - createdAt
+          properties:
+            customerId:
+              type: string
+            type:
+              type: string
+              enum:
+              - RewardWasBought
+            accountId:
+              type: string
+            createdAt:
+              type: string
+              format: date-time
+            flatVariables:
+              required:
+              - issuedRewardId
+              - rewardId
+              properties:
+                rewardName:
+                  type: string
+                issuedRewardId:
+                  type: string
+                rewardId:
+                  type: string
+              type: object
+              additionalProperties: false
+          type: object
+          additionalProperties: false
+

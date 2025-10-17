@@ -1,0 +1,8 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        Schema:
+          properties: {}
+          type: object
+

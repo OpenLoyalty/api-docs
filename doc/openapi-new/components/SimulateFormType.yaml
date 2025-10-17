@@ -1,0 +1,21 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        SimulateFormType:
+          required:
+          - trigger
+          properties:
+            trigger:
+              type: string
+              enum:
+              - transaction
+              - custom_event
+              - internal_event
+              - return_transaction
+            customer:
+              $ref: '#/components/schemas/SimulatedCustomer'
+            referrer:
+              $ref: '#/components/schemas/SimulatedCustomer'
+          type: object
+

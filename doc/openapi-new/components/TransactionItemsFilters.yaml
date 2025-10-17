@@ -1,0 +1,42 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        TransactionItemsFilters:
+          required:
+          - code
+          properties:
+            code:
+              type: string
+            name:
+              type: string
+            filters:
+              type: array
+              items:
+                required:
+                - value
+                - condition
+                properties:
+                  value:
+                    required:
+                    - field
+                    properties:
+                      field:
+                        type: string
+                        enum:
+                        - sku
+                        - name
+                        - qty
+                        - grossValue
+                        - category
+                        - maker
+                        - labels
+                    type: object
+                    additionalProperties: false
+                  condition:
+                    $ref: '#/components/schemas/Condition'
+                type: object
+                additionalProperties: false
+          type: object
+          additionalProperties: false
+

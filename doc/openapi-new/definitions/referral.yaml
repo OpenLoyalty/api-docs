@@ -1,0 +1,76 @@
+﻿nelmio_api_doc:
+  documentation:
+    paths:
+      /api/{storeCode}/referral:
+        get:
+          tags:
+          - Member
+          summary: Get referrals list
+          description: |
+            <label style="background-color: #BFE1F6;padding:5px;">Integration</label><br><br>
+            This method returns a list of referrals Members in the system.  
+            If sorting is not chosen, the rows will be returned in an unspecified order.  
+            To sort a result, use an `_orderBy` parameter in query.
+          operationId: referralGetList
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          - name: referralId
+            in: query
+            required: false
+            schema:
+              type: string
+          - name: referrerId
+            in: query
+            required: false
+            schema:
+              type: string
+          - name: referrerName
+            in: query
+            required: false
+            schema:
+              type: string
+          - name: referrerToken
+            in: query
+            required: false
+            schema:
+              type: string
+          - name: refereeId
+            in: query
+            required: false
+            schema:
+              type: string
+          - name: refereeName
+            in: query
+            required: false
+            schema:
+              type: string
+          - name: createdAt
+            in: query
+            required: false
+            schema:
+              type: string
+              format: date-time
+          - $ref: '#/components/parameters/page'
+          - $ref: '#/components/parameters/itemsOnPage'
+          - $ref: '#/components/parameters/orderBy'
+          responses:
+            "'200'":
+              description: List of referrals
+              content:
+                application/json:
+                  schema:
+                    properties:
+                      items:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/Referral'
+                      total:
+                        $ref: '#/components/schemas/SearchableTotalResponse2'
+                    type: object
+            "'400'":
+              $ref: '#/components/responses/BadRequest'
+            "'401'":
+              $ref: '#/components/responses/Unauthorized'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+

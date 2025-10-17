@@ -1,0 +1,39 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        StoreResponse:
+          description: Store
+          required:
+          - storeId
+          - code
+          - currency
+          - name
+          - active
+          properties:
+            storeId:
+              type: string
+              format: uuid
+            code:
+              type: string
+              example: DEFAULT
+            currency:
+              type: string
+              example: USD
+            name:
+              type: string
+            active:
+              type: boolean
+            createdBy:
+              type: string
+            createdAt:
+              type: string
+              format: date-time
+            updatedBy:
+              type: string
+            updatedAt:
+              type: string
+              format: date-time
+          type: object
+          additionalProperties: false
+

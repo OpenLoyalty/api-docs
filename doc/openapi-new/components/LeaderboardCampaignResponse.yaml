@@ -1,0 +1,122 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        LeaderboardCampaignResponse:
+          description: Campaign
+          properties:
+            name:
+              type: string
+            description:
+              type: string
+            type:
+              type: string
+              enum:
+              - direct
+              - referral
+            trigger:
+              type: string
+              enum:
+              - leaderboard
+            campaignId:
+              type: string
+              format: uuid
+            activity:
+              properties:
+                startsAt:
+                  type: string
+                  format: date-time
+                endsAt:
+                  type: string
+                  format: date-time
+              type: object
+            active:
+              type: boolean
+            createdAt:
+              type: string
+              format: date-time
+            displayOrder:
+              type: number
+              example: 1
+            rules:
+              type: array
+              items:
+                properties:
+                  name:
+                    type: string
+                  description:
+                    type: string
+                  conditions:
+                    type: array
+                    items:
+                      oneOf:
+                      - title: Condition
+                        properties:
+                          operator:
+                            type: string
+                          data:
+                            type: array
+                            items:
+                              type: string
+                          attribute:
+                            type: string
+                        type: object
+                      - $ref: '#/components/schemas/NewCondition'
+                  effects:
+                    type: array
+                    items:
+                      properties:
+                        effect:
+                          type: string
+                        pointsRule:
+                          type: string
+                      type: object
+                type: object
+            limits:
+              $ref: '#/components/schemas/Limit'
+            labels:
+              type: array
+              items:
+                properties:
+                  key:
+                    type: string
+                  value:
+                    type: string
+                type: object
+            translations:
+              $ref: '#/components/schemas/CampaignTranslationsResponse'
+            limitUsages:
+              properties:
+                points:
+                  description: These fields are not updated immediately after the status changes.
+                  properties:
+                    currentValue:
+                      type: number
+                      format: float
+                    limitValue:
+                      type: number
+                      format: float
+                    remaining:
+                      type: number
+                      format: float
+                    interval:
+                      properties:
+                        type:
+                          type: string
+                          enum:
+                          - calendarHours
+                          - calendarDays
+                          - calendarWeeks
+                          - calendarMonths
+                          - calendarYears
+                        value:
+                          type: integer
+                      type: object
+                  type: object
+              type: object
+            visibility:
+              $ref: '#/components/schemas/Visibility'
+            leaderboard:
+              $ref: '#/components/schemas/LeaderboardResponse'
+          type: object
+

@@ -1,0 +1,18 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        AdminPermissions:
+          properties:
+            superAdmin:
+              type: boolean
+            roles:
+              type: array
+              items:
+                type: string
+            permissions:
+              type: array
+              items:
+                type: string
+          type: object
+

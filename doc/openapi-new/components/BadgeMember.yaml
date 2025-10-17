@@ -1,0 +1,28 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        BadgeMember:
+          required:
+          - badgeTypeId
+          - name
+          - completedCount
+          - createdAt
+          - updatedAt
+          properties:
+            badgeTypeId:
+              type: string
+              format: uuid
+            name:
+              type: string
+            completedCount:
+              type: integer
+            createdAt:
+              type: string
+              format: date-time
+            updatedAt:
+              type: string
+              format: date-time
+          type: object
+          additionalProperties: false
+

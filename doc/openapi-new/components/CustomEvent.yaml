@@ -1,0 +1,49 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        CustomEvent:
+          properties:
+            customEventId:
+              description: Custom Event Id
+              type: string
+              format: uuid
+            customerId:
+              description: Customer Id
+              type: string
+              format: uuid
+            type:
+              type: string
+            eventName:
+              type: string
+            customerData:
+              properties:
+                customerId:
+                  type: string
+                email:
+                  type: string
+                phone:
+                  type: string
+                loyaltyCardNumber:
+                  type: string
+              type: object
+            body:
+              type: array
+              items:
+                type: object
+                additionalProperties:
+                  type: string
+            eventDate:
+              type: string
+              format: date-time
+            createdAt:
+              type: string
+              format: date-time
+            eventId:
+              description: A unique identifier for each custom event sent to the Open Loyalty API. This field is used to prevent the submission of duplicate events to the system.
+              type: string
+              maxLength: 255
+              minLength: 1
+              nullable: true
+          type: object
+

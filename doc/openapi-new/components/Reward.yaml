@@ -1,0 +1,141 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        Reward:
+          properties:
+            reward:
+              type: string
+            name:
+              type: string
+            levels:
+              type: array
+              items:
+                type: string
+                format: uuid
+            segments:
+              type: array
+              items:
+                type: string
+                format: uuid
+            categories:
+              type: array
+              items:
+                type: string
+                format: uuid
+            brandIcon:
+              type: boolean
+            rewardId:
+              type: string
+              format: uuid
+            target:
+              type: string
+              enum:
+              - level
+              - segment
+            active:
+              type: boolean
+            costInPoints:
+              type: number
+            activity:
+              properties:
+                allTime:
+                  type: boolean
+              type: object
+            visibility:
+              properties:
+                allTime:
+                  type: boolean
+              type: object
+            tax:
+              type: number
+            taxPriceValue:
+              type: number
+            price:
+              type: number
+            labels:
+              type: array
+              items:
+                properties:
+                  key:
+                    type: string
+                  value:
+                    type: string
+                type: object
+            featured:
+              type: boolean
+            public:
+              type: boolean
+            photos:
+              type: array
+              items:
+                type: object
+            createdAt:
+              type: string
+              format: date-time
+            usageLimit:
+              properties:
+                general:
+                  type: number
+                perUser:
+                  type: number
+              type: object
+              deprecated: true
+            fulfillmentTracking:
+              type: boolean
+              deprecated: true
+            translations:
+              type: array
+              items:
+                properties:
+                  name:
+                    type: string
+                  id:
+                    type: integer
+                  locale:
+                    type: string
+                type: object
+            couponGenerator:
+              properties:
+                length:
+                  type: number
+                characterSet:
+                  type: string
+              type: object
+            couponValue:
+              type: number
+            segmentNames:
+              type: object
+              additionalProperties:
+                type: string
+            levelNames:
+              type: object
+              additionalProperties:
+                type: string
+            categoryNames:
+              type: object
+              additionalProperties:
+                type: string
+            usageLeft:
+              type: number
+              deprecated: true
+            usageLeftForCustomer:
+              type: number
+              deprecated: true
+            canBeBoughtByCustomer:
+              type: boolean
+              deprecated: true
+            unitsConversion:
+              properties:
+                ratio:
+                  type: number
+                  format: float
+                rounding:
+                  type: string
+                  enum:
+                  - up
+                  - down
+                  - default
+              type: object
+          type: object
+

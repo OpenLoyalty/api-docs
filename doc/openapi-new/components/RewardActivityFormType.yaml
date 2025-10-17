@@ -1,0 +1,16 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        RewardActivityFormType:
+          properties:
+            allTime:
+              type: boolean
+            from:
+              type: string
+              format: date-time
+            to:
+              type: string
+              format: date-time
+          type: object
+

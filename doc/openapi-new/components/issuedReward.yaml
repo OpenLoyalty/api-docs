@@ -1,0 +1,94 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        issuedReward:
+          properties:
+            rewardId:
+              type: string
+              format: uuid
+            issuedRewardId:
+              type: string
+              format: uuid
+            name:
+              type: string
+            tax:
+              type: number
+            taxPriceValue:
+              type: number
+            price:
+              type: number
+              format: float
+            customerId:
+              type: string
+              format: uuid
+            status:
+              type: string
+            redemptionDate:
+              type: string
+              format: date-time
+            issuedCoupon:
+              properties:
+                code:
+                  type: string
+                value:
+                  type: number
+                  format: float
+                activeFrom:
+                  type: string
+                  format: date-time
+                activeTo:
+                  type: string
+                  format: date-time
+                valueType:
+                  type: string
+                  enum:
+                  - money
+                  - percentage
+                usedAt:
+                  type: string
+                  format: date-time
+              type: object
+            customerData:
+              properties:
+                email:
+                  type: string
+                firstName:
+                  type: string
+                lastName:
+                  type: string
+                phone:
+                  type: string
+                loyaltyCardNumber:
+                  type: string
+                address:
+                  type: object
+              type: object
+            costInPoints:
+              type: number
+              format: float
+            token:
+              type: string
+            rewardType:
+              type: string
+              enum:
+              - static_coupon
+              - material
+              - dynamic_coupon
+              - conversion_coupon
+            unitsConversion:
+              properties:
+                ratio:
+                  type: number
+                  format: float
+                rounding:
+                  type: string
+                  enum:
+                  - up
+                  - down
+                  - default
+              type: object
+            actionCause:
+              $ref: '#/components/schemas/ActionCause'
+          type: object
+

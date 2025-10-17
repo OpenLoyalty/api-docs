@@ -1,0 +1,2900 @@
+﻿nelmio_api_doc:
+  documentation:
+    paths:
+      /api/{storeCode}/member/{member}/custom-attribute:
+        put:
+          tags:
+          - Member
+          summary: Update member’s custom attribute
+          description: |
+            <label style="background-color: #BFE1F6;padding:5px;">Integration</label><br><br>
+            This method allows updating Custom Attributes that are added to a specific Member.
+          operationId: customAttributePut
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          - name: member
+            in: path
+            required: true
+            schema:
+              type: string
+              pattern: "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}|email=[a-zA-Z0-9!#$%&'\\.*+\\-@=?^_`{|}~;]+|phone=[0-9+]+|loyaltyCardNumber=[0-9a-zA-Z\\._-]+"
+          requestBody:
+            description: ""
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/EditCustomAttributeFormType'
+          responses:
+            "'204'":
+              $ref: '#/components/responses/NoContent'
+            "'400'":
+              $ref: '#/components/responses/BadRequest'
+            "'401'":
+              description: ""
+              content:
+                application/json:
+                  schema:
+                    oneOf:
+                    - $ref: '#/components/schemas/ExpiredToken'
+                    - $ref: '#/components/schemas/InvalidToken'
+                    - $ref: '#/components/schemas/Unauthorized'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+            "'404'":
+              $ref: '#/components/responses/NotFound'
+        delete:
+          tags:
+          - Member
+          summary: Delete member’s custom attribute
+          description: |
+            <label style="background-color: #BFE1F6;padding:5px;">Integration</label><br><br>
+            This method allows deleting Custom Attributes that are added to a specific Member.
+          operationId: customAttributeDelete
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          - name: member
+            in: path
+            required: true
+            schema:
+              type: string
+              pattern: "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}|email=[a-zA-Z0-9!#$%&'\\.*+\\-@=?^_`{|}~;]+|phone=[0-9+]+|loyaltyCardNumber=[0-9a-zA-Z\\._-]+"
+          requestBody:
+            description: ""
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/DeleteCustomAttributeFormType'
+          responses:
+            "'204'":
+              $ref: '#/components/responses/NoContent'
+            "'400'":
+              $ref: '#/components/responses/BadRequest'
+            "'401'":
+              description: ""
+              content:
+                application/json:
+                  schema:
+                    oneOf:
+                    - $ref: '#/components/schemas/ExpiredToken'
+                    - $ref: '#/components/schemas/InvalidToken'
+                    - $ref: '#/components/schemas/Unauthorized'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+            "'404'":
+              $ref: '#/components/responses/NotFound'
+      /api/{storeCode}/member/{member}/reward/redeem:
+        post:
+          tags:
+          - Member
+          summary: Mark coupon as used
+          description: |
+            <label style="background-color: #BFE1F6;padding:5px;">Integration</label><br><br>
+            This method allows redeeming a Coupon that is assigned to a specific Member (marks it as used by the Administrator).
+          operationId: rewardPostRedeem
+          parameters:
+          - name: member
+            in: path
+            required: true
+            schema:
+              type: string
+              pattern: "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}|email=[a-zA-Z0-9!#$%&'\\.*+\\-@=?^_`{|}~;]+|phone=[0-9+]+|loyaltyCardNumber=[0-9a-zA-Z\\._-]+"
+          - $ref: '#/components/parameters/storeCode'
+          requestBody:
+            required: true
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/RedeemCouponFormType'
+          responses:
+            "'200'":
+              description: Returned when successful
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/CouponUsageResponse'
+            "'400'":
+              $ref: '#/components/responses/BadRequest'
+            "'401'":
+              description: ""
+              content:
+                application/json:
+                  schema:
+                    oneOf:
+                    - $ref: '#/components/schemas/ExpiredToken'
+                    - $ref: '#/components/schemas/InvalidToken'
+                    - $ref: '#/components/schemas/Unauthorized'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+            "'404'":
+              $ref: '#/components/responses/NotFound'
+      /api/{storeCode}/member/{member}/reward/reissue:
+        post:
+          tags:
+          - Member
+          summary: Mark coupon as unused
+          description: |
+            <label style="background-color: #BFE1F6;padding:5px;">Integration</label><br><br>
+            This method allows reissuing a Coupon that is assigned to a specific Member (marks it as unused by the Administrator).
+          operationId: rewardPostReissue
+          parameters:
+          - name: member
+            in: path
+            required: true
+            schema:
+              type: string
+              pattern: "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}|email=[a-zA-Z0-9!#$%&'\\.*+\\-@=?^_`{|}~;]+|phone=[0-9+]+|loyaltyCardNumber=[0-9a-zA-Z\\._-]+"
+          - $ref: '#/components/parameters/storeCode'
+          requestBody:
+            required: true
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/ReissueCouponFormType'
+          responses:
+            "'200'":
+              description: Returned when successful
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/CouponUsageResponse'
+            "'400'":
+              $ref: '#/components/responses/BadRequest'
+            "'401'":
+              description: ""
+              content:
+                application/json:
+                  schema:
+                    oneOf:
+                    - $ref: '#/components/schemas/ExpiredToken'
+                    - $ref: '#/components/schemas/InvalidToken'
+                    - $ref: '#/components/schemas/Unauthorized'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+            "'404'":
+              $ref: '#/components/responses/NotFound'
+      /api/{storeCode}/member/{member}:
+        get:
+          tags:
+          - Member
+          summary: Get member’s details
+          description: |
+            <label style="background-color: #BFE1F6;padding:5px;">Integration</label><br><br>
+            This method returns details related to a specific Member account.
+          operationId: memberGet
+          parameters:
+          - name: member
+            in: path
+            required: true
+            schema:
+              type: string
+              pattern: "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}|email=[a-zA-Z0-9!#$%&'\\.*+\\-@=?^_`{|}~;]+|phone=[0-9+]+|loyaltyCardNumber=[0-9a-zA-Z\\._-]+"
+          - $ref: '#/components/parameters/storeCode'
+          responses:
+            "'200'":
+              description: Member details
+              content:
+                application/json:
+                  schema:
+                    type: object
+                    allOf:
+                    - $ref: '#/components/schemas/Customer'
+                    - properties:
+                        labels:
+                          type: array
+                          items:
+                            allOf:
+                            - properties:
+                                key:
+                                  type: string
+                                value:
+                                  type: string
+                              type: object
+                              property: 
+                        currency:
+                          type: string
+                        storeCode:
+                          type: string
+                        segments:
+                          type: array
+                          items:
+                            type: string
+                            format: uuid
+                        channelIdentifier:
+                          type: string
+                        currentLevel:
+                          $ref: '#/components/schemas/CurrentLevel'
+                      type: object
+                      property: 
+            "'400'":
+              $ref: '#/components/responses/BadRequest'
+            "'401'":
+              description: Unauthorized.
+              content:
+                application/json:
+                  schema:
+                    oneOf:
+                    - $ref: '#/components/schemas/ExpiredToken'
+                    - $ref: '#/components/schemas/InvalidToken'
+                    - $ref: '#/components/schemas/Unauthorized'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+            "'404'":
+              $ref: '#/components/responses/NotFound'
+        put:
+          tags:
+          - Member
+          summary: Update member’s details
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+            This method allows updating data related to a specific Member account.
+            If a member changes the primary identification method then this change has to be confirmed.
+            Confirmation works only for email and phone fields.
+            If CustomerEmailWasChanged or CustomerPhoneNumberWasChanged webhook is configured,
+            the code, code number, and member contact data will be transmitted.
+            Field code from the webhook has to be used as token parameter in endpoint. [confirm change](#operation/memberPostConfirmChange)
+          operationId: memberPut
+          parameters:
+          - name: member
+            in: path
+            required: true
+            schema:
+              type: string
+              pattern: "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}|email=[a-zA-Z0-9!#$%&'\\.*+\\-@=?^_`{|}~;]+|phone=[0-9+]+|loyaltyCardNumber=[0-9a-zA-Z\\._-]+"
+          - $ref: '#/components/parameters/storeCode'
+          requestBody:
+            description: ""
+            content:
+              application/json:
+                schema:
+                  properties:
+                    customer:
+                      $ref: '#/components/schemas/PutMember'
+                  type: object
+          responses:
+            "'200'":
+              description: Return updated member id.
+              content:
+                application/json:
+                  schema:
+                    properties:
+                      customerId:
+                        description: Updated member identity
+                        type: string
+                        example: 00000000-0000-0000-0000-000000000000
+                    type: object
+            "'400'":
+              $ref: '#/components/responses/BadRequest'
+            "'401'":
+              description: Unauthorized.
+              content:
+                application/json:
+                  schema:
+                    oneOf:
+                    - $ref: '#/components/schemas/ExpiredToken'
+                    - $ref: '#/components/schemas/InvalidToken'
+                    - $ref: '#/components/schemas/Unauthorized'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+            "'404'":
+              $ref: '#/components/responses/NotFound'
+            "'405'":
+              $ref: '#/components/responses/MethodNotAllowed'
+        delete:
+          tags:
+          - Member
+          summary: Delete a member
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+            This method allows removing a specific Member account.
+          operationId: memberDeleteMember
+          parameters:
+          - name: member
+            in: path
+            required: true
+            schema:
+              type: string
+              pattern: "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}|email=[a-zA-Z0-9!#$%&'\\.*+\\-@=?^_`{|}~;]+|phone=[0-9+]+|loyaltyCardNumber=[0-9a-zA-Z\\._-]+"
+          - $ref: '#/components/parameters/storeCode'
+          responses:
+            "'204'":
+              $ref: '#/components/responses/NoContent'
+            "'401'":
+              description: Unauthorized.
+              content:
+                application/json:
+                  schema:
+                    oneOf:
+                    - $ref: '#/components/schemas/ExpiredToken'
+                    - $ref: '#/components/schemas/InvalidToken'
+                    - $ref: '#/components/schemas/Unauthorized'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+            "'404'":
+              $ref: '#/components/responses/NotFound'
+      /api/{storeCode}/member/check:
+        get:
+          tags:
+          - Member
+          summary: Find if the member registered
+          description: |
+            <label style="background-color: #BFE1F6;padding:5px;">Integration</label><br><br>
+            This method returns true or false if a Member with give phone number or email exists.
+          operationId: memberGetCheck
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          - name: emailOrPhone
+            in: query
+            description: This filter is deprecated. Use identifier instead
+            required: false
+            deprecated: true
+            allowEmptyValue: true
+            schema:
+              type: string
+              default: 
+          - name: identifier
+            in: query
+            description: Using this parameter you can filter by e-mail, by phone, by customer id or loyalty card number
+            required: false
+            allowEmptyValue: true
+            schema:
+              type: string
+              default: 
+          responses:
+            "'200'":
+              description: Returns true or false if given email or phone exists.
+              content:
+                application/json:
+                  schema:
+                    properties:
+                      total:
+                        type: integer
+                    type: object
+            "'400'":
+              $ref: '#/components/responses/BadRequest'
+            "'401'":
+              description: Unauthorized.
+              content:
+                application/json:
+                  schema:
+                    oneOf:
+                    - $ref: '#/components/schemas/ExpiredToken'
+                    - $ref: '#/components/schemas/InvalidToken'
+                    - $ref: '#/components/schemas/Unauthorized'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+            "'404'":
+              $ref: '#/components/responses/NotFound'
+          deprecated: true
+      /api/{storeCode}/member:
+        get:
+          tags:
+          - Member
+          summary: Get members list
+          description: |
+            <label style="background-color: #BFE1F6;padding:5px;">Integration</label><br><br>
+            This method returns list of all Members' accounts exist in the system.  
+            If sorting is not chosen, the rows will be returned in an unspecified order.  
+            To sort a result, use an `_orderBy` parameter in query.
+          operationId: memberGetList
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          - name: customerId
+            in: query
+            required: false
+            schema:
+              type: string
+          - name: firstName
+            in: query
+            required: false
+            schema:
+              type: string
+          - name: lastName
+            in: query
+            required: false
+            schema:
+              type: string
+          - name: emailOrPhone
+            in: query
+            description: This filter is deprecated.
+            required: false
+            deprecated: true
+            schema:
+              type: string
+          - name: identifier
+            in: query
+            description: This filter is deprecated. To get member by email, phone, loyaltyCardNumnber, use /api/{store}/member/email=user@example.com).
+            required: false
+            deprecated: true
+            schema:
+              type: string
+          - name: active
+            in: query
+            required: false
+            schema:
+              type: boolean
+          - name: gender
+            in: query
+            required: false
+            schema:
+              type: string
+          - name: phone
+            in: query
+            required: false
+            schema:
+              type: string
+          - name: email
+            in: query
+            required: false
+            schema:
+              type: string
+          - name: loyaltyCardNumber
+            in: query
+            required: false
+            schema:
+              type: string
+          - name: createdAt
+            in: query
+            required: false
+            schema:
+              type: string
+              format: date-time
+          - name: birthDate
+            in: query
+            required: false
+            schema:
+              type: string
+              format: date-time
+          - name: agreement1
+            in: query
+            required: false
+            schema:
+              type: boolean
+          - name: agreement2
+            in: query
+            required: false
+            schema:
+              type: boolean
+          - name: agreement3
+            in: query
+            required: false
+            schema:
+              type: boolean
+          - name: updatedAt
+            in: query
+            required: false
+            schema:
+              type: string
+              format: date-time
+          - name: registeredAt
+            in: query
+            required: false
+            schema:
+              type: string
+              format: date-time
+          - name: transactionsCount
+            in: query
+            required: false
+            schema:
+              type: integer
+          - name: transactionsAmount
+            in: query
+            required: false
+            schema:
+              type: number
+          - name: transactionsAmountWithoutDeliveryCosts
+            in: query
+            required: false
+            schema:
+              type: number
+          - name: amountExcludedForLevel
+            in: query
+            required: false
+            schema:
+              type: number
+          - name: averageTransactionAmount
+            in: query
+            required: false
+            schema:
+              type: number
+          - name: levelAchievementDate
+            in: query
+            required: false
+            schema:
+              type: string
+              format: date-time
+          - name: labels
+            in: query
+            description: Labels using pattern e.g. (key1;value1),(key2;value2),...
+            required: false
+            schema:
+              type: string
+          - name: lastTransactionDate
+            in: query
+            required: false
+            schema:
+              type: string
+              format: date-time
+          - name: firstTransactionDate
+            in: query
+            required: false
+            schema:
+              type: string
+              format: date-time
+          - name: levelId
+            in: query
+            required: false
+            schema:
+              type: string
+          - name: manuallyAssignedLevelId
+            in: query
+            required: false
+            schema:
+              type: string
+          - name: referralToken
+            in: query
+            required: false
+            schema:
+              type: string
+          - name: address:street
+            in: query
+            required: false
+            schema:
+              type: string
+          - name: address:address1
+            in: query
+            required: false
+            schema:
+              type: string
+          - name: address:address2
+            in: query
+            required: false
+            schema:
+              type: string
+          - name: address:province
+            in: query
+            required: false
+            schema:
+              type: string
+          - name: address:city
+            in: query
+            required: false
+            schema:
+              type: string
+          - name: address:postal
+            in: query
+            required: false
+            schema:
+              type: string
+          - name: address:country
+            in: query
+            required: false
+            schema:
+              type: string
+          - name: defaultAccount:activePoints
+            in: query
+            required: false
+            schema:
+              type: number
+          - name: defaultAccount:transferredPoints
+            in: query
+            required: false
+            schema:
+              type: number
+          - name: defaultAccount:lockedPoints
+            in: query
+            required: false
+            schema:
+              type: number
+          - name: defaultAccount:expiredPoints
+            in: query
+            required: false
+            schema:
+              type: number
+          - name: defaultAccount:spentPoints
+            in: query
+            required: false
+            schema:
+              type: number
+          - name: defaultAccount:earnedPoints
+            in: query
+            required: false
+            schema:
+              type: number
+          - name: defaultAccount:blockedPoints
+            in: query
+            required: false
+            schema:
+              type: number
+          - $ref: '#/components/parameters/page'
+          - $ref: '#/components/parameters/itemsOnPage'
+          - $ref: '#/components/parameters/orderBy'
+          - $ref: '#/components/parameters/scroll'
+          responses:
+            "'200'":
+              description: List of members
+              content:
+                application/json:
+                  schema:
+                    oneOf:
+                    - title: MembersListResponse
+                      required:
+                      - items
+                      - total
+                      properties:
+                        items:
+                          type: array
+                          items:
+                            allOf:
+                            - $ref: '#/components/schemas/Customer'
+                            - properties:
+                                labels:
+                                  type: array
+                                  items:
+                                    properties:
+                                      key:
+                                        type: string
+                                      value:
+                                        type: string
+                                    type: object
+                                currency:
+                                  type: string
+                                storeCode:
+                                  type: string
+                                channelIdentifier:
+                                  type: string
+                              type: object
+                        total:
+                          $ref: '#/components/schemas/SearchableTotalResponse'
+                      type: object
+                      additionalProperties: false
+                    - title: MembersListResponseWithScroll
+                      required:
+                      - items
+                      - scroll
+                      properties:
+                        items:
+                          type: array
+                          items:
+                            allOf:
+                            - $ref: '#/components/schemas/Customer'
+                            - properties:
+                                labels:
+                                  type: array
+                                  items:
+                                    properties:
+                                      key:
+                                        type: string
+                                      value:
+                                        type: string
+                                    type: object
+                                currency:
+                                  type: string
+                                storeCode:
+                                  type: string
+                                channelIdentifier:
+                                  type: string
+                              type: object
+                        scroll:
+                          $ref: '#/components/schemas/ScrollResponse'
+                      type: object
+                      additionalProperties: false
+            "'400'":
+              $ref: '#/components/responses/BadRequest'
+            "'401'":
+              description: Unauthorized.
+              content:
+                application/json:
+                  schema:
+                    oneOf:
+                    - $ref: '#/components/schemas/ExpiredToken'
+                    - $ref: '#/components/schemas/InvalidToken'
+                    - $ref: '#/components/schemas/Unauthorized'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+            "'404'":
+              $ref: '#/components/responses/NotFound'
+        post:
+          tags:
+          - Member
+          summary: Add a member
+          description: |
+            <label style="background-color: #BFE1F6;padding:5px;">Integration</label><br><br>
+            This method allows registering a new Member as an Admin.
+          operationId: _memberPost
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          requestBody:
+            required: true
+            content:
+              application/json:
+                schema:
+                  properties:
+                    customer:
+                      $ref: '#/components/schemas/CustomerRegistrationFormType'
+                  type: object
+          responses:
+            "'200'":
+              description: Return registered member id and email.
+              content:
+                application/json:
+                  schema:
+                    properties:
+                      customerId:
+                        description: Registered member identity
+                        type: string
+                        format: uuid
+                        example: 00000000-0000-0000-0000-000000000000
+                      email:
+                        description: Registered member email
+                        type: string
+                    type: object
+            "'400'":
+              $ref: '#/components/responses/BadRequest'
+            "'401'":
+              description: Unauthorized
+              content:
+                application/json:
+                  schema:
+                    oneOf:
+                    - $ref: '#/components/schemas/ExpiredToken'
+                    - $ref: '#/components/schemas/InvalidToken'
+                    - $ref: '#/components/schemas/Unauthorized'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+            "'404'":
+              $ref: '#/components/responses/NotFound'
+      /api/{storeCode}/member/registrations:
+        get:
+          tags:
+          - Member
+          summary: Get number of registered members
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+            This method returns the number of Members that have been registered in the system.
+          operationId: memberGetRegistrations
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          - name: lastDays
+            in: query
+            description: Range from last X days
+            required: false
+            allowEmptyValue: true
+            schema:
+              type: integer
+              default: "30"
+          - name: interval
+            in: query
+            description: Group by interval
+            required: false
+            allowEmptyValue: false
+            schema:
+              type: string
+              format: day|month|year
+              default: day
+              pattern: (day|month|year)
+          responses:
+            "'200'":
+              description: ""
+              content:
+                application/json:
+                  schema:
+                    type: object
+                    format: date-time
+                    additionalProperties:
+                      type: integer
+            "'404'":
+              $ref: '#/components/responses/NotFound'
+      /api/{storeCode}/member/{member}/status:
+        get:
+          tags:
+          - Member
+          summary: Get member’s loyalty status
+          description: |
+            This method returns all the details related to a specific Member about Points, Transactions, Tier, etc.
+          operationId: memberGetStatus
+          parameters:
+          - name: member
+            in: path
+            required: true
+            schema:
+              type: string
+              pattern: "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}|email=[a-zA-Z0-9!#$%&'\\.*+\\-@=?^_`{|}~;]+|phone=[0-9+]+|loyaltyCardNumber=[0-9a-zA-Z\\._-]+"
+          - $ref: '#/components/parameters/storeCode'
+          responses:
+            "'200'":
+              description: ""
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/CustomerStatus'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+            "'404'":
+              $ref: '#/components/responses/NotFound'
+          deprecated: true
+      /api/{storeCode}/member/{member}/activate:
+        post:
+          tags:
+          - Member
+          summary: Activate a member
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+            This method allows activating a specific Member account.
+          operationId: memberPostActivate
+          parameters:
+          - name: member
+            in: path
+            required: true
+            schema:
+              type: string
+              pattern: "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}|email=[a-zA-Z0-9!#$%&'\\.*+\\-@=?^_`{|}~;]+|phone=[0-9+]+|loyaltyCardNumber=[0-9a-zA-Z\\._-]+"
+          - $ref: '#/components/parameters/storeCode'
+          responses:
+            "'204'":
+              $ref: '#/components/responses/NoContent'
+            "'400'":
+              $ref: '#/components/responses/BadRequest'
+            "'404'":
+              $ref: '#/components/responses/NotFound'
+      /api/{storeCode}/member/activate/{token}:
+        post:
+          tags:
+          - Member
+          summary: Activate a member with a token
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+            This method allows activating by activation token a specific Member account.
+          operationId: memberPostActivateByToken
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          - name: token
+            in: path
+            required: true
+            schema:
+              type: string
+          responses:
+            "'204'":
+              $ref: '#/components/responses/NoContent'
+            "'404'":
+              $ref: '#/components/responses/NotFound'
+          deprecated: true
+      /api/{storeCode}/member/{member}/anonymize:
+        post:
+          tags:
+          - Member
+          summary: Anonymize member’s data
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+            This method allows anonymizing a specific member account.
+          operationId: memberPostAnonymize
+          parameters:
+          - name: member
+            in: path
+            required: true
+            schema:
+              type: string
+              pattern: "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}|email=[a-zA-Z0-9!#$%&'\\.*+\\-@=?^_`{|}~;]+|phone=[0-9+]+|loyaltyCardNumber=[0-9a-zA-Z\\._-]+"
+          - $ref: '#/components/parameters/storeCode'
+          responses:
+            "'204'":
+              $ref: '#/components/responses/NoContent'
+            "'400'":
+              $ref: '#/components/responses/BadRequest'
+            "'404'":
+              $ref: '#/components/responses/NotFound'
+      /api/{storeCode}/member/{member}/channel:
+        post:
+          tags:
+          - Member
+          summary: Assign channel to a member
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+            This method allows assigning a Sales Channel to Member.
+          operationId: memberPostChannel
+          parameters:
+          - name: member
+            in: path
+            required: true
+            schema:
+              type: string
+              pattern: "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}|email=[a-zA-Z0-9!#$%&'\\.*+\\-@=?^_`{|}~;]+|phone=[0-9+]+|loyaltyCardNumber=[0-9a-zA-Z\\._-]+"
+          - $ref: '#/components/parameters/storeCode'
+          requestBody:
+            required: false
+            content:
+              application/json:
+                schema:
+                  properties:
+                    channelId:
+                      description: Id of the sales channel to assign to the member
+                      type: string
+                      format: uuid
+                  type: object
+          responses:
+            "'204'":
+              $ref: '#/components/responses/NoContent'
+            "'400'":
+              $ref: '#/components/responses/BadRequest'
+            "'404'":
+              $ref: '#/components/responses/NotFound'
+      /api/{storeCode}/member/confirm-change/{token}:
+        post:
+          tags:
+          - Member
+          summary: Confirm change with a token
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+            This method allows confirming changes with a token.
+          operationId: memberPostConfirmChange
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          - name: token
+            in: path
+            required: true
+            schema:
+              type: string
+          responses:
+            "'204'":
+              $ref: '#/components/responses/NoContent'
+            "'400'":
+              $ref: '#/components/responses/BadRequest'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+            "'404'":
+              $ref: '#/components/responses/NotFound'
+      /api/{storeCode}/member/{member}/deactivate:
+        post:
+          tags:
+          - Member
+          summary: Deactivate a member
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+            This method allows deactivating a specific Member account.
+          operationId: memberPostDeactivate
+          parameters:
+          - name: member
+            in: path
+            required: true
+            schema:
+              type: string
+              pattern: "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}|email=[a-zA-Z0-9!#$%&'\\.*+\\-@=?^_`{|}~;]+|phone=[0-9+]+|loyaltyCardNumber=[0-9a-zA-Z\\._-]+"
+          - $ref: '#/components/parameters/storeCode'
+          responses:
+            "'204'":
+              $ref: '#/components/responses/NoContent'
+            "'400'":
+              $ref: '#/components/responses/BadRequest'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+            "'404'":
+              $ref: '#/components/responses/NotFound'
+      /api/{storeCode}/member/register:
+        post:
+          tags:
+          - Member
+          summary: Register a member
+          description: |
+            <label style="background-color: #BFE1F6;padding:5px;">Integration</label><br><br>
+            This method allows potential Members to register themselves.
+            If CustomerWasRegisteredWithoutActivation webhook is configured,
+            the code, code number, and member contact data will be transmitted.
+            The 'code' field from the webhook should be used
+            as token parameter in the endpoint. [member activate](#operation/memberPostActivate)
+          operationId: memberPostRegister
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          requestBody:
+            description: ""
+            content:
+              application/json:
+                schema:
+                  properties:
+                    customer:
+                      $ref: '#/components/schemas/CustomerSelfRegistrationFormType'
+                  type: object
+          responses:
+            "'200'":
+              description: Return registered member ID and email.
+              content:
+                application/json:
+                  schema:
+                    properties:
+                      customerId:
+                        description: Registered member identity
+                        type: string
+                        example: 00000000-0000-0000-0000-000000000000
+                      email:
+                        description: Registered member email
+                        type: string
+                        format: email
+                    type: object
+            "'400'":
+              $ref: '#/components/responses/BadRequest'
+            "'404'":
+              $ref: '#/components/responses/NotFound'
+          deprecated: true
+          security: []
+      /api/{storeCode}/member/{member}/remove-manually-level:
+        post:
+          tags:
+          - Member
+          summary: Remove manually assigned tier
+          description: |
+            Remove manually assigned tier
+          operationId: _memberPostRemoveTier
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          - name: member
+            in: path
+            required: true
+            schema:
+              type: string
+              pattern: "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}|email=[a-zA-Z0-9!#$%&'\\.*+\\-@=?^_`{|}~;]+|phone=[0-9+]+|loyaltyCardNumber=[0-9a-zA-Z\\._-]+"
+          requestBody:
+            required: true
+            content:
+              application/json:
+                schema:
+                  properties:
+                    tierSetId:
+                      description: tier set id specifies the tier set in which you want to remove the manually assigned tier
+                      type: string
+                      format: uuid
+                  type: object
+                  additionalProperties: false
+          responses:
+            "'204'":
+              $ref: '#/components/responses/NoContent'
+            "'400'":
+              $ref: '#/components/responses/BadRequest'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+            "'404'":
+              $ref: '#/components/responses/NotFound'
+      /api/{storeCode}/member/resend-code:
+        post:
+          tags:
+          - Member
+          summary: Request activation code
+          description: |
+            <label style="background-color: #BFE1F6;padding:5px;">Integration</label><br><br>
+            This method allows resending the activation code.
+            Use given code in member activation endpoint as token parameter.
+            [member activation](#operation/memberPostActivateByToken)
+          operationId: memberPostResendCode
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          requestBody:
+            description: ""
+            content:
+              application/json:
+                schema:
+                  required:
+                  - phone
+                  properties:
+                    phone:
+                      type: string
+                  type: object
+          responses:
+            "'204'":
+              $ref: '#/components/responses/NoContent'
+            "'400'":
+              $ref: '#/components/responses/BadRequest'
+            "'404'":
+              $ref: '#/components/responses/NotFound'
+          deprecated: true
+      /api/{storeCode}/member/{member}/send-code:
+        post:
+          tags:
+          - Member
+          summary: Resend activation code
+          description: |
+            <label style="background-color: #BFE1F6;padding:5px;">Integration</label><br><br>
+            This method allows resending the activation code for chosen member
+            Use given code in member activation endpoint as token parameter.
+            [member activation](#operation/memberPostActivateByToken)
+          operationId: memberPostSendCode
+          parameters:
+          - name: member
+            in: path
+            required: true
+            schema:
+              type: string
+              pattern: "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}|email=[a-zA-Z0-9!#$%&'\\.*+\\-@=?^_`{|}~;]+|phone=[0-9+]+|loyaltyCardNumber=[0-9a-zA-Z\\._-]+"
+          - $ref: '#/components/parameters/storeCode'
+          responses:
+            "'204'":
+              $ref: '#/components/responses/NoContent'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+            "'404'":
+              $ref: '#/components/responses/NotFound'
+      /api/{storeCode}/member/{member}/tier:
+        post:
+          tags:
+          - Member
+          summary: Assign member to a tier
+          description: |
+            Assign member to a tier
+          operationId: _memberPostTier
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          - name: member
+            in: path
+            required: true
+            schema:
+              type: string
+              pattern: "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}|email=[a-zA-Z0-9!#$%&'\\.*+\\-@=?^_`{|}~;]+|phone=[0-9+]+|loyaltyCardNumber=[0-9a-zA-Z\\._-]+"
+          requestBody:
+            required: true
+            content:
+              application/json:
+                schema:
+                  required:
+                  - levelId
+                  properties:
+                    levelId:
+                      description: Id of the tier to assign to the member
+                      type: string
+                      format: uuid
+                  type: object
+                  additionalProperties: false
+          responses:
+            "'204'":
+              $ref: '#/components/responses/NoContent'
+            "'400'":
+              $ref: '#/components/responses/BadRequest'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+            "'404'":
+              $ref: '#/components/responses/NotFound'
+      /api/{storeCode}/member/password:
+        put:
+          tags:
+          - Member
+          summary: Update member’s password
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+            This method allows logged Member changing password.
+          operationId: memberPutPassword
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          requestBody:
+            description: ""
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/ChangePasswordFormType'
+          responses:
+            "'204'":
+              $ref: '#/components/responses/NoContent'
+            "'400'":
+              $ref: '#/components/responses/BadRequest'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+            "'404'":
+              $ref: '#/components/responses/NotFound'
+      /api/{storeCode}/member/points:
+        get:
+          tags:
+          - Member
+          summary: Get logged member’s units
+          description: |
+            <label style="background-color: #BFE1F6;padding:5px;">Integration</label><br><br>
+            This method returns a list of all Points transfers related to the logged Member.  
+            If sorting is not chosen, the rows will be returned in an unspecified order.  
+            To sort a result, use an `_orderBy` parameter in query.
+          operationId: memberGetTransferList
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          - name: type
+            in: query
+            description: type
+            required: false
+            schema:
+              type: string
+          - name: value
+            in: query
+            description: value
+            required: false
+            schema:
+              type: number
+          - name: comment
+            in: query
+            description: comment
+            required: false
+            schema:
+              type: string
+          - name: createdBy
+            in: query
+            description: createdBy
+            required: false
+            schema:
+              type: string
+          - name: cancelled
+            in: query
+            description: cancelled
+            required: false
+            schema:
+              type: boolean
+          - name: pending
+            in: query
+            description: pending
+            required: false
+            schema:
+              type: boolean
+          - name: createdAt
+            in: query
+            description: createdAt
+            required: false
+            schema:
+              type: string
+              format: date-time
+          - name: lockedUntil
+            in: query
+            description: lockedUntil
+            required: false
+            schema:
+              type: string
+              format: date-time
+          - name: expiresAt
+            in: query
+            description: expiresAt
+            required: false
+            schema:
+              type: string
+              format: date-time
+          - name: walletType:code
+            in: query
+            description: Wallet type code related to
+            required: false
+            schema:
+              type: string
+          - $ref: '#/components/parameters/page'
+          - $ref: '#/components/parameters/itemsOnPage'
+          - $ref: '#/components/parameters/orderBy'
+          responses:
+            "'200'":
+              description: List of messages
+              content:
+                application/json:
+                  schema:
+                    properties:
+                      items:
+                        type: array
+                        items:
+                          allOf:
+                          - $ref: '#/components/schemas/Transfer'
+                          - properties:
+                              walletType:
+                                $ref: '#/components/schemas/WalletType'
+                            type: object
+                            property: 
+                      total:
+                        $ref: '#/components/schemas/SearchableTotalResponse2'
+                    type: object
+            "'400'":
+              $ref: '#/components/responses/BadRequest'
+            "'401'":
+              $ref: '#/components/responses/Unauthorized'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+        post:
+          tags:
+          - Member
+          summary: Transfer points between members
+          description: |
+            <label style="background-color: #BFE1F6;padding:5px;">Integration</label><br><br>
+            This method allows transferring Points between logged Member and Member which he chooses.
+          operationId: memberPostTransfer
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          requestBody:
+            description: ""
+            content:
+              application/json:
+                schema:
+                  properties:
+                    transfer:
+                      $ref: '#/components/schemas/TransferPointsByCustomerFormType'
+                  type: object
+          responses:
+            "'200'":
+              description: Return points transfer ID.
+              content:
+                application/json:
+                  schema:
+                    properties:
+                      transferId:
+                        type: string
+                        example: 00000000-0000-0000-0000-000000000000
+                    type: object
+            "'400'":
+              $ref: '#/components/responses/BadRequest'
+            "'401'":
+              $ref: '#/components/responses/Unauthorized'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+      /api/{storeCode}/member/password/reset/request:
+        post:
+          tags:
+          - Member
+          summary: Request member’s password reset
+          description: |
+            <label style="background-color: #BFE1F6;padding:5px;">Integration</label><br><br>
+            This method allows sending message to the user with password reset url.
+            Purpose of this method is to provide "Forgot password" functionality.
+            Invoking this method will send message to the user with password reset url.
+            If CustomerRequestedPasswordReset webhook is configured
+            the code, code number, and member contact data will be transmitted.
+            Use code from the webhook as a token in this endpoint. [password reset](#operation/memberPostPasswordReset)
+          operationId: memberPostPasswordResetRequest
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          requestBody:
+            description: ""
+            required: false
+            content:
+              application/json:
+                schema:
+                  properties:
+                    username:
+                      type: string
+                  type: object
+          responses:
+            "'204'":
+              $ref: '#/components/responses/NoContent'
+            "'400'":
+              $ref: '#/components/responses/BadRequest'
+            "'404'":
+              $ref: '#/components/responses/NotFound'
+          deprecated: true
+      /api/{storeCode}/member/password/reset:
+        post:
+          tags:
+          - Member
+          summary: Set a new member’s password
+          description: |
+            <label style="background-color: #BFE1F6;padding:5px;">Integration</label><br><br>
+            This method allows setting a new password after requesting a password reset.
+          operationId: memberPostPasswordReset
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          requestBody:
+            description: ""
+            content:
+              application/json:
+                schema:
+                  properties:
+                    reset:
+                      $ref: '#/components/schemas/PasswordResetFormType'
+                    token:
+                      type: string
+                  type: object
+          responses:
+            "'204'":
+              $ref: '#/components/responses/NoContent'
+            "'400'":
+              $ref: '#/components/responses/BadRequest'
+            "'404'":
+              $ref: '#/components/responses/NotFound'
+          deprecated: true
+      /api/{storeCode}/member/tier:
+        get:
+          tags:
+          - Member
+          summary: Get logged member’s tier
+          description: |
+            <label style="background-color: #BFE1F6;padding:5px;">Integration</label><br><br>
+            This method returns a list of active Tiers that exist in the system.  
+            If sorting is not chosen, the rows will be returned in an unspecified order.  
+            To sort a result, use an `_orderBy` parameter in query.
+          operationId: tierMemberGetList
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          - $ref: '#/components/parameters/page'
+          - $ref: '#/components/parameters/itemsOnPage'
+          - $ref: '#/components/parameters/orderBy'
+          - name: name
+            in: query
+            required: false
+            schema:
+              type: string
+          responses:
+            "'200'":
+              description: ""
+              content:
+                application/json:
+                  schema:
+                    properties:
+                      items:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/Tier'
+                      total:
+                        $ref: '#/components/schemas/SearchableTotalResponse2'
+                    type: object
+            "'400'":
+              $ref: '#/components/responses/BadRequest'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+            "'404'":
+              $ref: '#/components/responses/NotFound'
+      /api/{storeCode}/member/reward/bought:
+        get:
+          tags:
+          - Member
+          summary: Get logged member’s bought rewards
+          description: |
+            <label style="background-color: #BFE1F6;padding:5px;">Integration</label><br><br>
+            This method returns a list all rewards bought by logged Member.  
+            If sorting is not chosen, the rows will be returned in an unspecified order.  
+            To sort a result, use an `_orderBy` parameter in query.
+          operationId: memberGetBought
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          - $ref: '#/components/parameters/page'
+          - $ref: '#/components/parameters/itemsOnPage'
+          - $ref: '#/components/parameters/orderBy'
+          - name: rewardId
+            in: query
+            required: false
+            schema:
+              type: string
+          - name: name
+            in: query
+            required: false
+            schema:
+              type: string
+          - name: token
+            in: query
+            required: false
+            schema:
+              type: string
+          - name: status
+            in: query
+            required: false
+            schema:
+              type: string
+          - name: costInPoints
+            in: query
+            required: false
+            schema:
+              type: integer
+          - name: rewardType
+            in: query
+            required: false
+            schema:
+              type: string
+          - name: redemptionDate
+            in: query
+            required: false
+            schema:
+              type: string
+              format: date-time
+          responses:
+            "'200'":
+              description: List of rewards bought by logged in member
+              content:
+                application/json:
+                  schema:
+                    properties:
+                      items:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/issuedReward'
+                      total:
+                        $ref: '#/components/schemas/SearchableTotalResponse2'
+                    type: object
+            "'400'":
+              $ref: '#/components/responses/BadRequest'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+      /api/{storeCode}/member/{member}/password:
+        post:
+          tags:
+          - Member
+          summary: Add the member’s password
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+            This method allows assigning a password to a specific Member.
+          operationId: memberPostSetPassword
+          parameters:
+          - name: member
+            in: path
+            required: true
+            schema:
+              type: string
+              pattern: "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}|email=[a-zA-Z0-9!#$%&'\\.*+\\-@=?^_`{|}~;]+|phone=[0-9+]+|loyaltyCardNumber=[0-9a-zA-Z\\._-]+"
+          - $ref: '#/components/parameters/storeCode'
+          requestBody:
+            description: ""
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/SetPasswordFormType'
+          responses:
+            "'204'":
+              $ref: '#/components/responses/NoContent'
+            "'400'":
+              $ref: '#/components/responses/BadRequest'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+            "'404'":
+              $ref: '#/components/responses/NotFound'
+      /api/{storeCode}/member/login_check:
+        post:
+          tags:
+          - Authorization
+          summary: Get member token
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+            This method allows to login and get a JWT token for the member
+          operationId: memberLoginCheck
+          requestBody:
+            description: ""
+            content:
+              application/json:
+                schema:
+                  properties:
+                    username:
+                      type: string
+                      example: member
+                    password:
+                      type: string
+                      example: password
+                  type: object
+          responses:
+            "'200'":
+              $ref: '#/components/responses/TokenAndRefreshToken'
+            "'401'":
+              $ref: '#/components/responses/BadCredentials'
+          deprecated: true
+          security: []
+      /api/{storeCode}/member/{member}/achievement:
+        get:
+          tags:
+          - Achievement
+          summary: Get member’s achievements status
+          description: |
+            <label style="background-color: #BFE1F6;padding:5px;">Integration</label><br><br>
+            If sorting is not chosen, the rows will be returned in an unspecified order.  
+            To sort a result, use an `_orderBy` parameter in query.
+          operationId: achievementProgressMember
+          parameters:
+          - name: member
+            in: path
+            required: true
+            schema:
+              type: string
+              pattern: "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}|email=[a-zA-Z0-9!#$%&'\\.*+\\-@=?^_`{|}~;]+|phone=[0-9+]+|loyaltyCardNumber=[0-9a-zA-Z\\._-]+"
+          - name: name
+            in: query
+            required: false
+            schema:
+              type: string
+          - name: createdAt
+            in: query
+            required: false
+            schema:
+              type: string
+              format: date-time
+          - name: achievementId
+            in: query
+            required: false
+            schema:
+              type: string
+          - name: completionCount
+            in: query
+            required: false
+            schema:
+              type: integer
+          - $ref: '#/components/parameters/page'
+          - $ref: '#/components/parameters/itemsOnPage'
+          - $ref: '#/components/parameters/orderBy'
+          - name: storeCode
+            in: path
+            required: true
+            schema:
+              type: string
+          responses:
+            "'200'":
+              description: List of active achievements progress for member
+              content:
+                application/json:
+                  schema:
+                    properties:
+                      items:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/MemberAchievement'
+                      total:
+                        $ref: '#/components/schemas/SearchableTotalResponse2'
+                    type: object
+            "'400'":
+              $ref: '#/components/responses/BadRequest'
+            "'401'":
+              description: ""
+              content:
+                application/json:
+                  schema:
+                    oneOf:
+                    - $ref: '#/components/schemas/ExpiredToken'
+                    - $ref: '#/components/schemas/InvalidToken'
+                    - $ref: '#/components/schemas/Unauthorized'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+            "'404'":
+              $ref: '#/components/responses/NotFound'
+      /api/{storeCode}/member/{member}/wallet:
+        get:
+          tags:
+          - Wallet
+          summary: Get member’s wallets details
+          description: |
+            <label style="background-color: #BFE1F6;padding:5px;">Integration</label><br><br>
+            If sorting is not chosen, the rows will be returned in an unspecified order.  
+            To sort a result, use an `_orderBy` parameter in query.
+          operationId: memberWalletGetList
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          - name: member
+            in: path
+            required: true
+            schema:
+              type: string
+              pattern: "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}|email=[a-zA-Z0-9!#$%&'\\.*+\\-@=?^_`{|}~;]+|phone=[0-9+]+|loyaltyCardNumber=[0-9a-zA-Z\\._-]+"
+          - name: name
+            in: query
+            required: false
+            schema:
+              type: string
+          - name: createdAt
+            in: query
+            required: false
+            schema:
+              type: string
+              format: date-time
+          - name: walletTypeId
+            in: query
+            required: false
+            schema:
+              type: string
+          - $ref: '#/components/parameters/page'
+          - $ref: '#/components/parameters/itemsOnPage'
+          - $ref: '#/components/parameters/orderBy'
+          responses:
+            "'200'":
+              description: List of wallets
+              content:
+                application/json:
+                  schema:
+                    properties:
+                      items:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/Wallet'
+                      total:
+                        $ref: '#/components/schemas/SearchableTotalResponse2'
+                    type: object
+            "'401'":
+              description: ""
+              content:
+                application/json:
+                  schema:
+                    oneOf:
+                    - $ref: '#/components/schemas/ExpiredToken'
+                    - $ref: '#/components/schemas/InvalidToken'
+                    - $ref: '#/components/schemas/Unauthorized'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+      /api/{storeCode}/member/{member}/tierSet/{tierSet}:
+        get:
+          tags:
+          - Tier
+          summary: Return tier set member progress.
+          description: This method returns detailed member progress information for a specific tier set
+          operationId: _tierSetMemberProgress
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          - name: member
+            in: path
+            required: true
+            schema:
+              type: string
+              pattern: "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}|email=[a-zA-Z0-9!#$%&'\\.*+\\-@=?^_`{|}~;]+|phone=[0-9+]+|loyaltyCardNumber=[0-9a-zA-Z\\._-]+"
+          - $ref: '#/components/parameters/tierSet'
+          responses:
+            "'200'":
+              description: Tier set member progress.
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/TierSetMemberProgress'
+            "'400'":
+              $ref: '#/components/responses/BadRequest'
+            "'401'":
+              description: Unauthorized
+              content:
+                application/json:
+                  schema:
+                    oneOf:
+                    - $ref: '#/components/schemas/ExpiredToken'
+                    - $ref: '#/components/schemas/InvalidToken'
+                    - $ref: '#/components/schemas/Unauthorized'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+            "'404'":
+              $ref: '#/components/responses/NotFound'
+      /api/{storeCode}/member/{member}/campaign:
+        get:
+          tags:
+          - Campaign
+          summary: Get a list of available campaigns for the member.
+          description: |
+            <label style="background-color: #BFE1F6;padding:5px;">Integration</label><br><br>
+            This method returns all active Campaigns for Member.
+            The logged in member can only see their own available campaigns.
+            Endpoint returns all active campaigns, for campaigns that have not reached the limit it adds `"limitReached": false`,
+            and for campaigns that have reached the limit `"limitReached": true`.
+            If there is a dynamic effect in the campaign, the endpoint may return that the
+            campaign limit is not reached, although the effect may exceed the limit and points will not be awarded 
+            If sorting is not chosen, the rows will be returned in an unspecified order.
+            To sort a result, use an `_orderBy` parameter in query.
+          operationId: _campaignAvailableMember
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          - name: member
+            in: path
+            required: true
+            schema:
+              type: string
+              pattern: "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}|email=[a-zA-Z0-9!#$%&'\\.*+\\-@=?^_{|}~;]+|phone=[0-9+]+|loyaltyCardNumber=[0-9a-zA-Z\\._-]+"
+          - name: type
+            in: query
+            required: false
+            style: deepObject
+            explode: true
+            schema:
+              type: string
+          - name: trigger
+            in: query
+            required: false
+            style: deepObject
+            explode: true
+            schema:
+              type: string
+          - name: event
+            in: query
+            required: false
+            style: deepObject
+            explode: true
+            schema:
+              type: string
+          - name: campaignId
+            in: query
+            required: false
+            style: deepObject
+            explode: true
+            schema:
+              type: string
+          - name: showAll
+            in: query
+            description: This parameter allows to show all campaign even not active
+            required: false
+            style: deepObject
+            explode: true
+            schema:
+              type: boolean
+          - name: name
+            in: query
+            description: Campaign name
+            required: false
+            style: deepObject
+            explode: true
+            schema:
+              type: string
+            examples:
+              equal:
+                summary: Equal value
+                value:
+                  eq: value
+          - name: startsAt
+            in: query
+            required: false
+            style: deepObject
+            explode: true
+            schema:
+              type: string
+              format: date-time
+          - name: endsAt
+            in: query
+            required: false
+            style: deepObject
+            explode: true
+            schema:
+              type: string
+              format: date-time
+          - name: labels
+            in: query
+            description: |
+              Filter with Campaign custom attributes.
+
+              Example: `labels=(key;value)`
+            required: false
+            style: deepObject
+            explode: true
+            schema:
+              type: string
+          - name: format
+            in: query
+            description: If set to html, the descriptions will be in HTML format. Omit for raw output.
+            required: false
+            style: deepObject
+            explode: true
+            schema:
+              type: string
+              format: html|raw
+          - $ref: '#/components/parameters/page'
+          - $ref: '#/components/parameters/itemsOnPage'
+          - $ref: '#/components/parameters/orderBy'
+          responses:
+            "'200'":
+              description: List of available member campaigns.
+              content:
+                application/json:
+                  schema:
+                    oneOf:
+                    - title: AvailableCampaign
+                      required:
+                      - items
+                      - total
+                      properties:
+                        items:
+                          type: array
+                          items:
+                            $ref: '#/components/schemas/AvailableCampaign'
+                        total:
+                          $ref: '#/components/schemas/SearchableTotalResponse'
+                      type: object
+                      additionalProperties: false
+                    - title: MemberAvailableCampaign
+                      required:
+                      - items
+                      - total
+                      properties:
+                        items:
+                          type: array
+                          items:
+                            $ref: '#/components/schemas/MemberAvailableCampaign'
+                        total:
+                          $ref: '#/components/schemas/SearchableTotalResponse'
+                      type: object
+                      additionalProperties: false
+            "'400'":
+              $ref: '#/components/responses/BadRequest'
+            "'401'":
+              description: Unauthorized
+              content:
+                application/json:
+                  schema:
+                    oneOf:
+                    - $ref: '#/components/schemas/ExpiredToken'
+                    - $ref: '#/components/schemas/InvalidToken'
+                    - $ref: '#/components/schemas/Unauthorized'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+      /api/{storeCode}/member/{member}/campaign/visible:
+        get:
+          tags:
+          - Campaign
+          summary: Get a list of visible campaigns for the member
+          description: |
+            <label style="background-color: #BFE1F6;padding:5px;">Integration</label><br><br>
+          operationId: campaignVisibleMember
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          - $ref: '#/components/parameters/member'
+          - name: campaignId
+            in: query
+            description: Campaign ID
+            required: false
+            schema:
+              type: string
+              format: uuid
+          - name: name
+            in: query
+            description: Campaign name
+            required: false
+            schema:
+              type: string
+          - name: trigger
+            in: query
+            description: Campaign trigger
+            required: false
+            schema:
+              type: string
+          - name: startsAt
+            in: query
+            description: Campaign start date
+            required: false
+            schema:
+              type: string
+              format: date-time
+          - name: endsAt
+            in: query
+            description: Campaign end date
+            required: false
+            schema:
+              type: string
+              format: date-time
+          - name: active
+            in: query
+            description: Campaign active status
+            required: false
+            schema:
+              type: boolean
+          - $ref: '#/components/parameters/page'
+          - $ref: '#/components/parameters/itemsOnPage'
+          - $ref: '#/components/parameters/orderBy'
+          responses:
+            "'200'":
+              description: List of visible member campaigns.
+              content:
+                application/json:
+                  schema:
+                    properties:
+                      items:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/VisibleCampaign'
+                      total:
+                        $ref: '#/components/schemas/SearchableTotalResponse'
+                    type: object
+            "'400'":
+              $ref: '#/components/responses/BadRequest'
+            "'401'":
+              description: Unauthorized
+              content:
+                application/json:
+                  schema:
+                    oneOf:
+                    - $ref: '#/components/schemas/ExpiredToken'
+                    - $ref: '#/components/schemas/InvalidToken'
+                    - $ref: '#/components/schemas/Unauthorized'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+      /api/{storeCode}/member/{member}/achievement/{achievement}/progress:
+        patch:
+          tags:
+          - Achievement
+          summary: Update achievement’s progress for member
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+          operationId: achievementProgressMemberPut
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          - $ref: '#/components/parameters/achievement'
+          - name: member
+            in: path
+            required: true
+            schema:
+              type: string
+              pattern: "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}|email=[a-zA-Z0-9!#$%&'\\.*+\\-@=?^_{|}~;]+|phone=[0-9+]+|loyaltyCardNumber=[0-9a-zA-Z\\._-]+"
+          requestBody:
+            description: ""
+            content:
+              application/json:
+                schema:
+                  properties:
+                    memberProgress:
+                      allOf:
+                      - $ref: '#/components/schemas/UpdateMemberAchievementProgressFormType'
+                      - properties:
+                          rules:
+                            required:
+                            - achievementRuleId
+                            - currentPeriodValue
+                            type: array
+                            items:
+                              properties:
+                                achievementRuleId:
+                                  type: string
+                                  format: uuid
+                                currentPeriodValue:
+                                  type: number
+                                  format: float
+                                completedConsecutivePeriods:
+                                  type: integer
+                              type: object
+                        type: object
+                  type: object
+          responses:
+            "'204'":
+              $ref: '#/components/responses/NoContent'
+            "'400'":
+              $ref: '#/components/responses/BadRequest'
+            "'401'":
+              description: ""
+              content:
+                application/json:
+                  schema:
+                    oneOf:
+                    - $ref: '#/components/schemas/ExpiredToken'
+                    - $ref: '#/components/schemas/InvalidToken'
+                    - $ref: '#/components/schemas/Unauthorized'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+            "'404'":
+              $ref: '#/components/responses/NotFound'
+      /api/{storeCode}/member/{member}/badge:
+        get:
+          tags:
+          - Member
+          summary: Return member badges status
+          operationId: _memberGetBadgesStatus
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          - name: member
+            in: path
+            required: true
+            schema:
+              type: string
+              pattern: "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}|email=[a-zA-Z0-9!#$%&'\\.*+\\-@=?^_`{|}~;]+|phone=[0-9+]+|loyaltyCardNumber=[0-9a-zA-Z\\._-]+"
+          - name: badgeTypeId
+            in: query
+            required: false
+            schema:
+              type: string
+          - name: name
+            in: query
+            description: Filter by name
+            required: false
+            schema:
+              type: string
+          responses:
+            "'200'":
+              description: List of member badges
+              content:
+                application/json:
+                  schema:
+                    required:
+                    - items
+                    - total
+                    properties:
+                      items:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/BadgeMember'
+                      total:
+                        $ref: '#/components/schemas/SearchableTotalResponse'
+                    type: object
+            "'400'":
+              $ref: '#/components/responses/BadRequest'
+            "'401'":
+              description: Unauthorized
+              content:
+                application/json:
+                  schema:
+                    oneOf:
+                    - $ref: '#/components/schemas/ExpiredToken'
+                    - $ref: '#/components/schemas/InvalidToken'
+                    - $ref: '#/components/schemas/Unauthorized'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+            "'404'":
+              $ref: '#/components/responses/NotFound'
+      /api/{storeCode}/member/{member}/badge/{badgeType}:
+        put:
+          tags:
+          - Member
+          summary: Update completed count for member badge
+          operationId: _memberBadgePut
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          - name: badgeType
+            in: path
+            required: true
+            schema:
+              type: string
+              format: uuid
+          requestBody:
+            required: true
+            content:
+              application/json:
+                schema:
+                  required:
+                  - badge
+                  properties:
+                    badge:
+                      required:
+                      - completedCount
+                      properties:
+                        completedCount:
+                          type: integer
+                      type: object
+                      additionalProperties: false
+                  type: object
+                  additionalProperties: false
+          responses:
+            "'204'":
+              $ref: '#/components/responses/NoContent'
+            "'400'":
+              $ref: '#/components/responses/BadRequest'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+            "'404'":
+              $ref: '#/components/responses/NotFound'
+      /api/{storeCode}/member/{member}/history:
+        get:
+          tags:
+          - Member
+          summary: Check member’s activity history
+          description: |
+            <label style="background-color: #BFE1F6;padding:5px;">Integration</label><br><br>
+            This method returns detailed information about a specific Campaign.
+          operationId: _memberGetHistory
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          - name: member
+            in: path
+            required: true
+            schema:
+              type: string
+              pattern: "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}|email=[a-zA-Z0-9!#$%&'\\.*+\\-@=?^_`{|}~;]+|phone=[0-9+]+|loyaltyCardNumber=[0-9a-zA-Z\\._-]+"
+          - name: type
+            in: query
+            description: |
+              This parameter can be a simple string or a complex object. Examples:  - `type=TEST` - `type[in]=TEST&type[another]=VALUE`
+            required: false
+            style: form
+            explode: true
+            schema:
+              type: object
+              additionalProperties:
+                type: string
+          - name: walletType:code
+            in: query
+            description: |
+              Code of the wallet (e.g. default).
+            required: false
+            style: form
+            explode: true
+            schema:
+              type: string
+          - name: createdAt
+            in: query
+            description: |
+              Date the record was created.
+            required: false
+            style: form
+            explode: true
+            schema:
+              type: object
+              additionalProperties:
+                type: string
+                format: date-time
+          - $ref: '#/components/parameters/page'
+          - $ref: '#/components/parameters/itemsOnPage'
+          - $ref: '#/components/parameters/orderBy'
+          responses:
+            "'200'":
+              description: Member history.
+              content:
+                application/json:
+                  schema:
+                    properties:
+                      items:
+                        type: array
+                        items:
+                          discriminator:
+                            propertyName: type
+                            mapping:
+                              AssignedTransactionToCustomer: '#/components/schemas/AssignedTransactionToCustomer'
+                              CustomerWasActivated: '#/components/schemas/CustomerWasActivated'
+                              CustomerWasAnonymized: '#/components/schemas/CustomerWasAnonymized'
+                              CustomerWasDeactivated: '#/components/schemas/CustomerWasDeactivated'
+                              CustomerWasMovedToLevel: '#/components/schemas/CustomerWasMovedToLevel'
+                              CustomerWasRegistered: '#/components/schemas/CustomerWasRegistered'
+                              PendingPointsWereAdded: '#/components/schemas/PendingPointsWereAdded'
+                              PendingPointsWereCanceled: '#/components/schemas/PendingPointsWereCanceled'
+                              PointsWereAdded: '#/components/schemas/PointsWereAdded'
+                              PointsWereBlocked: '#/components/schemas/PointsWereBlocked'
+                              PointsWereCanceled: '#/components/schemas/PointsWereCanceled'
+                              PointsWereExpired: '#/components/schemas/PointsWereExpired'
+                              PointsWereSpent: '#/components/schemas/PointsWereSpent'
+                              PointsWereTransferred: '#/components/schemas/PointsWereTransferred'
+                              PointsWereUnblocked: '#/components/schemas/PointsWereUnblocked'
+                              PointsWereUnlocked: '#/components/schemas/PointsWereUnlocked'
+                              RewardWasBought: '#/components/schemas/RewardWasBought'
+                              AchievementCompleted: '#/components/schemas/AchievementCompleted'
+                              AssignedCustomEventToCustomer: '#/components/schemas/AssignedCustomEventToCustomer'
+                              CustomAttributeWasAdded: '#/components/schemas/CustomAttributeWasAdded'
+                              CustomAttributesWereUpdated: '#/components/schemas/CustomAttributesWereUpdated'
+                              CustomAttributesWereDeleted: '#/components/schemas/CustomAttributesWereDeleted'
+                              MemberAchievementCompletionCountWasDecreased: '#/components/schemas/MemberAchievementCompletionCountWasDecreased'
+                              MemberAchievementProgressWasChanged: '#/components/schemas/MemberAchievementProgressWasChanged'
+                              BadgeCompleted: '#/components/schemas/BadgeCompleted'
+                              MemberBadgeCompletedCountWasChanged: '#/components/schemas/MemberBadgeCompletedCountWasChanged'
+                              IssuedRewardWasCancelled: '#/components/schemas/IssuedRewardWasCancelled'
+                          oneOf:
+                          - $ref: '#/components/schemas/AssignedTransactionToCustomer'
+                          - $ref: '#/components/schemas/CustomerWasActivated'
+                          - $ref: '#/components/schemas/CustomerWasAnonymized'
+                          - $ref: '#/components/schemas/CustomerWasDeactivated'
+                          - $ref: '#/components/schemas/CustomerWasMovedToLevel'
+                          - $ref: '#/components/schemas/CustomerWasRegistered'
+                          - $ref: '#/components/schemas/PendingPointsWereAdded'
+                          - $ref: '#/components/schemas/PendingPointsWereCanceled'
+                          - $ref: '#/components/schemas/PointsWereAdded'
+                          - $ref: '#/components/schemas/PointsWereBlocked'
+                          - $ref: '#/components/schemas/PointsWereCanceled'
+                          - $ref: '#/components/schemas/PointsWereExpired'
+                          - $ref: '#/components/schemas/PointsWereSpent'
+                          - $ref: '#/components/schemas/PointsWereTransferred'
+                          - $ref: '#/components/schemas/PointsWereUnblocked'
+                          - $ref: '#/components/schemas/PointsWereUnlocked'
+                          - $ref: '#/components/schemas/RewardWasBought'
+                          - $ref: '#/components/schemas/AchievementCompleted'
+                          - $ref: '#/components/schemas/AssignedCustomEventToCustomer'
+                          - $ref: '#/components/schemas/CustomAttributeWasAdded'
+                          - $ref: '#/components/schemas/CustomAttributesWereUpdated'
+                          - $ref: '#/components/schemas/CustomAttributesWereDeleted'
+                          - $ref: '#/components/schemas/MemberAchievementCompletionCountWasDecreased'
+                          - $ref: '#/components/schemas/MemberAchievementProgressWasChanged'
+                          - $ref: '#/components/schemas/BadgeCompleted'
+                          - $ref: '#/components/schemas/MemberBadgeCompletedCountWasChanged'
+                          - $ref: '#/components/schemas/IssuedRewardWasCancelled'
+                      total:
+                        $ref: '#/components/schemas/SearchableTotalResponse'
+                    type: object
+            "'400'":
+              $ref: '#/components/responses/BadRequest'
+            "'401'":
+              description: Unauthorized
+              content:
+                application/json:
+                  schema:
+                    oneOf:
+                    - $ref: '#/components/schemas/ExpiredToken'
+                    - $ref: '#/components/schemas/InvalidToken'
+                    - $ref: '#/components/schemas/Unauthorized'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+            "'404'":
+              $ref: '#/components/responses/NotFound'
+      /api/{storeCode}/member/{member}/referral:
+        post:
+          tags:
+          - Member
+          summary: Create member's referral
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+          operationId: _memberPostReferral
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          - name: member
+            in: path
+            required: true
+            schema:
+              type: string
+              pattern: "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}|email=[a-zA-Z0-9!#$%&'\\.*+\\-@=?^_`{|}~;]+|phone=[0-9+]+|loyaltyCardNumber=[0-9a-zA-Z\\._-]+"
+          requestBody:
+            required: true
+            content:
+              application/json:
+                schema:
+                  required:
+                  - referrerId
+                  properties:
+                    referrerId:
+                      type: string
+                      format: uuid
+                  type: object
+                  additionalProperties: false
+          responses:
+            "'204'":
+              $ref: '#/components/responses/NoContent'
+            "'400'":
+              $ref: '#/components/responses/BadRequest'
+            "'401'":
+              $ref: '#/components/responses/Unauthorized'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+            "'404'":
+              $ref: '#/components/responses/NotFound'
+        delete:
+          tags:
+          - Member
+          summary: Delete member's referral
+          description: |
+            <label style="background-color: #D4EDBC;padding:5px;">Management</label><br><br>
+          operationId: _memberDeleteReferral
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          - name: member
+            in: path
+            required: true
+            schema:
+              type: string
+              pattern: "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}|email=[a-zA-Z0-9!#$%&'\\.*+\\-@=?^_`{|}~;]+|phone=[0-9+]+|loyaltyCardNumber=[0-9a-zA-Z\\._-]+"
+          responses:
+            "'204'":
+              $ref: '#/components/responses/NoContent'
+            "'401'":
+              $ref: '#/components/responses/Unauthorized'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+            "'404'":
+              $ref: '#/components/responses/NotFound'
+      /api/{storeCode}/member/{member}/reward:
+        get:
+          tags:
+          - Reward
+          summary: Get available rewards to a member list
+          description: |
+            <label style="background-color: #BFE1F6;padding:5px;">Integration</label><br><br>
+            This method returns a list of all Rewards existing in the system.  
+            If sorting is not chosen, the rows will be returned in an unspecified order.
+            To sort a result, use an `_orderBy` parameter in query.
+          operationId: _rewardGetMemberReward
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          - $ref: '#/components/parameters/page'
+          - $ref: '#/components/parameters/itemsOnPage'
+          - $ref: '#/components/parameters/orderBy'
+          - name: member
+            in: path
+            required: true
+            schema:
+              type: string
+              pattern: "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}|email=[a-zA-Z0-9!#$%&'\\.*+\\-@=?^_`{|}~;]+|phone=[0-9+]+|loyaltyCardNumber=[0-9a-zA-Z\\._-]+"
+          - name: rewardId
+            in: query
+            required: false
+            style: deepObject
+            explode: true
+            schema:
+              type: string
+              format: uuid
+          - name: reward
+            in: query
+            required: false
+            style: deepObject
+            explode: true
+            schema:
+              type: string
+              enum:
+              - static_coupon
+              - material
+              - dynamic_coupon
+              - conversion_coupon
+          - name: active
+            in: query
+            required: false
+            style: deepObject
+            explode: true
+            schema:
+              type: boolean
+            example: true
+          - name: createdAt
+            in: query
+            required: false
+            style: deepObject
+            explode: true
+            schema:
+              type: string
+              format: date-time
+          - name: public
+            in: query
+            required: false
+            style: deepObject
+            explode: true
+            schema:
+              type: boolean
+            example: true
+          - name: fulfillmentTracking
+            in: query
+            required: false
+            deprecated: true
+            style: deepObject
+            explode: true
+            schema:
+              type: boolean
+            example: true
+          - name: featured
+            in: query
+            required: false
+            style: deepObject
+            explode: true
+            schema:
+              type: boolean
+            example: true
+          - name: name
+            in: query
+            required: false
+            style: deepObject
+            explode: true
+            schema:
+              type: string
+            example: true
+          - name: shortDescription
+            in: query
+            required: false
+            style: deepObject
+            explode: true
+            schema:
+              type: string
+            example: true
+          - name: brandName
+            in: query
+            required: false
+            style: deepObject
+            explode: true
+            schema:
+              type: string
+            example: true
+          - name: brandDescription
+            in: query
+            required: false
+            style: deepObject
+            explode: true
+            schema:
+              type: string
+            example: true
+          - name: levels
+            in: query
+            required: false
+            style: deepObject
+            explode: true
+            schema:
+              type: string
+            example: true
+          - name: segments
+            in: query
+            required: false
+            style: deepObject
+            explode: true
+            schema:
+              type: string
+            example: true
+          - name: categories
+            in: query
+            required: false
+            style: deepObject
+            explode: true
+            schema:
+              type: string
+            example: true
+          - name: labels
+            in: query
+            description: Labels using pattern e.g. (key1;value1),(key2;value2),...
+            required: false
+            style: deepObject
+            explode: true
+            schema:
+              type: string
+            example: true
+          - name: costInPoints
+            in: query
+            required: false
+            style: deepObject
+            explode: true
+            schema:
+              type: integer
+            example: true
+          - name: limit
+            in: query
+            required: false
+            style: deepObject
+            explode: true
+            schema:
+              type: integer
+            example: true
+          - name: available
+            in: query
+            description: Filters out active rewards by active field and also by activity dates from and to.
+            required: false
+            style: deepObject
+            explode: true
+            schema:
+              type: boolean
+            example: true
+          - name: visible
+            in: query
+            required: false
+            style: deepObject
+            explode: true
+            schema:
+              type: boolean
+            example: true
+          - name: visibleFrom
+            in: query
+            required: false
+            style: deepObject
+            explode: true
+            schema:
+              type: string
+              format: date-time
+            example: true
+          - name: visibleTo
+            in: query
+            required: false
+            style: deepObject
+            explode: true
+            schema:
+              type: string
+              format: date-time
+            example: true
+          - name: activeFrom
+            in: query
+            required: false
+            style: deepObject
+            explode: true
+            schema:
+              type: string
+              format: date-time
+            example: true
+          - name: activeTo
+            in: query
+            required: false
+            style: deepObject
+            explode: true
+            schema:
+              type: string
+              format: date-time
+            example: true
+          - name: format
+            in: query
+            description: If set to html, the descriptions will be in HTML format. Omit for raw output.
+            required: false
+            style: deepObject
+            schema:
+              type: string
+              format: html|raw
+          responses:
+            "'200'":
+              description: Get all rewards available for logged in member.
+              content:
+                application/json:
+                  schema:
+                    required:
+                    - items
+                    - total
+                    properties:
+                      items:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/MemberRewardResponse'
+                      total:
+                        $ref: '#/components/schemas/SearchableTotalResponse'
+                    type: object
+                    additionalProperties: false
+            "'400'":
+              $ref: '#/components/responses/BadRequest'
+            "'401'":
+              $ref: '#/components/responses/Unauthorized'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+            "'404'":
+              $ref: '#/components/responses/NotFound'
+      /api/{storeCode}/member/reward:
+        get:
+          tags:
+          - Member
+          summary: Get all rewards available for logged in member.
+          description: |
+            <label style="background-color: #BFE1F6;padding:5px;">Integration</label><br><br>
+            This method returns a list of all rewards available for logged Member. 
+            If sorting is not chosen, the rows will be returned in an unspecified order. 
+            To sort a result, use an `_orderBy` parameter in query.
+          operationId: _memberRewardGetList
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          - $ref: '#/components/parameters/page'
+          - $ref: '#/components/parameters/itemsOnPage'
+          - $ref: '#/components/parameters/orderBy'
+          - name: rewardId
+            in: query
+            required: false
+            style: deepObject
+            explode: true
+            schema:
+              type: string
+              format: uuid
+          - name: reward
+            in: query
+            required: false
+            style: deepObject
+            explode: true
+            schema:
+              type: string
+              enum:
+              - static_coupon
+              - material
+              - dynamic_coupon
+              - conversion_coupon
+          - name: active
+            in: query
+            required: false
+            style: deepObject
+            explode: true
+            schema:
+              type: boolean
+            example: true
+          - name: createdAt
+            in: query
+            required: false
+            style: deepObject
+            explode: true
+            schema:
+              type: string
+              format: date-time
+          - name: public
+            in: query
+            required: false
+            style: deepObject
+            explode: true
+            schema:
+              type: boolean
+            example: true
+          - name: fulfillmentTracking
+            in: query
+            required: false
+            deprecated: true
+            style: deepObject
+            explode: true
+            schema:
+              type: boolean
+            example: true
+          - name: featured
+            in: query
+            required: false
+            style: deepObject
+            explode: true
+            schema:
+              type: boolean
+            example: true
+          - name: name
+            in: query
+            required: false
+            style: deepObject
+            explode: true
+            schema:
+              type: string
+            example: true
+          - name: shortDescription
+            in: query
+            required: false
+            style: deepObject
+            explode: true
+            schema:
+              type: string
+            example: true
+          - name: brandName
+            in: query
+            required: false
+            style: deepObject
+            explode: true
+            schema:
+              type: string
+            example: true
+          - name: brandDescription
+            in: query
+            required: false
+            style: deepObject
+            explode: true
+            schema:
+              type: string
+            example: true
+          - name: levels
+            in: query
+            required: false
+            style: deepObject
+            explode: true
+            schema:
+              type: string
+            example: true
+          - name: segments
+            in: query
+            required: false
+            style: deepObject
+            explode: true
+            schema:
+              type: string
+            example: true
+          - name: categories
+            in: query
+            required: false
+            style: deepObject
+            explode: true
+            schema:
+              type: string
+            example: true
+          - name: labels
+            in: query
+            description: Labels using pattern e.g. (key1;value1),(key2;value2),...
+            required: false
+            style: deepObject
+            explode: true
+            schema:
+              type: string
+            example: true
+          - name: costInPoints
+            in: query
+            required: false
+            style: deepObject
+            explode: true
+            schema:
+              type: integer
+            example: true
+          - name: limit
+            in: query
+            required: false
+            style: deepObject
+            explode: true
+            schema:
+              type: integer
+            example: true
+          - name: available
+            in: query
+            required: false
+            style: deepObject
+            explode: true
+            schema:
+              type: boolean
+            example: true
+          - name: visible
+            in: query
+            required: false
+            style: deepObject
+            explode: true
+            schema:
+              type: boolean
+            example: true
+          - name: visibleFrom
+            in: query
+            required: false
+            style: deepObject
+            explode: true
+            schema:
+              type: string
+              format: date-time
+            example: true
+          - name: visibleTo
+            in: query
+            required: false
+            style: deepObject
+            explode: true
+            schema:
+              type: string
+              format: date-time
+            example: true
+          - name: activeFrom
+            in: query
+            required: false
+            style: deepObject
+            explode: true
+            schema:
+              type: string
+              format: date-time
+            example: true
+          - name: activeTo
+            in: query
+            required: false
+            style: deepObject
+            explode: true
+            schema:
+              type: string
+              format: date-time
+            example: true
+          - name: format
+            in: query
+            description: If set to html, the descriptions will be in HTML format. Omit for raw output.
+            required: false
+            style: deepObject
+            schema:
+              type: string
+              format: html|raw
+          responses:
+            "'200'":
+              description: Get all rewards available for logged in member.
+              content:
+                application/json:
+                  schema:
+                    properties:
+                      items:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/MemberRewardResponse'
+                      total:
+                        $ref: '#/components/schemas/SearchableTotalResponse'
+                    type: object
+                    additionalProperties: false
+            "'400'":
+              $ref: '#/components/responses/BadRequest'
+            "'401'":
+              $ref: '#/components/responses/Unauthorized'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+            "'404'":
+              $ref: '#/components/responses/NotFound'
+      /api/{storeCode}/member/{member}/tierSet:
+        get:
+          tags:
+          - Tier
+          summary: Get list of tier sets which member is assigned
+          operationId: _memberTierSetList
+          parameters:
+          - $ref: '#/components/parameters/storeCode'
+          - name: member
+            in: path
+            required: true
+            schema:
+              type: string
+              pattern: "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}|email=[a-zA-Z0-9!#$%&'\\.*+\\-@=?^_{|}~;]+|phone=[0-9+]+|loyaltyCardNumber=[0-9a-zA-Z\\._-]+"
+          - name: currentTierId
+            in: query
+            description: Filter by current tier id field
+            required: false
+            schema:
+              type: string
+          - name: tierSetId
+            in: query
+            description: Filter by tier set Id field
+            required: false
+            schema:
+              type: string
+          responses:
+            "'200'":
+              description: List of member tier sets.
+              content:
+                application/json:
+                  schema:
+                    required:
+                    - items
+                    - total
+                    properties:
+                      items:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/MemberTierSet'
+                      total:
+                        $ref: '#/components/schemas/SearchableTotalResponse'
+                    type: object
+            "'400'":
+              $ref: '#/components/responses/BadRequest'
+            "'401'":
+              description: Unauthorized
+              content:
+                application/json:
+                  schema:
+                    oneOf:
+                    - $ref: '#/components/schemas/ExpiredToken'
+                    - $ref: '#/components/schemas/InvalidToken'
+                    - $ref: '#/components/schemas/Unauthorized'
+            "'403'":
+              $ref: '#/components/responses/AccessDenied'
+            "'404'":
+              $ref: '#/components/responses/NotFound'
+

@@ -1,0 +1,43 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        Transfer:
+          properties:
+            transferId:
+              type: string
+              format: uuid
+            type:
+              type: string
+            accountId:
+              type: string
+            lockedUntil:
+              type: string
+              format: date-time
+            expiresAt:
+              type: string
+              format: date-time
+            storeId:
+              type: string
+              format: uuid
+            comment:
+              type: string
+            cancelled:
+              type: boolean
+            pending:
+              type: boolean
+            unlockedAt:
+              type: string
+              format: date-time
+            actionCause:
+              $ref: '#/components/schemas/ActionCause2'
+            value:
+              type: number
+              format: float
+            externalTransferId:
+              type: string
+            createdAt:
+              type: string
+              format: date-time
+          type: object
+

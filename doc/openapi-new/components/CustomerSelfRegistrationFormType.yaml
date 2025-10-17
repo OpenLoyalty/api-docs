@@ -1,0 +1,65 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        CustomerSelfRegistrationFormType:
+          required:
+          - email
+          - agreement1
+          - plainPassword
+          properties:
+            referrerToken:
+              type: string
+            firstName:
+              type: string
+            lastName:
+              type: string
+            gender:
+              type: string
+              enum:
+              - male
+              - female
+              - not_disclosed
+            email:
+              type: string
+            phone:
+              type: string
+            loyaltyCardNumber:
+              type: string
+            birthDate:
+              type: string
+              format: date
+            createdAt:
+              description: Use "registeredAt" field instead.
+              type: string
+              format: date-time
+              deprecated: true
+            registeredAt:
+              type: string
+              format: date-time
+            address:
+              $ref: '#/components/schemas/FormType'
+            company:
+              $ref: '#/components/schemas/FormType'
+            labels:
+              type: array
+              items:
+                $ref: '#/components/schemas/UserLabelFormType'
+            customFieldsData:
+              type: array
+              items:
+                $ref: '#/components/schemas/CustomFieldFormType'
+            agreement1:
+              description: TOS Agreement (required to be true)
+              type: boolean
+            agreement2:
+              description: Direct Marketing Agreement
+              type: boolean
+            agreement3:
+              description: Optional Agreement
+              type: boolean
+            plainPassword:
+              type: string
+              format: password
+          type: object
+

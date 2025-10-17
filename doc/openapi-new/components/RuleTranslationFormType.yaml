@@ -1,0 +1,12 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        RuleTranslationFormType:
+          required:
+          - en
+          properties:
+            en:
+              $ref: '#/components/schemas/FormType'
+          type: object
+

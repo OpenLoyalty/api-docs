@@ -1,0 +1,17 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        ExpiredToken:
+          required:
+          - code
+          - message
+          properties:
+            code:
+              type: string
+              example: 401
+            message:
+              type: string
+              example: Expired JWT Token.
+          type: object
+

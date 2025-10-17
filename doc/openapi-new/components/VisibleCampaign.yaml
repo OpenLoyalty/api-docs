@@ -1,0 +1,39 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        VisibleCampaign:
+          required:
+          - campaignId
+          - active
+          - activity
+          - translations
+          - createdAt
+          - type
+          - trigger
+          properties:
+            campaignId:
+              type: string
+              format: uuid
+            name:
+              type: string
+            active:
+              type: boolean
+            activity:
+              $ref: '#/components/schemas/Activity'
+            translations:
+              type: array
+              items:
+                $ref: '#/components/schemas/Translation'
+            description:
+              type: string
+            createdAt:
+              type: string
+              format: date-time
+            type:
+              type: string
+            trigger:
+              type: string
+          type: object
+          additionalProperties: false
+

@@ -1,0 +1,22 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        Labels:
+          description: |
+            A list of custom attributes used for tagging and describing resources. Each item in the list contains a key-value pair, where `key` is the name of the attribute, and `value` is the value assigned to that attribute.
+          type: array
+          items:
+            required:
+            - key
+            - value
+            properties:
+              key:
+                description: The name of the custom attribute.
+                type: string
+              value:
+                description: The value assigned to the custom attribute.
+                type: string
+            type: object
+            additionalProperties: false
+

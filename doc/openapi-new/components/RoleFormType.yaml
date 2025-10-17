@@ -1,0 +1,23 @@
+﻿nelmio_api_doc:
+  documentation:
+    components:
+      schemas:
+        RoleFormType:
+          required:
+          - name
+          properties:
+            name:
+              type: string
+            default:
+              type: boolean
+            permissions:
+              type: array
+              items:
+                $ref: '#/components/schemas/PermissionFormType'
+            stores:
+              type: array
+              items:
+                type: string
+                example: DEFAULT
+          type: object
+

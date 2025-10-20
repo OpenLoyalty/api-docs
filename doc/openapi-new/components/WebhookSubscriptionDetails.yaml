@@ -22,7 +22,7 @@
             headers:
               type: array
               items:
-                $ref: '#/components/schemas/WebhookHeader2'
+                $ref: '#/components/schemas/WebhookHeader'
             legacy:
               type: boolean
               deprecated: true
